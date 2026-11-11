@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Озеро Карасу в 3D — ЭФРА</title>
+<meta name="description" content="Интерактивная 3D-модель озера Карасу: как озеро менялось с 2021 по 2030 год.">
+<meta name="theme-color" content="#0d3b3a">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#0d3b3a;--deep-2:#14504e;--aqua:#5cd9c9;--silt:#e8eee9;--ink:#102423;--muted:#55706c;--vu:#d9a21b}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#cfe3e0}
+body{font-family:"Golos Text",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+::selection{background:var(--aqua);color:var(--deep)}
+:focus-visible{outline:3px solid var(--aqua);outline-offset:3px;border-radius:6px}
+#scene{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+#scene:active{cursor:grabbing}
+.bar{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;pointer-events:none;z-index:5}
+.bar a{pointer-events:auto;display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--deep);font-weight:600;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);padding:10px 16px 10px 12px;border-radius:999px}
+.bar a img{width:26px;height:auto}
+.bar .hint{pointer-events:none;font-size:13.5px;color:var(--deep);background:rgba(255,255,255,.7);padding:8px 14px;border-radius:999px}
+.panel{position:fixed;left:24px;bottom:24px;width:min(420px,calc(100% - 48px));background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-radius:20px;padding:26px 26px 22px;z-index:5;box-shadow:0 20px 50px -20px rgba(13,59,58,.45)}
+.panel h1{font-family:Unbounded;font-weight:700;font-size:26px;line-height:1.1;letter-spacing:-.02em;color:var(--deep);margin-bottom:8px;text-wrap:balance}
+.panel>p{font-size:14.5px;color:var(--muted);margin-bottom:18px}
+.years{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:18px}
+.years button{font:inherit;font-weight:700;font-size:15px;padding:10px 0;border-radius:12px;border:1.5px solid var(--deep);background:#fff;color:var(--deep);cursor:pointer;touch-action:manipulation;transition:background-color .2s,color .2s}
+.years button:hover{background:var(--silt)}
+.years button[aria-pressed=true]{background:var(--deep);color:#fff}
+.state h2{font-family:Unbounded;font-weight:600;font-size:17px;color:var(--deep-2);margin-bottom:6px}
+.state p{font-size:15px;line-height:1.55;color:var(--ink);min-height:4.65em}
+.gauge{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:13.5px;color:var(--muted)}
+.gauge-track{flex:1;height:8px;border-radius:99px;background:var(--silt);overflow:hidden}
+.gauge-fill{height:100%;background:linear-gradient(90deg,#3aa6b9,var(--aqua));border-radius:99px;transition:width 1.6s cubic-bezier(.16,1,.3,1)}
+.gauge b{font-variant-numeric:tabular-nums;color:var(--deep);min-width:3.2em;text-align:right}
+.note{font-size:12px;color:var(--muted);margin-top:14px}
+.tag{position:fixed;left:0;top:0;z-index:4;pointer-events:none;font-size:13px;font-weight:600;color:#fff;background:rgba(13,59,58,.86);padding:6px 11px;border-radius:999px;white-space:nowrap;transform:translate(-50%,-140%);transition:opacity .3s}
+.tag::after{content:"";position:absolute;left:50%;bottom:-5px;width:9px;height:9px;background:inherit;transform:translateX(-50%) rotate(45deg)}
+.loading{position:fixed;inset:0;display:grid;place-items:center;font-family:Unbounded;color:var(--deep);background:#cfe3e0;z-index:10;transition:opacity .6s}
+.loading.done{opacity:0;pointer-events:none}
+@media (max-width:640px){
+  .bar{padding:12px}
+  .bar .hint{display:none}
+  .panel{left:12px;right:12px;bottom:12px;width:auto;padding:18px 18px 16px}
+  .panel h1{font-size:20px}
+  .panel>p{display:none}
+  .state p{font-size:14px;min-height:0}
+}
+</style>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+</head>
+<body>
+<div class="loading" id="loading">Наполняем озеро…</div>
+<canvas id="scene" aria-label="Интерактивная 3D-модель озера Карасу. Вращайте мышью или пальцем."></canvas>
+
+<div class="bar">
+  <a href="index.html"><img src="img/mark.png" alt="" width="200" height="184">На сайт ЭФРА</a>
+  <span class="hint">Вращайте, приближайте колесом</span>
+</div>
+
+<div class="panel">
+  <h1>Озеро Карасу во времени</h1>
+  <p>Выберите год и посмотрите, как менялось озеро и его обитатели.</p>
+  <div class="years" role="group" aria-label="Год">
+    <button type="button" data-y="2021" aria-pressed="false">2021</button>
+    <button type="button" data-y="2023" aria-pressed="false">2023</button>
+    <button type="button" data-y="2025" aria-pressed="true">2025</button>
+    <button type="button" data-y="2030" aria-pressed="false">2030</button>
+  </div>
+  <div class="state" aria-live="polite">
+    <h2 id="st-title"></h2>
+    <p id="st-text"></p>
+  </div>
+  <div class="gauge"><span>Уровень воды</span><div class="gauge-track"><div class="gauge-fill" id="gauge"></div></div><b id="gauge-v"></b></div>
+  <p class="note">Схематичная модель: форма озера и постройки показаны условно.</p>
+</div>
+
+<div class="tag" id="tag-church">Храм</div>
+<div class="tag" id="tag-amph">Амфитеатр</div>
+<div class="tag" id="tag-river">Исток Правого Есентая</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canvas = document.getElementById('scene');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+const SKY = new THREE.Color('#cfe3e0');
+scene.background = SKY;
+scene.fog = new THREE.Fog(SKY, 140, 300);
+
+const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 600);
+camera.position.set(-70, 62, 95);
+
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
+controls.target.set(4, -2, 0);
+controls.minDistance = 45;
+controls.maxDistance = 220;
+controls.maxPolarAngle = Math.PI * 0.46;
+controls.autoRotate = !reduce;
+controls.autoRotateSpeed = 0.35;
+controls.addEventListener('start', () => { controls.autoRotate = false; });
+
+// light
+scene.add(new THREE.HemisphereLight('#e9f6ff', '#5d6b3a', 1.1));
+const sun = new THREE.DirectionalLight('#fff3dc', 2.2);
+sun.position.set(-60, 90, 40);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -110, right: 110, top: 110, bottom: -110, near: 10, far: 260 });
+sun.shadow.bias = -0.0005;
+scene.add(sun);
+
+// ---------- terrain ----------
+const R = (a) => 42 + 6 * Math.sin(3 * a + 0.4) + 4 * Math.cos(5 * a + 1.1) + 2.5 * Math.sin(7 * a);
+const noise = (x, z) => Math.sin(x * 0.11) * Math.cos(z * 0.09) * 1.2 + Math.sin(x * 0.031 + z * 0.047) * 2.2;
+const RIVER_A = -0.55; // outlet direction (north-east-ish)
+function riverDist(x, z) {
+  // distance to river ray starting at lake edge
+  const dx = Math.cos(RIVER_A), dz = Math.sin(RIVER_A);
+  const ox = dx * R(RIVER_A) * 0.92, oz = dz * R(RIVER_A) * 0.92;
+  const t = (x - ox) * dx + (z - oz) * dz;
+  if (t < 0) return 1e9;
+  const wob = Math.sin(t * 0.09) * 5;
+  const px = ox + dx * t - dz * wob, pz = oz + dz * t + dx * wob;
+  return Math.hypot(x - px, z - pz);
+}
+function height(x, z) {
+  const a = Math.atan2(z, x), d = Math.hypot(x, z), r = R(a);
+  let h;
+  if (d < r) { const k = d / r; h = -9 * (1 - k * k) - 0.8 + Math.sin(x * 0.3) * 0.25; }
+  else { const k = Math.min((d - r) / 18, 1); h = -0.8 + k * (1.6 + noise(x, z) * 0.6) ; }
+  const rd = riverDist(x, z);
+  if (rd < 4.5) h = Math.min(h, -1.6 + (rd / 4.5) * 1.2);
+  return h;
+}
+const SIZE = 260, SEG = 220;
+const tg = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG);
+tg.rotateX(-Math.PI / 2);
+const pos = tg.attributes.position, cols = [];
+const cMud = new THREE.Color('#6b5a43'), cSand = new THREE.Color('#c9b98f'), cGrass = new THREE.Color('#7f9a4a'), cGrass2 = new THREE.Color('#5f7d3a'), tmp = new THREE.Color();
+for (let i = 0; i < pos.count; i++) {
+  const x = pos.getX(i), z = pos.getZ(i), y = height(x, z);
+  pos.setY(i, y);
+  if (y < -1.4) tmp.copy(cMud).lerp(cSand, THREE.MathUtils.clamp((y + 9) / 8, 0, 1) * 0.35);
+  else if (y < 0.1) tmp.copy(cSand);
+  else tmp.copy(cGrass).lerp(cGrass2, THREE.MathUtils.clamp(noise(x * 2, z * 2) * 0.3 + 0.5, 0, 1));
+  cols.push(tmp.r, tmp.g, tmp.b);
+}
+tg.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3));
+tg.computeVertexNormals();
+const terrain = new THREE.Mesh(tg, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, flatShading: false }));
+terrain.receiveShadow = true;
+scene.add(terrain);
+
+// paths ring (park walkway)
+const ring = new THREE.Mesh(new THREE.RingGeometry(1, 1.06, 128), new THREE.MeshStandardMaterial({ color: '#e6ddc8', roughness: 1 }));
+{ // follow lake outline slightly outside
+  const g = new THREE.BufferGeometry(), v = [], idx = [];
+  const N = 220;
+  for (let i = 0; i <= N; i++) {
+    const a = i / N * Math.PI * 2, r = R(a) + 6;
+    for (const off of [-1.3, 1.3]) { const x = Math.cos(a) * (r + off), z = Math.sin(a) * (r + off); v.push(x, height(x, z) + 0.12, z); }
+    if (i < N) { const b = i * 2; idx.push(b, b + 1, b + 2, b + 1, b + 3, b + 2); }
+  }
+  g.setAttribute('position', new THREE.Float32BufferAttribute(v, 3)); g.setIndex(idx); g.computeVertexNormals();
+  ring.geometry = g; ring.receiveShadow = true; scene.add(ring);
+}
+
+// ---------- water ----------
+const waterMat = new THREE.MeshPhysicalMaterial({ color: '#2f8f9a', roughness: 0.08, metalness: 0, transparent: true, opacity: 0.86, clearcoat: 1, clearcoatRoughness: 0.15 });
+const wg = new THREE.PlaneGeometry(SIZE, SIZE, 120, 120); wg.rotateX(-Math.PI / 2);
+const water = new THREE.Mesh(wg, waterMat);
+water.receiveShadow = true;
+scene.add(water);
+const wBase = wg.attributes.position.array.slice();
+
+// ---------- reeds ----------
+const reedGeo = new THREE.CylinderGeometry(0.06, 0.12, 3.2, 4); reedGeo.translate(0, 1.6, 0);
+const reedMat = new THREE.MeshStandardMaterial({ color: '#6f8f3a', roughness: 0.9 });
+const REEDS = 900, reeds = new THREE.InstancedMesh(reedGeo, reedMat, REEDS);
+reeds.castShadow = true;
+const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), s3 = new THREE.Vector3(), p3 = new THREE.Vector3(), e = new THREE.Euler();
+let rand = 7; const rnd = () => (rand = (rand * 16807) % 2147483647) / 2147483647;
+for (let i = 0; i < REEDS; i++) {
+  const a = rnd() * Math.PI * 2; if (Math.abs(a - (Math.PI * 2 + RIVER_A) % (Math.PI * 2)) < 0.12) { i--; continue; }
+  const r = R(a) * (0.86 + rnd() * 0.16), x = Math.cos(a) * r, z = Math.sin(a) * r;
+  p3.set(x, height(x, z), z); e.set((rnd() - .5) * .35, rnd() * 6, (rnd() - .5) * .35); q.setFromEuler(e);
+  const sc = 0.6 + rnd() * 0.9; s3.set(1, sc, 1);
+  reeds.setMatrixAt(i, m4.compose(p3, q, s3));
+}
+scene.add(reeds);
+
+// ---------- trees ----------
+const trunkGeo = new THREE.CylinderGeometry(0.35, 0.5, 3, 6); trunkGeo.translate(0, 1.5, 0);
+const crownGeo = new THREE.IcosahedronGeometry(3, 0);
+const TREES = 160;
+const trunks = new THREE.InstancedMesh(trunkGeo, new THREE.MeshStandardMaterial({ color: '#6b4e36', roughness: 1 }), TREES);
+const crowns = new THREE.InstancedMesh(crownGeo, new THREE.MeshStandardMaterial({ color: '#4f7a3a', roughness: 0.85, flatShading: true }), TREES);
+trunks.castShadow = crowns.castShadow = true;
+for (let i = 0; i < TREES; i++) {
+  const a = rnd() * Math.PI * 2, r = R(a) + 11 + rnd() * 70, x = Math.cos(a) * r, z = Math.sin(a) * r;
+  if (riverDist(x, z) < 9 || (x > -78 && x < -50 && z > 18 && z < 46) || (x > 28 && x < 56 && z > 22 && z < 50) || Math.abs(x) > 125 || Math.abs(z) > 125) { i--; continue; }
+  const y = height(x, z), sc = 0.7 + rnd() * 0.8;
+  trunks.setMatrixAt(i, m4.compose(p3.set(x, y, z), q.identity(), s3.set(sc, sc, sc)));
+  crowns.setMatrixAt(i, m4.compose(p3.set(x, y + 4.4 * sc, z), q.setFromEuler(e.set(rnd(), rnd(), rnd())), s3.set(sc, sc * 1.25, sc)));
+  crowns.setColorAt(i, tmp.set('#4f7a3a').offsetHSL((rnd() - .5) * .05, 0, (rnd() - .5) * .1));
+}
+scene.add(trunks, crowns);
+
+// ---------- church ----------
+const church = new THREE.Group();
+const white = new THREE.MeshStandardMaterial({ color: '#f3f1ea', roughness: 0.7 });
+const gold = new THREE.MeshStandardMaterial({ color: '#d9a21b', metalness: 0.85, roughness: 0.28 });
+const roof = new THREE.MeshStandardMaterial({ color: '#2f6b5e', roughness: 0.6 });
+const add = (geo, mat, x, y, z) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = m.receiveShadow = true; church.add(m); return m; };
+add(new THREE.BoxGeometry(9, 7, 12), white, 0, 3.5, 0);
+add(new THREE.BoxGeometry(9.4, 0.6, 12.4), roof, 0, 7.3, 0);
+add(new THREE.CylinderGeometry(2.3, 2.3, 4, 16), white, 0, 9.6, 0);
+add(new THREE.SphereGeometry(2.4, 24, 16, 0, Math.PI * 2, 0, Math.PI / 2), gold, 0, 11.6, 0);
+add(new THREE.CylinderGeometry(0.08, 0.08, 2.4, 6), gold, 0, 14.6, 0);
+add(new THREE.BoxGeometry(1.2, 0.12, 0.12), gold, 0, 15, 0);
+for (const [x, z] of [[-3.2, -4.6], [3.2, -4.6], [-3.2, 4.6], [3.2, 4.6]]) {
+  add(new THREE.CylinderGeometry(1, 1, 2.4, 12), white, x, 8.8, z);
+  add(new THREE.SphereGeometry(1.05, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2), gold, x, 10, z);
+}
+add(new THREE.BoxGeometry(4, 14, 4), white, 0, 7, -9);
+add(new THREE.ConeGeometry(2.6, 6, 4), roof, 0, 17, -9).rotation.y = Math.PI / 4;
+add(new THREE.CylinderGeometry(0.07, 0.07, 2, 6), gold, 0, 21, -9);
+church.position.set(-64, height(-64, 32), 32);
+church.rotation.y = 0.7;
+scene.add(church);
+
+// ---------- amphitheatre ----------
+const amph = new THREE.Group();
+const stone = new THREE.MeshStandardMaterial({ color: '#d9d2c3', roughness: 0.9 });
+for (let i = 0; i < 5; i++) {
+  const r0 = 5 + i * 1.6;
+  const step = new THREE.Mesh(new THREE.CylinderGeometry(r0 + 1.6, r0 + 1.6, 0.6 + i * 0.55, 40, 1, false, 0, Math.PI), stone);
+  step.position.y = (0.6 + i * 0.55) / 2;
+  step.castShadow = step.receiveShadow = true;
+  amph.add(step);
+}
+const stage = new THREE.Mesh(new THREE.CylinderGeometry(4.6, 4.6, 0.4, 32), new THREE.MeshStandardMaterial({ color: '#b98d5c', roughness: 0.8 }));
+stage.position.y = 0.2; stage.receiveShadow = true; amph.add(stage);
+amph.position.set(42, height(42, 36) - 0.2, 36);
+amph.rotation.y = Math.PI * 0.82;
+scene.add(amph);
+
+// ---------- fish ----------
+const fishGeo = (() => { const body = new THREE.SphereGeometry(0.6, 10, 8); body.scale(1.8, 0.7, 0.55); const tail = new THREE.ConeGeometry(0.45, 0.8, 4); tail.rotateZ(Math.PI / 2); tail.translate(-1.35, 0, 0); const g = new THREE.BufferGeometry(); const parts = [body, tail].map(x => x.toNonIndexed()); const arr = []; parts.forEach(p => arr.push(...p.attributes.position.array)); g.setAttribute('position', new THREE.Float32BufferAttribute(arr, 3)); g.computeVertexNormals(); return g; })();
+const FISH = 46;
+const fish = new THREE.InstancedMesh(fishGeo, new THREE.MeshStandardMaterial({ color: '#c99a4a', roughness: 0.5, metalness: 0.2 }), FISH);
+const fishData = [];
+for (let i = 0; i < FISH; i++) {
+  fishData.push({ r: 8 + rnd() * 26, a: rnd() * Math.PI * 2, sp: (0.15 + rnd() * 0.25) * (rnd() > .5 ? 1 : -1), d: 1.6 + rnd() * 3.5, ph: rnd() * 6 });
+  fish.setColorAt(i, tmp.set(['#c99a4a', '#8c9aa3', '#b8b8a8', '#7a8f5a'][i % 4]));
+}
+scene.add(fish);
+
+// ---------- ducks ----------
+const duckGeo = (() => { const b = new THREE.SphereGeometry(0.7, 12, 8); b.scale(1.4, 0.8, 0.9); return b; })();
+const DUCKS = 9;
+const ducks = new THREE.InstancedMesh(duckGeo, new THREE.MeshStandardMaterial({ color: '#7d6a4f', roughness: 0.8 }), DUCKS);
+const heads = new THREE.InstancedMesh(new THREE.SphereGeometry(0.42, 10, 8), new THREE.MeshStandardMaterial({ color: '#2f6b4a', roughness: 0.5 }), DUCKS);
+ducks.castShadow = true;
+const duckData = Array.from({ length: DUCKS }, () => ({ r: 6 + rnd() * 24, a: rnd() * 6.28, sp: 0.03 + rnd() * 0.05 }));
+scene.add(ducks, heads);
+
+// ---------- states ----------
+const STATES = {
+  2021: { level: -1.0, pct: 100, fish: 46, ducks: 9, reed: '#6f8f3a', water: '#2e8796', clarity: 0.86, title: 'Живое озеро', text: 'Озеро питается подземными водами. Здесь живут сазан, карась, окунь, широкопалый рак и среднеазиатская черепаха, на воде — утки.' },
+  2023: { level: -8.6, pct: 6, fish: 0, ducks: 0, reed: '#a68f55', water: '#6b6a45', clarity: 0.95, title: 'Очистка', text: 'Ноябрь 2023: город спустил озеро для механической очистки. Большая часть обитателей погибла или ушла в соседние водоёмы.' },
+  2025: { level: -3.2, pct: 62, fish: 14, ducks: 3, reed: '#86924a', water: '#3f8a86', clarity: 0.9, title: 'Восстановление', text: 'Поднимаем уровень воды вместе с насосной станцией, вносим хлореллу, зарыбляем озеро и проводим зимнюю аэрацию.' },
+  2030: { level: -0.7, pct: 100, fish: 46, ducks: 9, reed: '#5f8f3a', water: '#25a3a6', clarity: 0.8, title: 'Цель', text: 'Устойчивая экосистема: чистая вода, вернувшиеся уязвимые виды, больше сезонных птиц и жители, которые заботятся об озере.' }
+};
+const cur = { level: -3.2, fish: 14, ducks: 3, reed: new THREE.Color(STATES[2025].reed), water: new THREE.Color(STATES[2025].water), opacity: 0.9 };
+let target = STATES[2025];
+const elT = document.getElementById('st-title'), elX = document.getElementById('st-text'), gauge = document.getElementById('gauge'), gv = document.getElementById('gauge-v');
+function setYear(y) {
+  target = STATES[y];
+  document.querySelectorAll('.years button').forEach(b => b.setAttribute('aria-pressed', b.dataset.y == y));
+  elT.textContent = `${y} — ${target.title}`; elX.textContent = target.text;
+  gauge.style.width = target.pct + '%'; gv.textContent = target.pct + '%';
+  try { history.replaceState(null, '', '#' + y); } catch (_) {}
+}
+document.querySelectorAll('.years button').forEach(b => b.addEventListener('click', () => setYear(b.dataset.y)));
+const startY = (location.hash || '').slice(1);
+setYear(STATES[startY] ? startY : 2025);
+if (reduce) { cur.level = target.level; cur.fish = target.fish; cur.ducks = target.ducks; }
+
+// ---------- labels ----------
+const labels = [
+  { el: document.getElementById('tag-church'), p: new THREE.Vector3(-64, 20, 32) },
+  { el: document.getElementById('tag-amph'), p: new THREE.Vector3(42, 6, 36) },
+  { el: document.getElementById('tag-river'), p: new THREE.Vector3(Math.cos(RIVER_A) * 58, 2, Math.sin(RIVER_A) * 58) }
+];
+const v3 = new THREE.Vector3();
+function placeLabels() {
+  const w = innerWidth, h = innerHeight;
+  for (const l of labels) {
+    v3.copy(l.p).project(camera);
+    const vis = v3.z < 1 && Math.abs(v3.x) < 1.05 && Math.abs(v3.y) < 1.05;
+    l.el.style.opacity = vis ? 1 : 0;
+    l.el.style.left = ((v3.x + 1) / 2 * w) + 'px';
+    l.el.style.top = ((1 - v3.y) / 2 * h) + 'px';
+  }
+}
+
+// ---------- loop ----------
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / h;
+  camera.fov = w < 640 ? 55 : 42; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+
+const clock = new THREE.Clock();
+const wp = wg.attributes.position;
+function frame() {
+  const dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
+  const k = reduce ? 1 : 1 - Math.pow(0.0015, dt); // exponential ease toward target
+  cur.level += (target.level - cur.level) * k;
+  cur.fish += (target.fish - cur.fish) * k;
+  cur.ducks += (target.ducks - cur.ducks) * k;
+  cur.reed.lerp(tmp.set(target.reed), k);
+  cur.water.lerp(tmp.set(target.water), k);
+  cur.opacity += (target.clarity - cur.opacity) * k;
+  reedMat.color.copy(cur.reed);
+  waterMat.color.copy(cur.water); waterMat.opacity = cur.opacity;
+
+  // water surface with gentle waves
+  for (let i = 0; i < wp.count; i++) {
+    const x = wBase[i * 3], z = wBase[i * 3 + 2];
+    wp.setY(i, cur.level + (reduce ? 0 : Math.sin(x * 0.18 + t * 1.1) * 0.08 + Math.cos(z * 0.15 + t * 0.8) * 0.08));
+  }
+  wp.needsUpdate = true; wg.computeVertexNormals();
+
+  // fish swim under the surface, only where water is deep enough
+  const nf = Math.round(cur.fish);
+  for (let i = 0; i < FISH; i++) {
+    const f = fishData[i];
+    const a = f.a + (reduce ? 0 : t * f.sp * 0.4), x = Math.cos(a) * f.r, z = Math.sin(a) * f.r;
+    const bed = height(x, z), y = Math.max(cur.level - f.d, bed + 0.7);
+    const show = i < nf && cur.level - bed > 1.6;
+    p3.set(x, y + Math.sin(t * 2 + f.ph) * 0.15, z);
+    q.setFromEuler(e.set(0, -a + (f.sp > 0 ? -Math.PI / 2 : Math.PI / 2), Math.sin(t * 6 + f.ph) * 0.15));
+    fish.setMatrixAt(i, m4.compose(p3, q, s3.setScalar(show ? 1 : 0.0001)));
+  }
+  fish.instanceMatrix.needsUpdate = true;
+
+  const nd = Math.round(cur.ducks);
+  for (let i = 0; i < DUCKS; i++) {
+    const d = duckData[i], a = d.a + (reduce ? 0 : t * d.sp), x = Math.cos(a) * d.r, z = Math.sin(a) * d.r;
+    const show = i < nd && cur.level - height(x, z) > 0.8;
+    const sc = show ? 1 : 0.0001, yaw = -a - Math.PI / 2;
+    q.setFromEuler(e.set(0, yaw, 0));
+    ducks.setMatrixAt(i, m4.compose(p3.set(x, cur.level + 0.25, z), q, s3.setScalar(sc)));
+    heads.setMatrixAt(i, m4.compose(p3.set(x + Math.cos(-yaw) * 0.9, cur.level + 0.95, z - Math.sin(-yaw) * 0.9), q, s3.setScalar(sc)));
+  }
+  ducks.instanceMatrix.needsUpdate = heads.instanceMatrix.needsUpdate = true;
+
+  controls.update();
+  renderer.render(scene, camera);
+  placeLabels();
+  requestAnimationFrame(frame);
+}
+frame();
+document.getElementById('loading').classList.add('done');
+</script>
+</body>
+</html>
