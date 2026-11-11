@@ -6,6 +6,8 @@
 <title>ЭФРА — Экологический Фонд Развития Алматы</title>
 <meta name="description" content="Общественный фонд ЭФРА с 2017 года восстанавливает озеро Карасу и реку Правый Есентай в Алматы вместе с жителями, учёными, бизнесом и городом.">
 <link rel="icon" href="img/favicon.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="preload" as="image" href="img/photo/st3.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
@@ -20,9 +22,18 @@
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{font-family:"Golos Text",system-ui,sans-serif;font-size:17px;line-height:1.62;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
-img{display:block;max-width:100%}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--aqua);outline-offset:3px;border-radius:4px}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-underline-offset:4px}
+:focus-visible{outline:3px solid var(--deep-2);outline-offset:3px;border-radius:4px}
+.lake :focus-visible,.help :focus-visible{outline-color:var(--aqua)}
+::selection{background:var(--aqua);color:var(--deep)}
+html{accent-color:var(--deep-2);caret-color:var(--deep-2);scrollbar-color:var(--deep-2) var(--silt);-webkit-tap-highlight-color:rgba(92,217,201,.25)}
+a,button,select{touch-action:manipulation}
+[id]{scroll-margin-top:92px}
+h1,h2,h3{text-wrap:balance}
+p{text-wrap:pretty}
+.skip{position:absolute;left:16px;top:-60px;z-index:200;background:var(--deep);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
 h1,h2,h3{font-family:Unbounded,sans-serif;font-weight:600;line-height:1.12;letter-spacing:-.015em;color:var(--deep)}
 h2{font-size:clamp(28px,3.6vw,44px);max-width:16ch;margin-bottom:22px}
@@ -64,18 +75,29 @@ section{padding:120px 0}
 .hero-photo img{width:100%;aspect-ratio:4/3.3;object-fit:cover;border-radius:22px 22px 0 0}
 .waterline{position:absolute;left:-1px;bottom:-1px;width:calc(100% + 2px);height:64px;color:var(--silt)}
 .waterline path{fill:currentColor}
+@media (prefers-reduced-motion:no-preference){
+  .hero h1{animation:rise 1s cubic-bezier(.16,1,.3,1) both}
+  .hero h1+p{animation:rise 1s .1s cubic-bezier(.16,1,.3,1) both}
+  .hero-actions{animation:rise 1s .18s cubic-bezier(.16,1,.3,1) both}
+  .hero-photo img{animation:reveal 1.3s .05s cubic-bezier(.16,1,.3,1) both}
+  .hero-caption{animation:fade .6s .9s ease-out both}
+  .waterline path{transform-box:fill-box;transform-origin:bottom;animation:swell 1.6s .35s cubic-bezier(.16,1,.3,1) both}
+}
+@keyframes rise{from{opacity:.15;transform:translateY(28px)}}
+@keyframes reveal{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes fade{from{opacity:0}}
+@keyframes swell{from{transform:scaleY(.2) translateY(30px)}}
 .hero-caption{position:absolute;top:18px;right:18px;background:rgba(13,59,58,.82);color:#fff;font-size:13.5px;padding:8px 14px;border-radius:999px}
-.facts{background:var(--silt);padding:44px 0 90px}
-.facts dl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--deep)}
-.facts dl>div{padding:24px 24px 0 0}
-.facts dl>div+div{padding-left:24px;border-left:1px solid var(--line)}
-.facts dt{font-family:Unbounded;font-weight:600;font-size:clamp(26px,3vw,38px);color:var(--deep);line-height:1.1}
-.facts dd{font-size:15px;color:var(--muted);margin-top:8px;max-width:26ch}
+.facts{background:var(--silt);padding:56px 0 100px}
+.statement{font-family:Unbounded;font-weight:500;font-size:clamp(22px,2.7vw,36px);line-height:1.32;letter-spacing:-.015em;color:var(--deep);max-width:30ch}
+.statement b{font-weight:700;color:var(--deep-2);font-variant-numeric:tabular-nums;background:linear-gradient(transparent 62%,var(--aqua-soft) 62%);padding:0 .08em}
+.statement span{color:var(--muted)}
 
 /* about */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
 .about-grid p+p{margin-top:16px}
-.motto{margin-top:36px;font-family:Unbounded;font-weight:500;font-size:clamp(22px,2.4vw,30px);line-height:1.25;color:var(--deep);padding-left:22px;border-left:5px solid var(--aqua)}
+.motto{margin-top:40px;font-family:Unbounded;font-weight:600;font-size:clamp(26px,3vw,40px);line-height:1.12;letter-spacing:-.02em;color:var(--deep-2);max-width:14ch}
+.motto::before{content:"«"}.motto::after{content:"»"}
 .founders{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .founder img{width:100%;aspect-ratio:1/1.08;object-fit:cover;border-radius:var(--r);background:var(--silt)}
 .founder h3{margin-top:16px;font-size:18px}
@@ -236,10 +258,11 @@ footer a{color:#cfe3df}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Перейти к содержанию</a>
 
 <header class="top">
   <div class="wrap nav">
-    <a href="#" class="brand" aria-label="ЭФРА — на главную"><img src="img/mark.png" alt=""><div><b>ЭФРА</b><span>Экологический Фонд Развития Алматы</span></div></a>
+    <a href="#" class="brand" aria-label="ЭФРА — на главную"><img src="img/mark.png" alt="" width="200" height="180"><div><b>ЭФРА</b><span>Экологический Фонд Развития Алматы</span></div></a>
     <nav class="menu" id="menu" aria-label="Разделы">
       <a href="#about">О фонде</a>
       <a href="#lake">Озеро и река</a>
@@ -254,7 +277,7 @@ footer a{color:#cfe3df}
   </div>
 </header>
 
-<main>
+<main id="main">
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
@@ -266,7 +289,7 @@ footer a{color:#cfe3df}
       </div>
     </div>
     <div class="hero-photo">
-      <img src="img/photo/st3.jpg" alt="Озеро Карасу и православный храм на берегу">
+      <img src="img/photo/st3.jpg" alt="Озеро Карасу и православный храм на берегу" fetchpriority="high" width="705" height="470">
       <span class="hero-caption">Озеро Карасу, Алматы</span>
       <svg class="waterline" viewBox="0 0 600 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34 C 60 18, 120 18, 180 32 S 300 50, 360 34 S 480 16, 540 30 S 590 40, 600 36 L600 64 L0 64 Z"/></svg>
     </div>
@@ -274,12 +297,7 @@ footer a{color:#cfe3df}
 </section>
 <div class="facts">
   <div class="wrap">
-    <dl>
-      <div><dt>2017</dt><dd>фонд основан, с тех пор работаем с сообществом Карасу</dd></div>
-      <div><dt>≈ $2 млн</dt><dd>вложил акимат в парк у озера и его очистку после нашего проекта</dd></div>
-      <div><dt>9 700</dt><dd>жителей микрорайона, из них более 1 500 детей</dd></div>
-      <div><dt>21 км</dt><dd>длина реки Правый Есентай, которая начинается в озере</dd></div>
-    </dl>
+    <p class="statement">С <b>2017</b> года мы работаем с&nbsp;<b>9&nbsp;700</b> жителями Карасу. Наш первый проект привёл <b>≈&nbsp;$2&nbsp;млн</b> городских инвестиций в&nbsp;парк и&nbsp;очистку озера, <span>из которого начинается река длиной <b>21&nbsp;км</b>.</span></p>
   </div>
 </div>
 
@@ -293,8 +311,8 @@ footer a{color:#cfe3df}
     </div>
     <div>
       <div class="founders">
-        <div class="founder"><img src="img/people/vassilyev.jpg" alt="Сергей Васильев" loading="lazy"><h3>Сергей Васильев</h3><div class="role">Со-учредитель и директор</div><p>Выпускник стипендий Chevening и Fulbright, инвестиционный и ESG-менеджер. Работал в Самрук-Казына, KAZ Minerals и The Nature Conservancy.</p></div>
-        <div class="founder"><img src="img/people/sarieva.jpg" alt="Гульшат Сариева" loading="lazy"><h3>Гульшат Сариева</h3><div class="role">Со-учредитель</div><p>Региональный директор Cushman &amp; Wakefield, эксперт BREEAM, член Градостроительного совета Алматы.</p></div>
+        <div class="founder"><img src="img/people/vassilyev.jpg" alt="Сергей Васильев" loading="lazy" width="407" height="308"><h3>Сергей Васильев</h3><div class="role">Со-учредитель и директор</div><p>Выпускник стипендий Chevening и Fulbright, инвестиционный и ESG-менеджер. Работал в Самрук-Казына, KAZ Minerals и The Nature Conservancy.</p></div>
+        <div class="founder"><img src="img/people/sarieva.jpg" alt="Гульшат Сариева" loading="lazy" width="365" height="308"><h3>Гульшат Сариева</h3><div class="role">Со-учредитель</div><p>Региональный директор Cushman &amp; Wakefield, эксперт BREEAM, член Градостроительного совета Алматы.</p></div>
       </div>
     </div>
   </div>
@@ -313,7 +331,7 @@ footer a{color:#cfe3df}
       </ul>
     </div>
     <div>
-      <div id="map" role="img" aria-label="Карта: озеро Карасу и русло реки Правый Есентай к северо-востоку от него"></div>
+      <div id="map" role="region" aria-label="Интерактивная карта: озеро Карасу и русло реки Правый Есентай к северо-востоку от него"></div>
       <div class="legend"><span><i class="lg-lake"></i>Озеро Карасу</span><span><i class="lg-river"></i>Река Правый Есентай</span></div>
       <p class="note">Русло нанесено по данным OpenStreetMap, участок около 16 км.</p>
     </div>
@@ -328,10 +346,10 @@ footer a{color:#cfe3df}
     </div>
     <ol class="tl">
       <li><div class="when">2000–2010</div><div><h3>Озеро теряет питание</h3><p>Из-за бесконтрольной застройки и изменения климата исчезли две речки, питавшие озеро. С тех пор оно живёт только за счёт подземных вод.</p></div><div></div></li>
-      <li><div class="when">2017–2019<small>гранты Фонда Сорос-Казахстан (~$23 000) и British Council (€5 000)</small></div><div><h3>Сообщество и проект парка</h3><p>Мы объединили жителей, благоустроили часть территории и подготовили полный пакет документов для регенерации. Архитектор Асель Ежанова разработала дизайн-проект парка у озера.</p></div><figure><img src="img/photo/plan.jpg" alt="Генплан парка у озера Карасу" loading="lazy"><figcaption>Генплан парка, подготовленный фондом</figcaption></figure></li>
-      <li><div class="when">2021–2022</div><div><h3>Город строит парк</h3><p>По нашему проекту акимат Алматы построил зелёную зону и амфитеатр у озера. Вместе с последующей очисткой это около $2 млн городских инвестиций.</p></div><figure><img src="img/photo/soc4.jpg" alt="Парк у озера Карасу с высоты" loading="lazy"><figcaption>Парк у озера сегодня</figcaption></figure></li>
-      <li><div class="when">2023–2024</div><div><h3>Очистка и потеря экосистемы</h3><p>В ноябре 2023 года город спустил озеро для механической очистки. Часть обитателей ушла в соседние водоёмы — пруд у храма и габионный канал Правого Есентая, остальные погибли.</p></div><figure><img src="img/photo/st1.jpg" alt="Спущенное озеро Карасу во время очистки" loading="lazy"><figcaption>Озеро во время очистки, ноябрь 2023</figcaption></figure></li>
-      <li class="now"><div class="when">2025</div><div><h3>Восстановление</h3><p>Вместе с насосной станцией поднимаем уровень воды, вносим хлореллу, зарыбляем озеро и проводим зимнюю аэрацию. Готовим план сохранения озера и план климатической адаптации.</p></div><figure><img src="img/photo/st2.jpg" alt="Жители на празднике у озера" loading="lazy"><figcaption>Событие сообщества у озера</figcaption></figure></li>
+      <li><div class="when">2017–2019<small>гранты Фонда Сорос-Казахстан (~$23 000) и British Council (€5 000)</small></div><div><h3>Сообщество и проект парка</h3><p>Мы объединили жителей, благоустроили часть территории и подготовили полный пакет документов для регенерации. Архитектор Асель Ежанова разработала дизайн-проект парка у озера.</p></div><figure><img src="img/photo/plan.jpg" alt="Генплан парка у озера Карасу" loading="lazy" width="1680" height="662"><figcaption>Генплан парка, подготовленный фондом</figcaption></figure></li>
+      <li><div class="when">2021–2022</div><div><h3>Город строит парк</h3><p>По нашему проекту акимат Алматы построил зелёную зону и амфитеатр у озера. Вместе с последующей очисткой это около $2 млн городских инвестиций.</p></div><figure><img src="img/photo/soc4.jpg" alt="Парк у озера Карасу с высоты" loading="lazy" width="507" height="285"><figcaption>Парк у озера сегодня</figcaption></figure></li>
+      <li><div class="when">2023–2024</div><div><h3>Очистка и потеря экосистемы</h3><p>В ноябре 2023 года город спустил озеро для механической очистки. Часть обитателей ушла в соседние водоёмы — пруд у храма и габионный канал Правого Есентая, остальные погибли.</p></div><figure><img src="img/photo/st1.jpg" alt="Спущенное озеро Карасу во время очистки" loading="lazy" width="600" height="337"><figcaption>Озеро во время очистки, ноябрь 2023</figcaption></figure></li>
+      <li class="now"><div class="when">2025</div><div><h3>Восстановление</h3><p>Вместе с насосной станцией поднимаем уровень воды, вносим хлореллу, зарыбляем озеро и проводим зимнюю аэрацию. Готовим план сохранения озера и план климатической адаптации.</p></div><figure><img src="img/photo/st2.jpg" alt="Жители на празднике у озера" loading="lazy" width="600" height="450"><figcaption>Событие сообщества у озера</figcaption></figure></li>
       <li><div class="when">2025–2030</div><div><h3>Долгосрочная стратегия</h3><p>Реализуем планы сохранения и адаптации, создаём Комитет устойчивого развития экосистемы озера и начинаем восстанавливать русло Правого Есентая.</p></div><div></div></li>
     </ol>
   </div>
@@ -368,9 +386,9 @@ footer a{color:#cfe3df}
       <p style="margin-top:18px">Мы хотим сохранить озеро как часть архитектурного ансамбля и место, где жители проводят время вместе.</p>
     </div>
     <div class="mosaic">
-      <img src="img/photo/soc1.jpg" alt="Храм на берегу озера Карасу" loading="lazy">
-      <img src="img/photo/soc2.jpg" alt="Площадь рядом с озером" loading="lazy">
-      <img src="img/photo/soc3.jpg" alt="Мемориал у озера" loading="lazy">
+      <img src="img/photo/soc1.jpg" alt="Храм на берегу озера Карасу" loading="lazy" width="507" height="285">
+      <img src="img/photo/soc2.jpg" alt="Площадь рядом с озером" loading="lazy" width="507" height="285">
+      <img src="img/photo/soc3.jpg" alt="Мемориал у озера" loading="lazy" width="507" height="285">
     </div>
   </div>
 </section>
@@ -403,17 +421,17 @@ footer a{color:#cfe3df}
     <h2>Команда проекта</h2>
     <p class="lead">Люди, которые каждый день работают над возвращением жизни озеру.</p>
     <div class="people">
-      <div class="person"><img src="img/people/vassilyev.jpg" alt="Сергей Васильев" loading="lazy"><h3>Сергей Васильев</h3><div class="role">Директор</div><p>Отвечает за стратегию фонда, устойчивое финансирование и партнёрства.</p></div>
-      <div class="person"><img src="img/people/alexander.jpg" alt="Александр Сивеня" loading="lazy"><h3>Александр Сивеня</h3><div class="role">Руководитель проекта</div><p>Житель Карасу, в проекте с 2017 года. Построил амфитеатр, провёл события сообщества, ведёт восстановление озера и зарыбление.</p></div>
-      <div class="person"><img src="img/people/asel.jpg" alt="Асель Ежанова" loading="lazy"><h3>Асель Ежанова</h3><div class="role">Менеджер мероприятий</div><p>Архитектор Urban Forum Kazakhstan. Автор дизайн-проекта парка у озера, проводит события и экопросвещение для молодёжи.</p></div>
-      <div class="person"><img src="img/people/khatia.jpg" alt="Хатия Басилашвили" loading="lazy"><h3>Хатия Басилашвили</h3><div class="role">Менеджер по развитию, Грузия</div><p>Более 10 лет в природоохранных проектах. Готовит план сохранения озера и стратегию климатической адаптации.</p></div>
+      <div class="person"><img src="img/people/vassilyev.jpg" alt="Сергей Васильев" loading="lazy" width="407" height="308"><h3>Сергей Васильев</h3><div class="role">Директор</div><p>Отвечает за стратегию фонда, устойчивое финансирование и партнёрства.</p></div>
+      <div class="person"><img src="img/people/alexander.jpg" alt="Александр Сивеня" loading="lazy" width="187" height="195"><h3>Александр Сивеня</h3><div class="role">Руководитель проекта</div><p>Житель Карасу, в проекте с 2017 года. Построил амфитеатр, провёл события сообщества, ведёт восстановление озера и зарыбление.</p></div>
+      <div class="person"><img src="img/people/asel.jpg" alt="Асель Ежанова" loading="lazy" width="187" height="193"><h3>Асель Ежанова</h3><div class="role">Менеджер мероприятий</div><p>Архитектор Urban Forum Kazakhstan. Автор дизайн-проекта парка у озера, проводит события и экопросвещение для молодёжи.</p></div>
+      <div class="person"><img src="img/people/khatia.jpg" alt="Хатия Басилашвили" loading="lazy" width="186" height="192"><h3>Хатия Басилашвили</h3><div class="role">Менеджер по развитию, Грузия</div><p>Более 10 лет в природоохранных проектах. Готовит план сохранения озера и стратегию климатической адаптации.</p></div>
     </div>
     <div class="board">
       <h3>Попечительский совет</h3>
       <div class="board-row">
-        <div class="board-card"><img src="img/people/yertayev.jpg" alt="Искендир Ертаев" loading="lazy"><div><h4>Искендир Ертаев</h4><div class="role">Председатель совета</div><p>Публицист, член Союза журналистов, писатель, автор документальных фильмов о природе.</p></div></div>
-        <div class="board-card"><img src="img/people/abdygapparov.jpg" alt="Асет Абдыгаппаров" loading="lazy"><div><h4>Асет Абдыгаппаров</h4><div class="role">Член совета</div><p>Экс-управляющий директор Фонда Самрук-Казына, выпускник University of San Francisco.</p></div></div>
-        <div class="board-card"><img src="img/people/berezikova.jpg" alt="Людмила Березикова" loading="lazy"><div><h4>Людмила Березикова</h4><div class="role">Член совета</div><p>Учитель биологии и географии высшей категории в школах Алматы.</p></div></div>
+        <div class="board-card"><img src="img/people/yertayev.jpg" alt="Искендир Ертаев" loading="lazy" width="374" height="337"><div><h4>Искендир Ертаев</h4><div class="role">Председатель совета</div><p>Публицист, член Союза журналистов, писатель, автор документальных фильмов о природе.</p></div></div>
+        <div class="board-card"><img src="img/people/abdygapparov.jpg" alt="Асет Абдыгаппаров" loading="lazy" width="357" height="330"><div><h4>Асет Абдыгаппаров</h4><div class="role">Член совета</div><p>Экс-управляющий директор Фонда Самрук-Казына, выпускник University of San Francisco.</p></div></div>
+        <div class="board-card"><img src="img/people/berezikova.jpg" alt="Людмила Березикова" loading="lazy" width="364" height="330"><div><h4>Людмила Березикова</h4><div class="role">Член совета</div><p>Учитель биологии и географии высшей категории в школах Алматы.</p></div></div>
       </div>
     </div>
   </div>
@@ -424,15 +442,15 @@ footer a{color:#cfe3df}
     <h2>Партнёры проекта</h2>
     <p class="lead">Бизнес, международные фонды, НКО и научные организации — каждый внёс свой вклад в восстановление озера.</p>
     <div class="partners-grid">
-      <div class="partner"><div class="logo"><img src="img/logos/oersc.png" alt="Логотип организации" loading="lazy"></div><h3>Организация по экологическим исследованиям и сохранению видов</h3><p>Грузия. Разрабатывает план сохранения озера и климатической адаптации, участвует во всех этапах.</p></div>
-      <div class="partner"><div class="logo"><img src="img/logos/urban.png" alt="Urban Forum Kazakhstan" loading="lazy"></div><h3>Urban Forum Kazakhstan</h3><p>Независимая площадка для диалога горожан, власти и бизнеса. Связывает жителей Карасу с акиматом.</p></div>
-      <div class="partner"><div class="logo"><img src="img/logos/ggf.png" alt="Global Greengrants Fund" loading="lazy"></div><h3>Global Greengrants Fund</h3><p>Международный фонд поддержки местных экологических инициатив. Финансирование и экспертиза.</p></div>
-      <div class="partner"><div class="logo"><img src="img/logos/iie.png" alt="Institute of International Education" loading="lazy"></div><h3>Institute of International Education</h3><p>Глобальная организация в сфере международного образования. Финансирование и участие в проекте.</p></div>
-      <div class="partner"><div class="logo"><img src="img/logos/bc.png" alt="British Council" loading="lazy"></div><h3>British Council</h3><p>Грант программы Smart City Almaty, финансируемой Еврокомиссией, на городские инициативы сообществ.</p></div>
-      <div class="partner"><div class="logo"><img src="img/logos/soros.png" alt="CAPS Unlock" loading="lazy"></div><h3>Фонд Сорос-Казахстан (CAPS Unlock)</h3><p>Грант программы «Лучший социальный проект в нецентральных районах Алматы».</p></div>
-      <div class="partner"><div class="logo"><img src="img/logos/obi.png" alt="OBI" loading="lazy"></div><h3>OBI</h3><p>Строительные материалы для благоустройства и экологических работ у озера.</p></div>
-      <div class="partner"><div class="logo"><img src="img/logos/jti.png" alt="JTI" loading="lazy"></div><h3>JTI</h3><p>Поддержка развития сообщества и зелёных пространств в рамках программ корпоративной ответственности.</p></div>
-      <div class="partner"><div class="logo"><img src="img/logos/carlsberg.png" alt="Carlsberg" loading="lazy"></div><h3>Carlsberg</h3><p>Поддержка инициатив по сохранению воды, биоразнообразия и вовлечению сообществ.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/oersc.png" alt="Логотип организации" loading="lazy" width="189" height="142"></div><h3>Организация по экологическим исследованиям и сохранению видов</h3><p>Грузия. Разрабатывает план сохранения озера и климатической адаптации, участвует во всех этапах.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/urban.png" alt="Urban Forum Kazakhstan" loading="lazy" width="261" height="139"></div><h3>Urban Forum Kazakhstan</h3><p>Независимая площадка для диалога горожан, власти и бизнеса. Связывает жителей Карасу с акиматом.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/ggf.png" alt="Global Greengrants Fund" loading="lazy" width="186" height="186"></div><h3>Global Greengrants Fund</h3><p>Международный фонд поддержки местных экологических инициатив. Финансирование и экспертиза.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/iie.png" alt="Institute of International Education" loading="lazy" width="116" height="116"></div><h3>Institute of International Education</h3><p>Глобальная организация в сфере международного образования. Финансирование и участие в проекте.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/bc.png" alt="British Council" loading="lazy" width="1000" height="286"></div><h3>British Council</h3><p>Грант программы Smart City Almaty, финансируемой Еврокомиссией, на городские инициативы сообществ.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/soros.png" alt="CAPS Unlock" loading="lazy" width="225" height="225"></div><h3>Фонд Сорос-Казахстан (CAPS Unlock)</h3><p>Грант программы «Лучший социальный проект в нецентральных районах Алматы».</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/obi.png" alt="OBI" loading="lazy" width="348" height="145"></div><h3>OBI</h3><p>Строительные материалы для благоустройства и экологических работ у озера.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/jti.png" alt="JTI" loading="lazy" width="1000" height="750"></div><h3>JTI</h3><p>Поддержка развития сообщества и зелёных пространств в рамках программ корпоративной ответственности.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/carlsberg.png" alt="Carlsberg" loading="lazy" width="1000" height="562"></div><h3>Carlsberg</h3><p>Поддержка инициатив по сохранению воды, биоразнообразия и вовлечению сообществ.</p></div>
     </div>
   </div>
 </section>
@@ -456,7 +474,7 @@ footer a{color:#cfe3df}
     <form id="zayavka">
       <h3>Написать нам</h3>
       <label>Имя<input required name="name" autocomplete="name"></label>
-      <label>Email<input required name="email" type="email" autocomplete="email"></label>
+      <label>Email<input required name="email" type="email" autocomplete="email" spellcheck="false"></label>
       <label>Телефон<input name="phone" type="tel" autocomplete="tel"></label>
       <label>Тема<select name="topic"><option>Хочу стать волонтёром</option><option>Хочу стать партнёром</option><option>Вопрос о проекте</option></select></label>
       <label>Сообщение<textarea name="message"></textarea></label>
