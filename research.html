@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Исследования — ЭФРА</title>
+<meta name="description" content="Исследования Экологического Фонда Развития Алматы: метан угольных шахт Казахстана и программа общественного мониторинга «Живые водоёмы Алматы».">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#123b5a; --teal:#0097b2; --teal-ink:#00708a; --cyan:#17c1df; --sky:#78dcf1; --pale:#d9f5fd; --mist:#eef9fd; --sand:#fed38e;
+  --ink:#0f2a3d; --muted:#4e6a7c; --line:#cfe4ec; --paper:#fff;
+  --c1:#0091ad; --c2:#c27c12; --c3:#6b5fd3; --c4:#c04a76;
+  --max:1200px; --r:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;accent-color:var(--teal);scrollbar-color:var(--teal) var(--mist)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:"Golos Text",system-ui,sans-serif;font-size:17px;line-height:1.62;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-underline-offset:4px}
+::selection{background:var(--sky);color:var(--navy)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:4px}
+[id]{scroll-margin-top:90px}
+h1,h2,h3{font-family:Unbounded,sans-serif;font-weight:600;line-height:1.15;letter-spacing:-.015em;color:var(--navy);text-wrap:balance}
+h2{font-size:clamp(28px,3.4vw,42px);margin-bottom:18px}
+h3{font-size:20px;margin-bottom:10px}
+p{max-width:66ch;text-wrap:pretty}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.lead{font-size:19px;color:var(--muted)}
+section{padding:100px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 24px;border-radius:999px;font-weight:600;font-size:15.5px;text-decoration:none;border:0;cursor:pointer;font-family:inherit;touch-action:manipulation;transition:background-color .2s,color .2s}
+.btn-navy{background:var(--navy);color:#fff}.btn-navy:hover{background:#1b5480}
+.btn-cyan{background:var(--cyan);color:var(--navy)}.btn-cyan:hover{background:var(--sky)}
+.btn-line{border:1.5px solid currentColor;background:transparent;color:var(--navy)}.btn-line:hover{background:var(--navy);color:#fff}
+.skip{position:absolute;left:16px;top:-60px;z-index:200;background:var(--navy);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}.skip:focus{top:12px}
+
+/* header */
+.top{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand img{width:38px}
+.brand b{font-family:Unbounded;font-weight:700;font-size:18px;color:var(--navy)}
+.subnav{display:flex;gap:24px;font-weight:500;font-size:15px}
+.subnav a{text-decoration:none;white-space:nowrap}
+.subnav a:hover{color:var(--teal-ink);text-decoration:underline;text-decoration-color:var(--cyan);text-decoration-thickness:2px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--pale) 0%,#fff 100%);padding:80px 0 90px}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 70 C 240 20 480 20 720 60 S 1200 110 1440 50 L1440 120 L0 120Z' fill='%2378dcf1' opacity='.35'/%3E%3Cpath d='M0 90 C 300 50 560 60 820 90 S 1260 120 1440 80 L1440 120 L0 120Z' fill='%23ffffff'/%3E%3C/svg%3E") bottom/100% 100% no-repeat;pointer-events:none}
+.hero h1{font-size:clamp(38px,5.6vw,70px);font-weight:700;letter-spacing:-.025em;line-height:1.04;max-width:13ch;margin-bottom:22px}
+.hero .lead{max-width:52ch;margin-bottom:44px}
+.tracks{display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;z-index:1}
+.track{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:#fff;border-radius:20px;padding:22px;text-decoration:none;box-shadow:0 18px 40px -26px rgba(18,59,90,.45);transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.track:hover{transform:translateY(-4px)}
+.track img{width:92px;height:118px;object-fit:cover;border-radius:10px}
+.track .ill{width:92px;height:118px;object-fit:contain}
+.track b{display:block;font-family:Unbounded;font-weight:600;font-size:17px;color:var(--navy);line-height:1.25;margin-bottom:6px}
+.track span{font-size:14.5px;color:var(--muted)}
+
+/* paper */
+.paper{display:grid;grid-template-columns:240px 1fr;gap:44px;align-items:center;padding:36px;border-radius:22px;background:var(--navy);color:#d3eaf5}
+.paper-cover{display:block;border-radius:10px;overflow:hidden;box-shadow:0 24px 40px -18px rgba(0,0,0,.6);transform:rotate(-2deg);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.paper-cover:hover{transform:rotate(0) translateY(-4px)}
+.journal{font-size:14px;color:#a9cde0;margin-bottom:10px}
+.paper h3{font-size:clamp(22px,2.4vw,30px);color:#fff;line-height:1.2}
+.paper-ru{font-size:17px;color:#d3eaf5;margin:6px 0 16px}
+.authors{font-weight:600;color:#fff;margin-bottom:22px}
+.authors span{display:block;font-weight:400;color:#a9cde0;font-size:14.5px}
+.paper-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.paper .btn-line{color:#fff;border-color:rgba(255,255,255,.5)}.paper .btn-line:hover{background:#fff;color:var(--navy)}
+.doi{font-size:13.5px;color:#a9cde0;word-break:break-all}.doi a{color:#d3eaf5}
+.doi span{margin-left:12px;color:var(--sky);font-weight:600}
+
+/* findings */
+.findings{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border-top:2px solid var(--navy)}
+.findings li{list-style:none;padding:24px 24px 0 0}
+.findings li+li{padding-left:24px;border-left:1px solid var(--line)}
+.findings b{display:block;font-family:Unbounded;font-weight:600;font-size:clamp(24px,2.6vw,34px);color:var(--navy);font-variant-numeric:tabular-nums;line-height:1.1;margin-bottom:8px}
+.findings span{font-size:15px;color:var(--muted)}
+
+/* chapters */
+.chapter{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:start;margin-top:110px}
+.chapter-text p{color:var(--muted)}
+.chapter-text p+p{margin-top:14px}
+.chapter-text b{color:var(--navy)}
+.chapter-text ul{margin-top:14px;padding-left:0;list-style:none}
+.chapter-text li{padding:10px 0 10px 26px;border-top:1px solid var(--line);color:var(--muted);position:relative}
+.chapter-text li::before{content:"";position:absolute;left:4px;top:19px;width:9px;height:9px;border-radius:50%;background:var(--cyan)}
+.num{font-family:Unbounded;font-weight:600;color:var(--teal-ink);font-size:15px;display:block;margin-bottom:10px}
+.wide{margin-top:110px}
+
+/* chart cards */
+.chart{background:var(--mist);border-radius:18px;padding:22px 22px 16px;position:relative}
+.chart figcaption b{display:block;font-family:Unbounded;font-weight:600;font-size:15.5px;color:var(--navy)}
+.chart figcaption span{font-size:13.5px;color:var(--muted)}
+.chart svg{display:block;width:100%;height:auto;overflow:visible;margin-top:12px;font-family:"Golos Text",sans-serif}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13.5px;margin-top:10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+.legend .ln{width:18px;height:3px;border-radius:2px;vertical-align:3px}
+.src{font-size:12.5px;color:var(--muted);margin-top:10px}
+.tip{position:absolute;pointer-events:none;background:var(--navy);color:#fff;font-size:13px;line-height:1.45;padding:8px 11px;border-radius:9px;white-space:nowrap;opacity:0;transform:translate(-50%,-110%);transition:opacity .12s;z-index:5;font-variant-numeric:tabular-nums}
+.tip b{font-weight:700}
+.g-grid line{stroke:#cfe0e8}
+.g-zero{stroke:var(--navy);stroke-width:1.4}
+.g-tick{font-size:12px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.g-lbl{font-size:12.5px;fill:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+
+/* method flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px;counter-reset:s}
+.flow div{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 16px;position:relative}
+.flow div::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font-family:Unbounded;font-weight:600;font-size:13px;margin-bottom:12px}
+.flow b{display:block;font-weight:700;color:var(--navy);margin-bottom:6px}
+.flow p{font-size:14px;color:var(--muted);line-height:1.5}
+.persp{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.persp div{background:var(--navy);color:#d3eaf5;border-radius:14px;padding:18px 16px;font-size:14px;line-height:1.5}
+.persp b{display:block;color:#fff;font-family:Unbounded;font-weight:600;font-size:14.5px;margin-bottom:6px}
+
+/* heatmap */
+.heat{width:100%;border-collapse:separate;border-spacing:3px;font-variant-numeric:tabular-nums;margin-top:12px;font-size:13.5px}
+.heat th{font-weight:600;color:var(--muted);font-size:12.5px;padding:4px}
+.heat td{text-align:center;padding:9px 2px;border-radius:6px;font-weight:600;color:var(--ink)}
+.heat td.be{outline:2.5px solid var(--navy);outline-offset:-2.5px}
+.heat caption{caption-side:bottom;text-align:left;font-size:12.5px;color:var(--muted);padding-top:8px}
+.scale{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--muted);margin-top:8px}
+.scale div{flex:1;height:10px;border-radius:99px;background:linear-gradient(90deg,#c27c12,#f2f4f5 50%,#0091ad)}
+
+/* recommendations */
+.recs{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
+.rec{border-radius:16px;padding:24px;background:var(--mist)}
+.rec b{display:block;font-family:Unbounded;font-weight:600;font-size:16px;color:var(--navy);margin-bottom:8px}
+.rec p{font-size:15.5px;color:var(--muted)}
+.compare{margin-top:28px;border-top:1px solid var(--line)}
+.compare div{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px;font-variant-numeric:tabular-nums}
+.compare div:first-child{color:var(--muted);font-size:13.5px;font-weight:600}
+
+/* programme */
+.prog{background:linear-gradient(180deg,var(--pale),#fff 70%);position:relative;overflow:hidden}
+.prog-head{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}
+.prog-head .mascot{width:150px;filter:drop-shadow(0 18px 18px rgba(18,59,90,.22));animation:bob 5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-2deg)}}
+.slogans{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+.slogans span{background:#fff;border:1.5px solid var(--sky);color:var(--navy);font-weight:600;padding:8px 16px;border-radius:999px;font-size:15px}
+.prog-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;margin-top:72px}
+.prog-grid img.lake{width:100%;max-width:460px;margin:0 auto;filter:drop-shadow(0 30px 40px rgba(18,59,90,.25))}
+.quote{font-family:Unbounded;font-weight:500;font-size:clamp(20px,2.2vw,26px);line-height:1.3;color:var(--navy);margin-top:18px}
+.timeline{margin-top:72px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tstep{background:#fff;border-radius:16px;padding:24px;border-top:5px solid var(--sky);box-shadow:0 18px 40px -30px rgba(18,59,90,.5)}
+.tstep.now{border-top-color:var(--teal)}
+.tstep .yr{font-family:Unbounded;font-weight:600;color:var(--teal-ink);font-size:16px}
+.tstep h3{font-size:17px;margin:8px 0 10px}
+.tstep p{font-size:15px;color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+.step{background:var(--teal);color:#fff;border-radius:16px;padding:22px 18px}
+.step:nth-child(2){background:#0a86a0}.step:nth-child(3){background:#0d6f8c}.step:nth-child(4){background:var(--navy)}
+.step small{font-family:Unbounded;font-weight:600;font-size:13px;opacity:.85}
+.step b{display:block;font-family:Unbounded;font-weight:600;font-size:16px;margin:6px 0 8px}
+.step p{font-size:14.5px;line-height:1.5;color:#e6f6fb}
+.esg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.esg div{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;font-size:14.5px;color:var(--muted)}
+.esg b{font-family:Unbounded;font-size:22px;color:var(--teal-ink);margin-right:8px;vertical-align:-2px}
+.prio{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:20px;border-top:2px solid var(--navy)}
+.prio div{padding:20px 20px 0 0}.prio div+div{padding-left:20px;border-left:1px solid var(--line)}
+.prio b{display:block;font-family:Unbounded;color:var(--navy);font-size:15px;margin-bottom:6px}
+.prio p{font-size:15px;color:var(--muted)}
+.sdg{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.sdg img{width:76px;height:76px;border-radius:6px}
+.partners-row{display:flex;flex-wrap:wrap;align-items:center;gap:28px;margin-top:16px}
+.partners-row img{height:62px;width:auto}
+.cta{margin-top:80px;background:var(--navy);color:#d3eaf5;border-radius:24px;padding:40px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.cta h2{color:#fff;font-size:clamp(24px,2.8vw,34px)}
+.cta p{color:#a9cde0}
+.cta ul{list-style:none;display:grid;gap:8px;font-size:16px}
+.cta a{color:#fff;text-decoration:none;font-weight:600}.cta a:hover{color:var(--sky)}
+.cta .mascot2{position:absolute;right:-10px;bottom:-24px;width:120px;opacity:.95}
+footer{background:#0b2a40;color:#8fb5cc;font-size:14px;padding:30px 0}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:#d3eaf5}
+
+@media (max-width:1060px){
+  .subnav{display:none}
+  .tracks,.chapter,.paper,.prog-grid,.cta{grid-template-columns:1fr;gap:32px}
+  .paper-cover{max-width:200px}
+  .findings{grid-template-columns:1fr 1fr}
+  .findings li:nth-child(3){padding-left:0;border-left:0}
+  .flow,.steps{grid-template-columns:1fr 1fr}
+  .timeline{grid-template-columns:1fr}
+  .cta .mascot2{display:none}
+}
+@media (max-width:680px){
+  body{font-size:16px}.wrap{padding:0 16px}section{padding:72px 0}
+  .nav .btn{padding:10px 14px;font-size:14px}
+  .nav{height:64px}
+  .hero{padding:48px 0 80px}
+  .track{grid-template-columns:72px 1fr;gap:14px;padding:16px}
+  .track img,.track .ill{width:72px;height:92px}
+  .findings,.flow,.persp,.recs,.steps,.esg,.prio{grid-template-columns:1fr}
+  .findings li,.findings li+li{padding:18px 0 0;border-left:0}
+  .prio div,.prio div+div{padding:16px 0 0;border-left:0}
+  .prog-head{grid-template-columns:1fr}.prog-head .mascot{width:110px}
+  .paper{padding:22px}.paper-actions .btn{width:100%}
+  .chapter,.wide{margin-top:72px}
+  .heat{font-size:11.5px;border-spacing:2px}.heat td{padding:7px 1px}
+  .compare div{grid-template-columns:1fr 1fr 1fr;font-size:13.5px}
+  .cta{padding:26px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти к содержанию</a>
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="ЭФРА — на главную"><img src="img/mark.png" alt="" width="200" height="184"><b>ЭФРА</b></a>
+    <nav class="subnav" aria-label="Разделы исследований">
+      <a href="#methane">Метан угольных шахт</a>
+      <a href="#results">Результаты</a>
+      <a href="#waters">Живые водоёмы Алматы</a>
+      <a href="index.html">На главную</a>
+    </nav>
+    <a class="btn btn-navy" href="#partner">Стать партнёром</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero">
+  <div class="wrap">
+    <h1>Исследования фонда</h1>
+    <p class="lead">Мы проверяем экологические решения цифрами и выносим их на общее обсуждение: от экономики улавливания шахтного метана до системы, в которой жители сами следят за состоянием городских водоёмов.</p>
+    <div class="tracks">
+      <a class="track" href="#methane"><img src="img/research/cmm-p1-01.jpg" alt="" width="910" height="1287"><div><b>Метан угольных шахт в Казахстане</b><span>Научная статья, 2024. Экономика проекта, который может спасать жизни горняков и сокращать выбросы.</span></div></a>
+      <a class="track" href="#waters"><img class="ill" src="img/program/uirek.png" alt="" width="262" height="480"><div><b>Живые водоёмы Алматы</b><span>Программа общественного мониторинга с Gorozhanym, 2026. Пилот — озеро Карасу.</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section id="methane" style="padding-top:40px">
+  <div class="wrap">
+    <article class="paper">
+      <a class="paper-cover" href="https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng" target="_blank" rel="noopener"><img src="img/research/cmm-p1-01.jpg" alt="Первая страница статьи" width="910" height="1287"></a>
+      <div>
+        <p class="journal">Central Asian Journal of Sustainability and Climate Research, 2024, т. 3, № 1, с. 96–125. Опубликовано 31 июля 2024.</p>
+        <h3 lang="en">Coal mine methane in Kazakhstan: economic and environmental case study</h3>
+        <p class="paper-ru">Метан угольных шахт в Казахстане: экономический и экологический анализ</p>
+        <p class="authors">Сергей Васильев, Галым Искаков<span>ОФ «Экологический Фонд Развития Алматы»</span></p>
+        <div class="paper-actions">
+          <a class="btn btn-cyan" href="https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng" target="_blank" rel="noopener">Открыть по DOI</a>
+          <a class="btn btn-line" href="https://ks.dku.kz/documents/183/Coal-Mine-Methane-in-Kazakhstan-Economic-and-Environmental-Case-Study-_A-Y1.pdf" target="_blank" rel="noopener">Скачать PDF</a>
+          <button class="btn btn-line" type="button" id="cite-btn">Скопировать цитату</button>
+        </div>
+        <p class="doi">DOI: <a href="https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng" target="_blank" rel="noopener">10.29258/CAJSCR/2024-R1.v3-1/96-125.eng</a><span id="cite-status" aria-live="polite"></span></p>
+      </div>
+    </article>
+
+    <ul class="findings" aria-label="Главные выводы">
+      <li><b>$243 млн</b><span>чистая приведённая стоимость проекта для общества при доходности 42%</span></li>
+      <li><b>4,1×</b><span>выгоды для страны превышают затраты</span></li>
+      <li><b>1,8 млн т</b><span>CO₂-эквивалента в год — столько выбросов предотвращает проект</span></li>
+      <li><b>¢4,3</b><span>за кВт·ч — тариф, при котором проект окупается для бизнеса без квот</span></li>
+    </ul>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">01 Контекст</span>
+        <h3>Цена метана — жизни горняков</h3>
+        <p>С 2004 по 2023 год на шахтах ArcelorMittal Temirtau в Карагандинской области при взрывах погиб <b>161 человек</b>. Самая тяжёлая авария последних лет — шахта им. Костенко в октябре 2023 года, 46 погибших. После неё компания сменила владельца и стала называться Qarmet.</p>
+        <p>Метан ещё и мощный парниковый газ: за 20 лет он нагревает атмосферу в 84–87 раз сильнее CO₂. На COP28 Казахстан пообещал сократить выбросы метана на 30% к 2030 году, а к 2060 году — выйти на углеродную нейтральность. Запасы угольного метана в стране оцениваются в 2,0–4,3 трлн м³, и почти все они не используются.</p>
+      </div>
+      <figure class="chart" id="ch-acc">
+        <figcaption><b>Погибшие при взрывах на шахтах AMT / Qarmet</b><span>человек, по шахтам и годам, 2004–2023</span></figcaption>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица I статьи, по данным Tengrinews.</p>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">02 Проект</span>
+        <h3>40 мегаватт из шахтного газа</h3>
+        <p>В 2013 году Агентство по охране окружающей среды США подготовило предварительное ТЭО: улавливать метан на шести шахтах и сжигать его в небольших газопоршневых электростанциях по 2–3 на шахту, соединённых одним газопроводом. Проект так и не был реализован.</p>
+        <ul>
+          <li>Мощность 40 МВт в две очереди: 19 и 21 МВт</li>
+          <li>Выработка около 298 млн кВт·ч в год, срок службы 30 лет</li>
+          <li>Потребление метана — более 226 млн м³ в год</li>
+          <li>Затраты: $54 млн в ценах 2013 года, $72 млн в ценах 2024 года</li>
+        </ul>
+      </div>
+      <figure class="chart" id="ch-cap">
+        <figcaption><b>Установленная мощность по шахтам</b><span>МВт, первая и вторая очередь</span></figcaption>
+        <div class="legend"><span><i style="background:var(--c1)"></i>1-я очередь, 19 МВт</span><span><i style="background:var(--c2)"></i>2-я очередь, 21 МВт</span></div>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица II статьи (US EPA, 2013).</p>
+      </figure>
+    </div>
+
+    <div class="wide">
+      <span class="num">03 Метод</span>
+      <h3>Как мы считали</h3>
+      <p style="color:var(--muted);margin-bottom:20px">Анализ «затраты — выгоды» по методу дисконтированных денежных потоков. Мы собрали публичные данные, мнения экспертов энергетики и финансов, побывали на пилотной метановой электростанции шахты им. Ленина и на крупной станции в Донкастере (Великобритания).</p>
+      <div class="flow">
+        <div><b>Сбор данных</b><p>Технические, экологические и экономические данные, местный контекст.</p></div>
+        <div><b>Оценка</b><p>Частные и общественные выгоды, капитальные и операционные затраты. Рыночные и теневые цены, стоимость статистической жизни.</p></div>
+        <div><b>Дисконтирование</b><p>Частная ставка (WACC 9,5%) и общественная ставка временного предпочтения (9,2%).</p></div>
+        <div><b>Результаты</b><p>Чистая приведённая стоимость, сценарии и анализ чувствительности.</p></div>
+      </div>
+      <div class="persp">
+        <div><b>Инвестор в электростанцию</b>Доход от продажи электроэнергии и углеродных квот.</div>
+        <div><b>Владелец шахт</b>Рост производительности, меньше компенсаций за аварии и экологических платежей.</div>
+        <div><b>Общество</b>Спасённые жизни, здоровье, урожай и меньше парниковых газов.</div>
+      </div>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">04 Выгоды</span>
+        <h3>Сколько стоит одна непотерянная жизнь</h3>
+        <p>Для оценки спасённых жизней мы рассчитали стоимость статистической жизни для работников Qarmet: <b>от $1,6 до $4,8 млн</b>. В модели взята нижняя граница. Компенсация семье одного погибшего горняка обходится компании минимум в <b>$300 тыс.</b></p>
+        <p>Каждая тонна неулетевшего метана экономит обществу около <b>$100</b>: метан образует приземный озон, который губит посевы и вредит здоровью. А вот налог на выбросы метана в Казахстане сейчас символический — проект сэкономил бы на нём всего около $10 тыс. в год.</p>
+      </div>
+      <figure class="chart" id="ch-ben">
+        <figcaption><b>Выгода от сокращения выбросов</b><span>долларов США на тонну метана, 2023</span></figcaption>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица V статьи. Итого $99,9 на тонну.</p>
+      </figure>
+    </div>
+
+    <div class="chapter" id="results">
+      <div class="chapter-text">
+        <span class="num">05 Результаты</span>
+        <h3>Обществу выгодно, бизнесу — только с квотами</h3>
+        <p>Для страны проект однозначно оправдан: <b>$243 млн</b> чистой приведённой стоимости и 42% доходности. Даже если обнулить цену углерода и выгоду от снижения озона, общественная стоимость остаётся положительной — от $48 млн.</p>
+        <p>Для бизнеса без продажи углеродных квот проект убыточен: −$27,7 млн. С квотами он выходит на +$15,6 млн и 12% доходности, но лишь при условии, что владелец шахт сам участвует в проекте. Отдельному инвестору выгода близка к нулю.</p>
+      </div>
+      <figure class="chart" id="ch-npv">
+        <figcaption><b>Чистая приведённая стоимость для бизнеса</b><span>млн долларов США, ставка 9,5%</span></figcaption>
+        <div class="legend"><span><i style="background:var(--c2)"></i>Без углеродных квот</span><span><i style="background:var(--c1)"></i>С продажей квот</span></div>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица VI статьи.</p>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">06 Чувствительность</span>
+        <h3>Тариф важнее стоимости стройки</h3>
+        <p>Мы проверили, как меняется результат для Qarmet без квот при разных затратах и тарифах. Рост затрат на 10% снижает стоимость проекта на 25%. А рост тарифа на 17% — с ¢3,0 до ¢3,5 за кВт·ч — улучшает её на 51%.</p>
+        <p>Проект выходит в плюс при тарифе выше <b>¢4,3 за кВт·ч</b> — это средняя цена аукционов ВИЭ 2023 года — и затратах от $54 до $79 млн. Обведённые ячейки — граница безубыточности.</p>
+      </div>
+      <figure class="chart" id="ch-heat">
+        <figcaption><b>NPV для Qarmet без квот</b><span>млн $, тариф × капитальные затраты</span></figcaption>
+        <div class="plot"></div>
+        <div class="scale"><span>убыток</span><div></div><span>прибыль</span></div>
+        <p class="src">Источник: таблица VIII статьи.</p>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">07 Финансирование</span>
+        <h3>Зелёные облигации закрывают разрывы</h3>
+        <p>Мы смоделировали четыре сценария, где Qarmet — единственный инвестор. Кредиты на 7 лет под 7,3% создают провалы в денежном потоке. Зелёные облигации с погашением в конце срока убирают эту нагрузку — сценарии 3 и 4 остаются в плюсе с первых лет.</p>
+      </div>
+      <figure class="chart" id="ch-cash">
+        <figcaption><b>Накопленный денежный поток</b><span>млн $, на конец года, годы проекта 0–14</span></figcaption>
+        <div class="legend">
+          <span><i class="ln" style="background:var(--c2)"></i>1. Без квот, кредиты</span>
+          <span><i class="ln" style="background:var(--c3)"></i>2. С квотами, кредиты</span>
+          <span><i class="ln" style="background:var(--c1)"></i>3. С квотами, зелёные облигации</span>
+          <span><i class="ln" style="background:var(--c4)"></i>4. Без квот, тариф ¢4,3</span>
+        </div>
+        <div class="plot"></div>
+        <p class="src">Перерисовано по рисунку 3 статьи, значения приблизительные.</p>
+      </figure>
+    </div>
+
+    <div class="wide">
+      <span class="num">08 Рекомендации</span>
+      <h3>Что нужно, чтобы проект состоялся</h3>
+      <div class="recs">
+        <div class="rec"><b>Участие владельца шахт</b><p>Qarmet должен стать и инвестором, и девелопером — или передать все выгоды проекта сторонним инвесторам.</p></div>
+        <div class="rec"><b>Работающие рынки</b><p>Местный рынок углеродных квот или допуск электростанций на шахтном метане к аукционам ВИЭ, как у биогазовых станций.</p></div>
+        <div class="rec"><b>Стабильные тарифы</b><p>Гарантированная цена на электроэнергию из метана и другие государственные стимулы.</p></div>
+        <div class="rec"><b>Зелёные облигации</b><p>Лучший способ долгового финансирования: нет регулярных выплат, нет кассовых разрывов.</p></div>
+      </div>
+      <div class="compare" aria-label="Сравнение с похожими проектами">
+        <div><span>Похожие проекты</span><span>Доходность</span><span>Окупаемость</span></div>
+        <div><span>Шахты Индии</span><span>20–28%</span><span>—</span></div>
+        <div><span>Кузбасс, Россия</span><span>—</span><span>5,2 года</span></div>
+        <div><span><b>Qarmet, Казахстан</b></span><span><b>12%</b></span><span><b>10 лет</b></span></div>
+      </div>
+      <p class="src">Разница объясняется более низкими тарифами на жёстко регулируемом энергорынке Казахстана.</p>
+    </div>
+  </div>
+</section>
+
+<section class="prog" id="waters">
+  <div class="wrap">
+    <div class="prog-head">
+      <div>
+        <h2>Живые водоёмы Алматы</h2>
+        <p class="lead">Программа общественного мониторинга городских водоёмов, которую мы развиваем вместе с городским сообществом Gorozhanym.</p>
+        <div class="slogans"><span>Жители замечают</span><span>Эксперты проверяют</span><span>Вместе ищем решения</span></div>
+      </div>
+      <img class="mascot" src="img/program/uirek.png" alt="Маскот программы — утёнок Үйрек" width="262" height="480">
+    </div>
+
+    <div class="prog-grid">
+      <img class="lake" src="img/program/lake-round.png" alt="Озеро Карасу" width="800" height="800" loading="lazy">
+      <div class="chapter-text">
+        <h3>Городской водоём — это социоэкосистема</h3>
+        <p>Природа и люди вокруг водоёма связаны и влияют друг на друга. Благоустройство и уход должны учитывать эту связь, не нарушая равновесия и права жителей на свой город.</p>
+        <p class="quote">Озеро Карасу — пилот. Его методику и опыт можно перенести на другие водоёмы Алматы.</p>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tstep"><span class="yr">2017–2023</span><h3>Вовлекли город в разговор о водоёмах</h3><p>Работа с озером Карасу привлекла внимание акимата. Общественный совет и жители обсуждали проблемы озера, прошли благоустройство берега и очистка.</p></div>
+      <div class="tstep"><span class="yr">2023–2025</span><h3>Мастер-план и пилотные решения</h3><p>Концепция мастер-плана Карасу, лабораторный анализ воды и внесение хлореллы. Опыт устойчивой работы с местными сообществами.</p></div>
+      <div class="tstep now"><span class="yr">2026 — сейчас</span><h3>Система мониторинга и совместного управления</h3><p>Положение о социоэкосистемном мониторинге и четыре чек-листа для городских сообществ. Визуальный язык программы и маскот Үйрек.</p></div>
+    </div>
+
+    <div class="wide" style="margin-top:80px">
+      <h3>От наблюдений к общим решениям</h3>
+      <p style="color:var(--muted)">Система соединяет местные знания, проверку специалистов и участие жителей в управлении водоёмами.</p>
+      <div class="steps">
+        <div class="step"><small>Шаг 1</small><b>Местная ячейка</b><p>У каждого водоёма — группа жителей и партнёров.</p></div>
+        <div class="step"><small>Шаг 2</small><b>Наблюдения</b><p>Фиксируем изменения воды, берегов, флоры, фауны и использования территории.</p></div>
+        <div class="step"><small>Шаг 3</small><b>Экспертная оценка</b><p>Специалисты проверяют данные и готовят рекомендации.</p></div>
+        <div class="step"><small>Шаг 4</small><b>Мастер-план</b><p>Сообщество обсуждает и реализует решения по развитию и сохранению водоёма.</p></div>
+      </div>
+      <div class="esg">
+        <div><b>E</b>сохранение водных экосистем и биоразнообразия</div>
+        <div><b>S</b>участие жителей и экологическое просвещение</div>
+        <div><b>G</b>проверка данных и диалог об ответственности за водоёмы</div>
+      </div>
+    </div>
+
+    <div class="wide" style="margin-top:80px">
+      <h3>Приоритеты на 2027 год</h3>
+      <div class="prio">
+        <div><b>Испытать методику</b><p>Проверить методику и формы наблюдений на озере Карасу.</p></div>
+        <div><b>Цифровой сбор данных</b><p>Развить сбор наблюдений на efra.kz и <a href="https://uirek.asia" target="_blank" rel="noopener">uirek.asia</a>.</p></div>
+        <div><b>Партнёрства</b><p>Укрепить связи с жителями, экспертами и городом.</p></div>
+      </div>
+      <h3 style="margin-top:56px;font-size:17px">Вклад в Цели устойчивого развития ООН</h3>
+      <div class="sdg">
+        <img src="img/program/sdg6.png" alt="ЦУР 6: чистая вода и санитария" width="180" height="180" loading="lazy">
+        <img src="img/program/sdg11.png" alt="ЦУР 11: устойчивые города и сообщества" width="180" height="180" loading="lazy">
+        <img src="img/program/sdg13.png" alt="ЦУР 13: борьба с изменением климата" width="180" height="180" loading="lazy">
+        <img src="img/program/sdg14.png" alt="ЦУР 14: сохранение водных экосистем" width="180" height="180" loading="lazy">
+        <img src="img/program/sdg15.png" alt="ЦУР 15: сохранение экосистем суши" width="180" height="180" loading="lazy">
+        <img src="img/program/sdg17.png" alt="ЦУР 17: партнёрство в интересах устойчивого развития" width="180" height="180" loading="lazy">
+      </div>
+      <h3 style="margin-top:44px;font-size:17px">Партнёры программы</h3>
+      <div class="partners-row">
+        <img src="img/program/gorozhanym.png" alt="Gorozhanym" width="236" height="284" loading="lazy">
+        <img src="img/program/ramsar.png" alt="Ramsar Heroes" width="566" height="280" loading="lazy">
+      </div>
+    </div>
+
+    <div class="cta" id="partner">
+      <div>
+        <h2>Ищем партнёров для следующего этапа</h2>
+        <p>Приглашаем к сотрудничеству в апробации методики, развитии цифрового мониторинга и работе с местными сообществами.</p>
+      </div>
+      <ul>
+        <li><a href="tel:+77077008258">+7 707 700 8258</a></li>
+        <li><a href="tel:+77019940463">+7 701 994 0463</a></li>
+        <li><a href="tel:+77772364298">+7 777 236 4298</a></li>
+        <li><a href="mailto:office@efra.kz">office@efra.kz</a></li>
+        <li><a href="mailto:gorozhanym@gmail.com">gorozhanym@gmail.com</a></li>
+      </ul>
+      <img class="mascot2" src="img/program/uirek.png" alt="" width="262" height="480" loading="lazy">
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2017–2026 ОФ «Экологический Фонд Развития Алматы»</span><a href="index.html">Вернуться на главную</a></div></footer>
+
+<script>
+const NS='http://www.w3.org/2000/svg';
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const C={c1:css('--c1'),c2:css('--c2'),c3:css('--c3'),c4:css('--c4'),navy:css('--navy')};
+const fmt=v=>(v<0?'−':'')+Math.abs(v).toLocaleString('ru-RU',{maximumFractionDigits:1});
+function el(t,a={},p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function svg(fig,w,h,label){const s=el('svg',{viewBox:`0 0 ${w} ${h}`,role:'img','aria-label':label});fig.querySelector('.plot').appendChild(s);return s}
+function tip(fig){let t=fig.querySelector('.tip');if(!t){t=document.createElement('div');t.className='tip';fig.appendChild(t)}return{show(html,x,y){t.innerHTML=html;t.style.left=x+'px';t.style.top=y+'px';t.style.opacity=1},hide(){t.style.opacity=0}}}
+function hover(fig,node,html){const T=tip(fig);const on=e=>{const fr=fig.getBoundingClientRect(),r=node.getBoundingClientRect();T.show(html,r.left-fr.left+r.width/2,r.top-fr.top)};node.addEventListener('mouseenter',on);node.addEventListener('mouseleave',T.hide);node.addEventListener('focus',on);node.addEventListener('blur',T.hide);node.setAttribute('tabindex','0')}
+function bar(p,x,y,w,h,fill,up=true){const r=Math.min(4,w/2,Math.abs(h)/2);if(Math.abs(h)<1){return el('rect',{x,y:y-1,width:w,height:2,rx:1,fill},p)}
+  const top=up?y:y+h;const d=up?`M${x} ${y+h}V${y+r}Q${x} ${y} ${x+r} ${y}H${x+w-r}Q${x+w} ${y} ${x+w} ${y+r}V${y+h}Z`:`M${x} ${y}V${y+h-r}Q${x} ${y+h} ${x+r} ${y+h}H${x+w-r}Q${x+w} ${y+h} ${x+w} ${y+h-r}V${y}Z`;return el('path',{d,fill},p)}
+
+// 1. accidents
+(()=>{const fig=document.getElementById('ch-acc');const D=[['Ленина','2004',23],['Ленина','2006',41],['Абайская','2008',30],['Тентекская','2008',5],['Тентекская','2009',3],['им. Кузембаева','2010',2],['Абайская','2021',6],['Казахстанская','2023',5],['им. Костенко','2023',46]];
+ const W=560,H=280,L=10,B=228,top=26,max=46,bw=44,gap=(W-L*2-bw*D.length)/(D.length-1);const s=svg(fig,W,H,'Погибшие по шахтам и годам');
+ const g=el('g',{class:'g-grid'},s);el('line',{x1:0,x2:W,y1:B,y2:B},g);
+ D.forEach(([m,y,v],i)=>{const x=L+i*(bw+gap),h=v/max*(B-top);const b=bar(s,x,B-h,bw,h,C.navy);hover(fig,b,`<b>${m}</b>, ${y}<br>${v} погибших`);
+  el('text',{x:x+bw/2,y:B-h-7,'text-anchor':'middle',class:'g-lbl'},s).textContent=v;
+  const t=el('text',{x:x+bw/2,y:B+17,'text-anchor':'middle',class:'g-tick'},s);t.textContent=y;
+  const t2=el('text',{x:x+bw/2,y:B+32,'text-anchor':'middle',class:'g-tick',style:'font-size:10.5px'},s);t2.textContent={'Ленина':'Ленина','Абайская':'Абайская','Тентекская':'Тентек.','им. Кузембаева':'Куземб.','Казахстанская':'Казах.','им. Костенко':'Костенко'}[m]||m});
+})();
+
+// 2. capacity stacked
+(()=>{const fig=document.getElementById('ch-cap');const D=[['Саранская',2,10],['Абайская',8,3],['им. Кузембаева',3,4],['им. Ленина',3,3],['Казахстанская',2,0],['Тентекская',1,1]];
+ const W=560,H=250,LW=128,max=12,top=6,rowH=38,bw=24;const s=svg(fig,W,H,'Мощность по шахтам');const sc=(W-LW-72)/max;
+ D.forEach(([m,a,b],i)=>{const y=top+i*rowH;el('text',{x:0,y:y+bw/2+5,class:'g-tick',style:'font-size:13px;fill:#0f2a3d'},s).textContent=m;
+  const r1=el('rect',{x:LW,y,width:Math.max(a*sc-1,0),height:bw,rx:4,fill:C.c1},s);hover(fig,r1,`<b>${m}</b><br>1-я очередь: ${a} МВт`);
+  if(b){const r2=el('rect',{x:LW+a*sc+1,y,width:b*sc-1,height:bw,rx:4,fill:C.c2},s);hover(fig,r2,`<b>${m}</b><br>2-я очередь: ${b} МВт`)}
+  el('text',{x:LW+(a+b)*sc+8,y:y+bw/2+5,class:'g-lbl'},s).textContent=(a+b)+' МВт'});
+})();
+
+// 3. benefits
+(()=>{const fig=document.getElementById('ch-ben');const D=[['Сельхозкультуры',65.4],['Леса',24.5],['Здоровье людей',9.9]];
+ const W=560,H=170,LW=150,max=70,bw=30,rowH=52;const s=svg(fig,W,H,'Выгода на тонну метана');const sc=(W-LW-70)/max;
+ D.forEach(([m,v],i)=>{const y=8+i*rowH;el('text',{x:0,y:y+bw/2+5,style:'font-size:13.5px;fill:#0f2a3d'},s).textContent=m;
+  const r=el('rect',{x:LW,y,width:v*sc,height:bw,rx:4,fill:C.c1},s);hover(fig,r,`<b>${m}</b><br>$${fmt(v)} за тонну`);
+  el('text',{x:LW+v*sc+8,y:y+bw/2+5,class:'g-lbl'},s).textContent='$'+fmt(v)});
+})();
+
+// 4. NPV grouped
+(()=>{const fig=document.getElementById('ch-npv');const D=[['Инвестор',-46.2,-0.2],['Владелец шахт',15.6,15.6],['Проект в целом',-27.7,15.6]];
+ const W=560,H=280,L=40,top=20,bot=230,lo=-50,hi=20;const y=v=>top+(hi-v)/(hi-lo)*(bot-top);const s=svg(fig,W,H,'NPV для бизнеса');
+ const g=el('g',{class:'g-grid'},s);[20,-25,-50].forEach(v=>{el('line',{x1:L,x2:W,y1:y(v),y2:y(v)},g);el('text',{x:L-6,y:y(v)+4,'text-anchor':'end',class:'g-tick'},s).textContent=fmt(v)});
+ el('text',{x:L-6,y:y(0)+4,'text-anchor':'end',class:'g-tick'},s).textContent='0';
+ const gw=(W-L)/3,bw=40;
+ D.forEach(([m,a,b],i)=>{const cx=L+gw*i+gw/2;[[a,C.c2,'без квот',-bw-2],[b,C.c1,'с квотами',2]].forEach(([v,c,k,dx])=>{const x=cx+dx,y0=y(0),h=Math.abs(y(v)-y0);
+   const node=v>=0?bar(s,x,y0-h,bw,h,c,true):bar(s,x,y0,bw,h,c,false);hover(fig,node,`<b>${m}</b>, ${k}<br>${fmt(v)} млн $`);
+   el('text',{x:x+bw/2,y:v>=0?y0-h-7:y0+h+16,'text-anchor':'middle',class:'g-lbl'},s).textContent=fmt(v)});
+  el('text',{x:cx,y:H-14,'text-anchor':'middle',class:'g-tick',style:'font-size:13px;fill:#0f2a3d'},s).textContent=m});
+ el('line',{x1:L,x2:W,y1:y(0),y2:y(0),class:'g-zero'},s);
+})();
+
+// 5. heatmap
+(()=>{const fig=document.getElementById('ch-heat');const capex=['54,0','57,6','64,8','72,0','79,2','86,4'],dev=['−25%','−20%','−10%','база','+10%','+20%'];
+ const R=[['3,00',[-11.0,-14.1,-20.8,-27.7,-34.7,-41.6]],['3,50',[1.6,-1.5,-7.7,-14.0,-20.2,-27.0]],['3,75',[8.0,4.9,-1.2,-7.4,-13.7,-20.0]],['4,00',[14.3,11.2,5.1,-1.0,-7.3,-13.5]],['4,30',[21.8,18.8,12.7,6.5,0.4,-5.8]],['4,50',[26.8,23.7,17.6,11.5,5.4,-0.7]]];
+ const mix=(a,b,t)=>'#'+[0,2,4].map(i=>Math.round(parseInt(a.substr(i+1,2),16)*(1-t)+parseInt(b.substr(i+1,2),16)*t).toString(16).padStart(2,'0')).join('');
+ const col=v=>v<0?mix('#f2f4f5','#c27c12',Math.min(1,-v/42)):mix('#f2f4f5','#0091ad',Math.min(1,v/27));
+ let h='<table class="heat"><thead><tr><th scope="col">Тариф, ¢/кВт·ч</th>'+capex.map((c,i)=>`<th scope="col">$${c} млн<br><span style="font-weight:400">${dev[i]}</span></th>`).join('')+'</tr></thead><tbody>';
+ R.forEach(([t,vals])=>{h+=`<tr><th scope="row">${t}</th>`+vals.map((v,j)=>{const be=(v>=0)&&((j+1<vals.length&&vals[j+1]<0)||j===vals.length-1&&false);const strong=Math.abs(v)>18;return `<td class="${be?'be':''}" style="background:${col(v)};${strong?'color:#fff':''}" title="Тариф ¢${t}, затраты $${capex[j]} млн: ${fmt(v)} млн $">${fmt(v)}</td>`}).join('')+'</tr>'});
+ h+='</tbody><caption>Обведены последние прибыльные ячейки в каждой строке — граница безубыточности.</caption></table>';fig.querySelector('.plot').innerHTML=h;
+})();
+
+// 6. cash flow lines
+(()=>{const fig=document.getElementById('ch-cash');const S=[
+ ['1. Без квот, кредиты',C.c2,[0,-5,-10,-15,-19,-22,-25,-27,-24,-21,-16,-11,-6,-1,4],'8 4'],
+ ['2. С квотами, кредиты',C.c3,[0,-4,-5,-4,-3,-1,2,5,13,21,30,40,50,60,69],'2 0'],
+ ['3. С квотами, зелёные облигации',C.c1,[0,1,4,11,18,25,33,9.5,19,15.5,25,35,45,55,64],''],
+ ['4. Без квот, тариф ¢4,3',C.c4,[0,0.5,3,9,15,21,27.5,3,11.5,7,16,25,34,42,50],'3 3']];
+ const W=560,H=280,L=36,R=12,top=12,bot=236,lo=-40,hi=80;const x=i=>L+i*(W-L-R)/14,y=v=>top+(hi-v)/(hi-lo)*(bot-top);
+ const s=svg(fig,W,H,'Накопленный денежный поток по сценариям');const g=el('g',{class:'g-grid'},s);
+ [-40,-20,20,40,60,80].forEach(v=>{el('line',{x1:L,x2:W-R,y1:y(v),y2:y(v)},g);el('text',{x:L-6,y:y(v)+4,'text-anchor':'end',class:'g-tick'},s).textContent=v});
+ el('text',{x:L-6,y:y(0)+4,'text-anchor':'end',class:'g-tick'},s).textContent='0';
+ el('line',{x1:L,x2:W-R,y1:y(0),y2:y(0),class:'g-zero'},s);
+ [0,2,4,6,8,10,12,14].forEach(i=>{el('text',{x:x(i),y:bot+18,'text-anchor':'middle',class:'g-tick'},s).textContent=i});
+ S.forEach(([n,c,v,dash])=>{el('path',{d:v.map((p,i)=>(i?'L':'M')+x(i)+' '+y(p)).join(' '),fill:'none',stroke:c,'stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round','stroke-dasharray':dash||'none'},s)});
+ const cross=el('line',{y1:top,y2:bot,stroke:'#123b5a','stroke-width':1,opacity:0},s);const dots=S.map(([,c])=>el('circle',{r:5,fill:c,stroke:'#fff','stroke-width':2,opacity:0},s));
+ const T=tip(fig);const hit=el('rect',{x:L,y:top,width:W-L-R,height:bot-top,fill:'transparent'},s);
+ const move=e=>{const r=s.getBoundingClientRect(),px=(e.clientX-r.left)/r.width*W;const i=Math.max(0,Math.min(14,Math.round((px-L)/((W-L-R)/14))));
+  cross.setAttribute('x1',x(i));cross.setAttribute('x2',x(i));cross.setAttribute('opacity',.35);
+  S.forEach(([,,v],k)=>{dots[k].setAttribute('cx',x(i));dots[k].setAttribute('cy',y(v[i]));dots[k].setAttribute('opacity',1)});
+  const fr=fig.getBoundingClientRect();T.show(`<b>Год ${i}</b><br>`+S.map(([n,c,v])=>`<span style="color:${c==C.c3?'#b9b2f2':c==C.c2?'#f0c27a':c==C.c4?'#f2a5c2':'#8fe0f0'}">●</span> ${n.split('.')[0]}: ${fmt(v[i])}`).join('<br>'),r.left-fr.left+x(i)/W*r.width,r.top-fr.top+20)};
+ hit.addEventListener('mousemove',move);hit.addEventListener('mouseleave',()=>{T.hide();cross.setAttribute('opacity',0);dots.forEach(d=>d.setAttribute('opacity',0))});
+})();
+
+// citation
+const cb=document.getElementById('cite-btn'),cs=document.getElementById('cite-status');
+cb.addEventListener('click',async()=>{const c='Vassilyev, S., & Iskakov, G. (2024). Coal mine methane in Kazakhstan: economic and environmental case study. Central Asian Journal of Sustainability and Climate Research, 3(1), 96–125. https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng';
+ try{await navigator.clipboard.writeText(c);cs.textContent='Цитата скопирована'}catch(_){cs.textContent=c}setTimeout(()=>{if(cs.textContent==='Цитата скопирована')cs.textContent=''},3000)});
+</script>
+</body>
+</html>
