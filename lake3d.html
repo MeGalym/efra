@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Озеро Карасу в 3D — ЭФРА</title>
-<meta name="description" content="Интерактивная 3D-модель озера Карасу: как озеро менялось с 2021 по 2030 год.">
+<meta name="description" content="Интерактивная 3D-модель озера Карасу по спутниковому снимку: как озеро менялось с 2021 года и каким его делает план сохранения к 2030 году.">
 <meta name="theme-color" content="#123b5a">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,7 +23,7 @@ body{font-family:"Golos Text",system-ui,sans-serif;color:var(--ink);-webkit-font
 .bar a{pointer-events:auto;display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--deep);font-weight:600;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);padding:10px 16px 10px 12px;border-radius:999px}
 .bar a img{width:26px;height:auto}
 .bar .hint{pointer-events:none;font-size:13.5px;color:var(--deep);background:rgba(255,255,255,.7);padding:8px 14px;border-radius:999px}
-.panel{position:fixed;left:24px;bottom:24px;width:min(420px,calc(100% - 48px));background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-radius:20px;padding:26px 26px 22px;z-index:5;box-shadow:0 20px 50px -20px rgba(18,59,90,.45)}
+.panel{position:fixed;left:24px;bottom:24px;width:min(430px,calc(100% - 48px));background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-radius:20px;padding:26px 26px 22px;z-index:5;box-shadow:0 20px 50px -20px rgba(18,59,90,.45)}
 .panel h1{font-family:Unbounded;font-weight:700;font-size:26px;line-height:1.1;letter-spacing:-.02em;color:var(--deep);margin-bottom:8px;text-wrap:balance}
 .panel>p{font-size:14.5px;color:var(--muted);margin-bottom:18px}
 .years{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:18px}
@@ -31,13 +31,16 @@ body{font-family:"Golos Text",system-ui,sans-serif;color:var(--ink);-webkit-font
 .years button:hover{background:var(--silt)}
 .years button[aria-pressed=true]{background:var(--deep);color:#fff}
 .state h2{font-family:Unbounded;font-weight:600;font-size:17px;color:var(--deep-2);margin-bottom:6px}
-.state p{font-size:15px;line-height:1.55;color:var(--ink);min-height:4.65em}
+.state p{font-size:15px;line-height:1.55;color:var(--ink);min-height:6.2em}
 .gauge{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:13.5px;color:var(--muted)}
 .gauge-track{flex:1;height:8px;border-radius:99px;background:var(--silt);overflow:hidden}
 .gauge-fill{height:100%;background:linear-gradient(90deg,#3aa6b9,var(--aqua));border-radius:99px;transition:width 1.6s cubic-bezier(.16,1,.3,1)}
 .gauge b{font-variant-numeric:tabular-nums;color:var(--deep);min-width:3.2em;text-align:right}
+.gauge.green .gauge-fill{background:linear-gradient(90deg,#6f9a3e,#9cc25a)}
 .note{font-size:12px;color:var(--muted);margin-top:14px}
+.note a{color:var(--deep-2)}
 .tag{position:fixed;left:0;top:0;z-index:4;pointer-events:none;font-size:13px;font-weight:600;color:#fff;background:rgba(18,59,90,.86);padding:6px 11px;border-radius:999px;white-space:nowrap;transform:translate(-50%,-140%);transition:opacity .3s}
+.tag.plan{background:rgba(70,110,40,.9)}
 .tag::after{content:"";position:absolute;left:50%;bottom:-5px;width:9px;height:9px;background:inherit;transform:translateX(-50%) rotate(45deg)}
 .loading{position:fixed;inset:0;display:grid;place-items:center;font-family:Unbounded;color:var(--deep);background:#d9f5fd;z-index:10;transition:opacity .6s}
 .loading.done{opacity:0;pointer-events:none}
@@ -48,6 +51,10 @@ body{font-family:"Golos Text",system-ui,sans-serif;color:var(--ink);-webkit-font
   .panel h1{font-size:20px}
   .panel>p{display:none}
   .state p{font-size:14px;min-height:0}
+  .gauge{margin-top:10px}
+  .gauge.green{display:none}
+  .note{display:none}
+  .tag{font-size:12px;padding:5px 9px}
 }
 </style>
 <script type="importmap">
@@ -65,7 +72,7 @@ body{font-family:"Golos Text",system-ui,sans-serif;color:var(--ink);-webkit-font
 
 <div class="panel">
   <h1>Озеро Карасу во времени</h1>
-  <p>Выберите год и посмотрите, как менялось озеро и его обитатели.</p>
+  <p>Выберите год и посмотрите, как менялось озеро и каким его делает план сохранения.</p>
   <div class="years" role="group" aria-label="Год">
     <button type="button" data-y="2021" aria-pressed="false">2021</button>
     <button type="button" data-y="2023" aria-pressed="false">2023</button>
@@ -77,12 +84,16 @@ body{font-family:"Golos Text",system-ui,sans-serif;color:var(--ink);-webkit-font
     <p id="st-text"></p>
   </div>
   <div class="gauge"><span>Уровень воды</span><div class="gauge-track"><div class="gauge-fill" id="gauge"></div></div><b id="gauge-v"></b></div>
-  <p class="note">Схематичная модель: форма озера и постройки показаны условно.</p>
+  <p class="note">Форма озера — по спутниковому снимку 2023 года из <a href="research.html#plan">плана сохранения</a>. Дома и деревья показаны условно.</p>
 </div>
 
 <div class="tag" id="tag-church">Храм</div>
 <div class="tag" id="tag-amph">Амфитеатр</div>
-<div class="tag" id="tag-river">Исток Правого Есентая</div>
+<div class="tag" id="tag-river">Правый Есентай</div>
+<div class="tag" id="tag-dam">Плотина</div>
+<div class="tag plan" id="tag-refuge">Заповедная зона</div>
+<div class="tag plan" id="tag-islands">Плавучие острова</div>
+<div class="tag plan" id="tag-shore">Живой берег</div>
 
 <script type="module">
 import * as THREE from 'three';
@@ -101,200 +112,380 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
 const SKY = new THREE.Color('#d9f5fd');
 scene.background = SKY;
-scene.fog = new THREE.Fog(SKY, 140, 300);
+scene.fog = new THREE.Fog(SKY, 170, 340);
 
-const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 600);
-camera.position.set(-70, 62, 95);
+const camera = new THREE.PerspectiveCamera(42, 1, 0.5, 700);
+camera.position.set(125, 95, 45);
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.dampingFactor = 0.06;
-controls.target.set(4, -2, 0);
-controls.minDistance = 45;
-controls.maxDistance = 220;
+controls.target.set(-5, -2, 26);
+controls.minDistance = 30;
+controls.maxDistance = 250;
 controls.maxPolarAngle = Math.PI * 0.46;
 controls.autoRotate = !reduce;
-controls.autoRotateSpeed = 0.35;
+controls.autoRotateSpeed = 0.2;
 controls.addEventListener('start', () => { controls.autoRotate = false; });
 
 // light
 scene.add(new THREE.HemisphereLight('#e9f6ff', '#5d6b3a', 1.1));
 const sun = new THREE.DirectionalLight('#fff3dc', 2.2);
-sun.position.set(-60, 90, 40);
+sun.position.set(-60, 100, 50);
 sun.castShadow = true;
 sun.shadow.mapSize.set(2048, 2048);
-Object.assign(sun.shadow.camera, { left: -110, right: 110, top: 110, bottom: -110, near: 10, far: 260 });
+Object.assign(sun.shadow.camera, { left: -135, right: 135, top: 135, bottom: -135, near: 10, far: 300 });
 sun.shadow.bias = -0.0005;
 scene.add(sun);
 
-// ---------- terrain ----------
-const R = (a) => 42 + 6 * Math.sin(3 * a + 0.4) + 4 * Math.cos(5 * a + 1.1) + 2.5 * Math.sin(7 * a);
-const noise = (x, z) => Math.sin(x * 0.11) * Math.cos(z * 0.09) * 1.2 + Math.sin(x * 0.031 + z * 0.047) * 2.2;
-const RIVER_A = -0.55; // outlet direction (north-east-ish)
-function riverDist(x, z) {
-  // distance to river ray starting at lake edge
-  const dx = Math.cos(RIVER_A), dz = Math.sin(RIVER_A);
-  const ox = dx * R(RIVER_A) * 0.92, oz = dz * R(RIVER_A) * 0.92;
-  const t = (x - ox) * dx + (z - oz) * dz;
-  if (t < 0) return 1e9;
-  const wob = Math.sin(t * 0.09) * 5;
-  const px = ox + dx * t - dz * wob, pz = oz + dz * t + dx * wob;
-  return Math.hypot(x - px, z - pz);
+let rand = 7; const rnd = () => (rand = (rand * 16807) % 2147483647) / 2147483647;
+const sstep = (a, b, x) => { const t = THREE.MathUtils.clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+
+// ---------- lake outline, traced from the 2023 satellite image (north = left of the image) ----------
+// pixel coords of the 805x516 image -> world units
+const S = 0.26, PX = 480, PY = 262;
+const OUT = [[162,192],[200,184],[250,184],[300,188],[332,194],[368,214],[398,252],[418,288],[446,304],[480,298],[499,276],[505,238],[509,182],[519,151],[545,140],[580,143],[620,152],[660,168],[700,184],[745,196],[800,204],[812,222],[800,240],[745,232],[700,222],[668,220],[660,242],[652,262],[618,268],[585,272],[560,284],[543,302],[551,332],[560,374],[528,379],[488,373],[450,360],[416,344],[386,322],[352,300],[312,288],[270,281],[236,285],[214,297],[186,293],[168,270],[159,232]]
+  .map(([x, y]) => new THREE.Vector3((x - PX) * S, 0, (y - PY) * S));
+const outline = new THREE.CatmullRomCurve3(OUT, true, 'centripetal').getSpacedPoints(320).slice(0, -1).map(v => [v.x, v.z]);
+
+// signed distance field on a 1-unit grid (negative = inside the lake bowl)
+const GO = -140, GN = 281, SDF = new Float32Array(GN * GN);
+for (let j = 0; j < GN; j++) for (let i = 0; i < GN; i++) {
+  const x = GO + i, z = GO + j; let md = 1e9, inside = false;
+  for (let k = 0, n = outline.length, l = n - 1; k < n; l = k++) {
+    const [ax, az] = outline[l], [bx, bz] = outline[k];
+    if ((az > z) !== (bz > z) && x < (bx - ax) * (z - az) / (bz - az) + ax) inside = !inside;
+    const ex = bx - ax, ez = bz - az, t = THREE.MathUtils.clamp(((x - ax) * ex + (z - az) * ez) / (ex * ex + ez * ez), 0, 1);
+    const d = (x - ax - ex * t) ** 2 + (z - az - ez * t) ** 2; if (d < md) md = d;
+  }
+  SDF[j * GN + i] = (inside ? -1 : 1) * Math.sqrt(md);
 }
+function sdf(x, z) {
+  const fx = THREE.MathUtils.clamp(x - GO, 0, GN - 1.001), fz = THREE.MathUtils.clamp(z - GO, 0, GN - 1.001);
+  const i = fx | 0, j = fz | 0, u = fx - i, v = fz - j, a = j * GN + i;
+  return (SDF[a] * (1 - u) + SDF[a + 1] * u) * (1 - v) + (SDF[a + GN] * (1 - u) + SDF[a + GN + 1] * u) * v;
+}
+
+// river: enters from the south (east end of the scene), leaves north through the dam (west end)
+const pxw = (x, y) => [(x - PX) * S, (y - PY) * S];
+const RIVER = [
+  [[...pxw(806, 222)], [100, -12], [118, -8], [140, -14]],
+  [[...pxw(160, 232)], [-92, -9], [-104, -4], [-118, -9], [-142, -6]]
+];
+function segDist(x, z, pts) {
+  let md = 1e9;
+  for (let k = 1; k < pts.length; k++) {
+    const [ax, az] = pts[k - 1], [bx, bz] = pts[k], ex = bx - ax, ez = bz - az;
+    const t = THREE.MathUtils.clamp(((x - ax) * ex + (z - az) * ez) / (ex * ex + ez * ez), 0, 1);
+    md = Math.min(md, Math.hypot(x - ax - ex * t, z - az - ez * t));
+  }
+  return md;
+}
+const riverDist = (x, z) => Math.min(segDist(x, z, RIVER[0]), segDist(x, z, RIVER[1]));
+
+// the filled-in southern part of the lake: an island of dumped soil, the plan's best spot for a refuge
+const MOUND = { x: 28, z: -13, r: 9.5 };
+const moundD = (x, z) => Math.hypot((x - MOUND.x) / 1.35, z - MOUND.z) / MOUND.r;
+const ROAD_X = -88;
+const roadDist = (x, z) => Math.min(Math.abs(x - ROAD_X), Math.abs(z - (52 + x * 0.12)));
+
+const noise = (x, z) => Math.sin(x * 0.11) * Math.cos(z * 0.09) * 1.2 + Math.sin(x * 0.031 + z * 0.047) * 2.2;
 function height(x, z) {
-  const a = Math.atan2(z, x), d = Math.hypot(x, z), r = R(a);
+  const s = sdf(x, z);
   let h;
-  if (d < r) { const k = d / r; h = -9 * (1 - k * k) - 0.8 + Math.sin(x * 0.3) * 0.25; }
-  else { const k = Math.min((d - r) / 18, 1); h = -0.8 + k * (1.6 + noise(x, z) * 0.6) ; }
+  if (s < 0) {
+    const D = 8.4 - sstep(-20, 40, x) * 4.6;              // the northern basin is deep, the southern one shallow
+    h = -0.8 - D * sstep(0, 10, -s) + Math.sin(x * 0.3) * 0.2;
+  } else h = -0.8 + sstep(0, 5, s) * 1.1 + sstep(3, 18, s) * (0.9 + noise(x, z) * 0.25);
   const rd = riverDist(x, z);
-  if (rd < 4.5) h = Math.min(h, -1.6 + (rd / 4.5) * 1.2);
+  if (rd < 4) h = Math.min(h, -1.9 + (rd / 4) * 1.3);
+  const md = moundD(x, z);
+  if (md < 1) h = Math.max(h, THREE.MathUtils.lerp(-3, 0.35, sstep(1, 0.45, md)) + noise(x * 3, z * 3) * 0.05);
+  if (Math.abs(x - ROAD_X) < 3.2 && h < 0.5) h = 0.5;      // the road embankment doubles as the dam
   return h;
 }
-const SIZE = 260, SEG = 220;
+
+// ---------- terrain ----------
+const SIZE = 280, SEG = 300;
 const tg = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG);
 tg.rotateX(-Math.PI / 2);
 const pos = tg.attributes.position, cols = [];
-const cMud = new THREE.Color('#6b5a43'), cSand = new THREE.Color('#c9b98f'), cGrass = new THREE.Color('#7f9a4a'), cGrass2 = new THREE.Color('#5f7d3a'), tmp = new THREE.Color();
+const C = {
+  mud: new THREE.Color('#6b5a43'), sand: new THREE.Color('#c9b98f'), grass: new THREE.Color('#7f9a4a'), grass2: new THREE.Color('#5f7d3a'),
+  yard: new THREE.Color('#a59a78'), path: new THREE.Color('#e6ddc8'), road: new THREE.Color('#6e7174'), fill: new THREE.Color('#b8a68a')
+};
+const tmp = new THREE.Color();
 for (let i = 0; i < pos.count; i++) {
-  const x = pos.getX(i), z = pos.getZ(i), y = height(x, z);
+  const x = pos.getX(i), z = pos.getZ(i), y = height(x, z), s = sdf(x, z);
   pos.setY(i, y);
-  if (y < -1.4) tmp.copy(cMud).lerp(cSand, THREE.MathUtils.clamp((y + 9) / 8, 0, 1) * 0.35);
-  else if (y < 0.1) tmp.copy(cSand);
-  else tmp.copy(cGrass).lerp(cGrass2, THREE.MathUtils.clamp(noise(x * 2, z * 2) * 0.3 + 0.5, 0, 1));
+  const pathR = x > 12 && x < 60 ? 11 : 6;                  // walkway steps back from the water by the refuge
+  if (roadDist(x, z) < 2.6) tmp.copy(C.road);
+  else if (y < -1.4) tmp.copy(C.mud).lerp(C.sand, THREE.MathUtils.clamp((y + 9) / 8, 0, 1) * 0.35);
+  else if (y < 0.1 && s < 4) tmp.copy(C.sand);
+  else if (moundD(x, z) < 1) tmp.copy(C.fill).lerp(C.grass, 0.35);
+  else if (s > 0 && Math.abs(s - pathR) < 1.1) tmp.copy(C.path);
+  else {
+    tmp.copy(C.grass).lerp(C.grass2, THREE.MathUtils.clamp(noise(x * 2, z * 2) * 0.3 + 0.5, 0, 1));
+    if (s > 10) tmp.lerp(C.yard, sstep(10, 16, s) * 0.55);  // built-up yards beyond the green strip
+  }
   cols.push(tmp.r, tmp.g, tmp.b);
 }
 tg.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3));
 tg.computeVertexNormals();
-const terrain = new THREE.Mesh(tg, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, flatShading: false }));
+const terrain = new THREE.Mesh(tg, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95 }));
 terrain.receiveShadow = true;
 scene.add(terrain);
 
-// paths ring (park walkway)
-const ring = new THREE.Mesh(new THREE.RingGeometry(1, 1.06, 128), new THREE.MeshStandardMaterial({ color: '#e6ddc8', roughness: 1 }));
-{ // follow lake outline slightly outside
-  const g = new THREE.BufferGeometry(), v = [], idx = [];
-  const N = 220;
-  for (let i = 0; i <= N; i++) {
-    const a = i / N * Math.PI * 2, r = R(a) + 6;
-    for (const off of [-1.3, 1.3]) { const x = Math.cos(a) * (r + off), z = Math.sin(a) * (r + off); v.push(x, height(x, z) + 0.12, z); }
-    if (i < N) { const b = i * 2; idx.push(b, b + 1, b + 2, b + 1, b + 3, b + 2); }
-  }
-  g.setAttribute('position', new THREE.Float32BufferAttribute(v, 3)); g.setIndex(idx); g.computeVertexNormals();
-  ring.geometry = g; ring.receiveShadow = true; scene.add(ring);
-}
-
 // ---------- water ----------
 const waterMat = new THREE.MeshPhysicalMaterial({ color: '#1597b0', roughness: 0.08, metalness: 0, transparent: true, opacity: 0.86, clearcoat: 1, clearcoatRoughness: 0.15 });
-const wg = new THREE.PlaneGeometry(SIZE, SIZE, 120, 120); wg.rotateX(-Math.PI / 2);
+const wg = new THREE.PlaneGeometry(SIZE, SIZE, 140, 140); wg.rotateX(-Math.PI / 2);
 const water = new THREE.Mesh(wg, waterMat);
 water.receiveShadow = true;
 scene.add(water);
 const wBase = wg.attributes.position.array.slice();
 
+// ---------- shared helpers ----------
+const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), s3 = new THREE.Vector3(), p3 = new THREE.Vector3(), e = new THREE.Euler();
+function pick(test, tries = 4000) {   // random point in the scene that passes a test
+  for (let n = 0; n < tries; n++) { const x = (rnd() - 0.5) * 250, z = (rnd() - 0.5) * 250; if (test(x, z, sdf(x, z))) return [x, z]; }
+  return null;
+}
+const inward = (x, z) => Math.atan2(sdf(x, z + 0.5) - sdf(x, z - 0.5), sdf(x + 0.5, z) - sdf(x - 0.5, z)) + Math.PI; // angle pointing into the water
+const shoreAt = (k) => outline[Math.floor(k * outline.length) % outline.length];
+
+// ---------- houses: the private-house district that took half of the green zone ----------
+const houseSpots = [];
+for (let gx = -130; gx <= 130; gx += 10) for (let gz = -130; gz <= 130; gz += 10) {
+  const x = gx + (rnd() - 0.5) * 3, z = gz + (rnd() - 0.5) * 3, s = sdf(x, z);
+  if (s < 12 || Math.hypot(x * 0.8, z) > 118 || roadDist(x, z) < 6 || riverDist(x, z) < 9) continue;
+  if (Math.hypot(x + 55, z - 13) < 15 || Math.hypot(x + 100, z + 5) < 15) continue;  // church grounds, amphitheatre square
+  if (rnd() < 0.25) continue;
+  houseSpots.push([x, z]);
+}
+const HN = houseSpots.length;
+const wallGeo = new THREE.BoxGeometry(1, 1, 1); wallGeo.translate(0, 0.5, 0);
+const roofGeo = new THREE.ConeGeometry(0.75, 1, 4); roofGeo.rotateY(Math.PI / 4); roofGeo.translate(0, 0.5, 0);
+const walls = new THREE.InstancedMesh(wallGeo, new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.9 }), HN);
+const roofs = new THREE.InstancedMesh(roofGeo, new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.7, flatShading: true }), HN);
+walls.castShadow = roofs.castShadow = true; walls.receiveShadow = true;
+const ROOF_C = ['#a5432f', '#8a3b2c', '#5a7f9a', '#3f6f8f', '#7a7f84', '#2f6b5e', '#b5643a'], WALL_C = ['#efe8da', '#e6dcc8', '#f4f1ea', '#d8cdb6'];
+houseSpots.forEach(([x, z], i) => {
+  const y = height(x, z) - 0.2, w = 3.2 + rnd() * 2, d = 3.2 + rnd() * 2, h = 2.2 + rnd() * 1, yaw = Math.round(rnd()) * Math.PI / 2 + (rnd() - 0.5) * 0.15;
+  q.setFromEuler(e.set(0, yaw, 0));
+  walls.setMatrixAt(i, m4.compose(p3.set(x, y, z), q, s3.set(w, h, d)));
+  roofs.setMatrixAt(i, m4.compose(p3.set(x, y + h, z), q, s3.set(w, 1.1 + rnd() * 0.6, d)));
+  walls.setColorAt(i, tmp.set(WALL_C[i % WALL_C.length]));
+  roofs.setColorAt(i, tmp.set(ROOF_C[Math.floor(rnd() * ROOF_C.length)]));
+});
+scene.add(walls, roofs);
+
+// ---------- trees: native poplar, willow and oleaster along the shore, garden trees in the yards ----------
+const trunkGeo = new THREE.CylinderGeometry(0.28, 0.42, 3, 6); trunkGeo.translate(0, 1.5, 0);
+const crownGeo = new THREE.IcosahedronGeometry(1, 1);
+const willowGeo = new THREE.SphereGeometry(1, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.62);
+const SPECIES = {
+  poplar: { geo: crownGeo, color: '#4c7a36', crown: [1.25, 4.4, 1.25], lift: 6.2, trunk: 1.5 },
+  willow: { geo: willowGeo, color: '#93ad4a', crown: [2.4, 2.1, 2.4], lift: 2.4, trunk: 1.0 },
+  oleaster: { geo: crownGeo, color: '#9aa88a', crown: [1.8, 1.5, 1.8], lift: 3.2, trunk: 0.9 },
+  garden: { geo: new THREE.IcosahedronGeometry(1, 0), color: '#5a8640', crown: [2.2, 2.4, 2.2], lift: 3.6, trunk: 1.0 }
+};
+const trunkMat = new THREE.MeshStandardMaterial({ color: '#6b4e36', roughness: 1 });
+function forest(list, planned) {
+  const byKind = {};
+  for (const t of list) (byKind[t.kind] ||= []).push(t);
+  const meshes = [];
+  for (const [kind, arr] of Object.entries(byKind)) {
+    const sp = SPECIES[kind];
+    const tr = new THREE.InstancedMesh(trunkGeo, trunkMat, arr.length);
+    const cr = new THREE.InstancedMesh(sp.geo, new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.85, flatShading: true }), arr.length);
+    tr.castShadow = cr.castShadow = true;
+    const place = (k) => arr.forEach((t, i) => {
+      const sc = t.sc * k + 0.0001;
+      tr.setMatrixAt(i, m4.compose(p3.set(t.x, t.y, t.z), q.identity(), s3.set(sc, sc * sp.trunk * 1.2, sc)));
+      cr.setMatrixAt(i, m4.compose(p3.set(t.x, t.y + sp.lift * sc, t.z), q.setFromEuler(e.set(0, t.rot, 0)), s3.set(sp.crown[0] * sc, sp.crown[1] * sc, sp.crown[2] * sc)));
+      tr.instanceMatrix.needsUpdate = cr.instanceMatrix.needsUpdate = true;
+    });
+    arr.forEach((t, i) => cr.setColorAt(i, tmp.set(sp.color).offsetHSL((rnd() - .5) * .04, 0, (rnd() - .5) * .08)));
+    place(planned ? 0 : 1);
+    scene.add(tr, cr);
+    meshes.push({ place, tr, cr });
+  }
+  return meshes;
+}
+function treeAt(kind, x, z) { return { kind, x, z, y: height(x, z), sc: 0.65 + rnd() * 0.5, rot: rnd() * 6 }; }
+const shoreTest = (lo, hi) => (x, z, s) => s > lo && s < hi && riverDist(x, z) > 5 && roadDist(x, z) > 4 && Math.abs(s - 6) > 1.6 && Math.abs(s - 11) > 1.6;
+const nowTrees = [], planTrees = [];
+for (let i = 0; i < 40; i++) { const p = pick(shoreTest(2, 4.5)); if (p) nowTrees.push(treeAt('willow', ...p)); }
+for (let i = 0; i < 60; i++) { const p = pick(shoreTest(7.5, 10)); if (p) nowTrees.push(treeAt(rnd() < 0.6 ? 'poplar' : 'oleaster', ...p)); }
+for (let i = 0; i < 120; i++) { const p = pick((x, z, s) => s > 13 && roadDist(x, z) > 4 && houseSpots.every(([hx, hz]) => Math.abs(hx - x) > 4 || Math.abs(hz - z) > 4)); if (p) nowTrees.push(treeAt('garden', ...p)); }
+// plan: thicker native woodland on the refuge island and the southern banks
+for (let i = 0; i < 26; i++) { const p = pick((x, z) => moundD(x, z) < 0.75); if (p) planTrees.push(treeAt(['willow', 'oleaster', 'poplar'][i % 3], ...p)); }
+for (let i = 0; i < 40; i++) { const p = pick((x, z, s) => shoreTest(1.5, 10)(x, z, s) && x > -5); if (p) planTrees.push(treeAt(['poplar', 'oleaster', 'willow'][i % 3], ...p)); }
+forest(nowTrees, false);
+const planForest = forest(planTrees, true);
+
 // ---------- reeds ----------
 const reedGeo = new THREE.CylinderGeometry(0.06, 0.12, 3.2, 4); reedGeo.translate(0, 1.6, 0);
 const reedMat = new THREE.MeshStandardMaterial({ color: '#6f8f3a', roughness: 0.9 });
-const REEDS = 900, reeds = new THREE.InstancedMesh(reedGeo, reedMat, REEDS);
-reeds.castShadow = true;
-const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), s3 = new THREE.Vector3(), p3 = new THREE.Vector3(), e = new THREE.Euler();
-let rand = 7; const rnd = () => (rand = (rand * 16807) % 2147483647) / 2147483647;
-for (let i = 0; i < REEDS; i++) {
-  const a = rnd() * Math.PI * 2; if (Math.abs(a - (Math.PI * 2 + RIVER_A) % (Math.PI * 2)) < 0.12) { i--; continue; }
-  const r = R(a) * (0.86 + rnd() * 0.16), x = Math.cos(a) * r, z = Math.sin(a) * r;
-  p3.set(x, height(x, z), z); e.set((rnd() - .5) * .35, rnd() * 6, (rnd() - .5) * .35); q.setFromEuler(e);
-  const sc = 0.6 + rnd() * 0.9; s3.set(1, sc, 1);
-  reeds.setMatrixAt(i, m4.compose(p3, q, s3));
+function reedBed(spots) {
+  const mesh = new THREE.InstancedMesh(reedGeo, reedMat, spots.length);
+  mesh.castShadow = true;
+  const place = (k) => { spots.forEach((r, i) => mesh.setMatrixAt(i, m4.compose(p3.set(r.x, r.y(), r.z), q.setFromEuler(e.set(r.tx, r.ry, r.tz)), s3.set(1, r.sc * k + 0.0001, 1)))); mesh.instanceMatrix.needsUpdate = true; };
+  scene.add(mesh);
+  return { mesh, place, spots };
 }
-scene.add(reeds);
-
-// ---------- trees ----------
-const trunkGeo = new THREE.CylinderGeometry(0.35, 0.5, 3, 6); trunkGeo.translate(0, 1.5, 0);
-const crownGeo = new THREE.IcosahedronGeometry(3, 0);
-const TREES = 160;
-const trunks = new THREE.InstancedMesh(trunkGeo, new THREE.MeshStandardMaterial({ color: '#6b4e36', roughness: 1 }), TREES);
-const crowns = new THREE.InstancedMesh(crownGeo, new THREE.MeshStandardMaterial({ color: '#4f7a3a', roughness: 0.85, flatShading: true }), TREES);
-trunks.castShadow = crowns.castShadow = true;
-for (let i = 0; i < TREES; i++) {
-  const a = rnd() * Math.PI * 2, r = R(a) + 11 + rnd() * 70, x = Math.cos(a) * r, z = Math.sin(a) * r;
-  if (riverDist(x, z) < 9 || (x > -78 && x < -50 && z > 18 && z < 46) || (x > 28 && x < 56 && z > 22 && z < 50) || Math.abs(x) > 125 || Math.abs(z) > 125) { i--; continue; }
-  const y = height(x, z), sc = 0.7 + rnd() * 0.8;
-  trunks.setMatrixAt(i, m4.compose(p3.set(x, y, z), q.identity(), s3.set(sc, sc, sc)));
-  crowns.setMatrixAt(i, m4.compose(p3.set(x, y + 4.4 * sc, z), q.setFromEuler(e.set(rnd(), rnd(), rnd())), s3.set(sc, sc * 1.25, sc)));
-  crowns.setColorAt(i, tmp.set('#4f7a3a').offsetHSL((rnd() - .5) * .05, 0, (rnd() - .5) * .1));
-}
-scene.add(trunks, crowns);
+const reedSpot = (x, z, yfn) => ({ x, z, y: yfn || (() => height(x, z)), tx: (rnd() - .5) * .35, ry: rnd() * 6, tz: (rnd() - .5) * .35, sc: 0.6 + rnd() * 0.9 });
+const baseReeds = [];
+for (let i = 0; i < 1100; i++) { const p = pick((x, z, s) => s > -3.2 && s < 0.6 && riverDist(x, z) > 3 && Math.abs(x - ROAD_X) > 4); if (p) baseReeds.push(reedSpot(...p)); }
+for (let i = 0; i < 160; i++) { const p = pick((x, z) => moundD(x, z) > 0.85 && moundD(x, z) < 1.15); if (p) baseReeds.push(reedSpot(...p)); }
+const reeds = reedBed(baseReeds); reeds.place(1);
 
 // ---------- church ----------
 const church = new THREE.Group();
 const white = new THREE.MeshStandardMaterial({ color: '#f3f1ea', roughness: 0.7 });
 const gold = new THREE.MeshStandardMaterial({ color: '#d9a21b', metalness: 0.85, roughness: 0.28 });
 const roof = new THREE.MeshStandardMaterial({ color: '#2f6b5e', roughness: 0.6 });
-const add = (geo, mat, x, y, z) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = m.receiveShadow = true; church.add(m); return m; };
-add(new THREE.BoxGeometry(9, 7, 12), white, 0, 3.5, 0);
-add(new THREE.BoxGeometry(9.4, 0.6, 12.4), roof, 0, 7.3, 0);
-add(new THREE.CylinderGeometry(2.3, 2.3, 4, 16), white, 0, 9.6, 0);
-add(new THREE.SphereGeometry(2.4, 24, 16, 0, Math.PI * 2, 0, Math.PI / 2), gold, 0, 11.6, 0);
-add(new THREE.CylinderGeometry(0.08, 0.08, 2.4, 6), gold, 0, 14.6, 0);
-add(new THREE.BoxGeometry(1.2, 0.12, 0.12), gold, 0, 15, 0);
+const add = (g, geo, mat, x, y, z) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = m.receiveShadow = true; g.add(m); return m; };
+add(church, new THREE.BoxGeometry(9, 7, 12), white, 0, 3.5, 0);
+add(church, new THREE.BoxGeometry(9.4, 0.6, 12.4), roof, 0, 7.3, 0);
+add(church, new THREE.CylinderGeometry(2.3, 2.3, 4, 16), white, 0, 9.6, 0);
+add(church, new THREE.SphereGeometry(2.4, 24, 16, 0, Math.PI * 2, 0, Math.PI / 2), gold, 0, 11.6, 0);
+add(church, new THREE.CylinderGeometry(0.08, 0.08, 2.4, 6), gold, 0, 14.6, 0);
+add(church, new THREE.BoxGeometry(1.2, 0.12, 0.12), gold, 0, 15, 0);
 for (const [x, z] of [[-3.2, -4.6], [3.2, -4.6], [-3.2, 4.6], [3.2, 4.6]]) {
-  add(new THREE.CylinderGeometry(1, 1, 2.4, 12), white, x, 8.8, z);
-  add(new THREE.SphereGeometry(1.05, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2), gold, x, 10, z);
+  add(church, new THREE.CylinderGeometry(1, 1, 2.4, 12), white, x, 8.8, z);
+  add(church, new THREE.SphereGeometry(1.05, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2), gold, x, 10, z);
 }
-add(new THREE.BoxGeometry(4, 14, 4), white, 0, 7, -9);
-add(new THREE.ConeGeometry(2.6, 6, 4), roof, 0, 17, -9).rotation.y = Math.PI / 4;
-add(new THREE.CylinderGeometry(0.07, 0.07, 2, 6), gold, 0, 21, -9);
-church.position.set(-64, height(-64, 32), 32);
-church.rotation.y = 0.7;
+add(church, new THREE.BoxGeometry(4, 14, 4), white, 0, 7, -9);
+add(church, new THREE.ConeGeometry(2.6, 6, 4), roof, 0, 17, -9).rotation.y = Math.PI / 4;
+add(church, new THREE.CylinderGeometry(0.07, 0.07, 2, 6), gold, 0, 21, -9);
+church.scale.setScalar(0.8);
+church.position.set(-55, height(-55, 14), 14);
+church.rotation.y = Math.PI / 2;
 scene.add(church);
 
-// ---------- amphitheatre ----------
+// ---------- amphitheatre (the round square west of the dam) ----------
 const amph = new THREE.Group();
 const stone = new THREE.MeshStandardMaterial({ color: '#d9d2c3', roughness: 0.9 });
 for (let i = 0; i < 5; i++) {
-  const r0 = 5 + i * 1.6;
-  const step = new THREE.Mesh(new THREE.CylinderGeometry(r0 + 1.6, r0 + 1.6, 0.6 + i * 0.55, 40, 1, false, 0, Math.PI), stone);
-  step.position.y = (0.6 + i * 0.55) / 2;
-  step.castShadow = step.receiveShadow = true;
-  amph.add(step);
+  const r0 = 4 + i * 1.4;
+  add(amph, new THREE.CylinderGeometry(r0 + 1.4, r0 + 1.4, 0.6 + i * 0.5, 40, 1, false, 0, Math.PI), stone, 0, (0.6 + i * 0.5) / 2, 0);
 }
-const stage = new THREE.Mesh(new THREE.CylinderGeometry(4.6, 4.6, 0.4, 32), new THREE.MeshStandardMaterial({ color: '#b98d5c', roughness: 0.8 }));
-stage.position.y = 0.2; stage.receiveShadow = true; amph.add(stage);
-amph.position.set(42, height(42, 36) - 0.2, 36);
-amph.rotation.y = Math.PI * 0.82;
+add(amph, new THREE.CylinderGeometry(3.8, 3.8, 0.4, 32), new THREE.MeshStandardMaterial({ color: '#b98d5c', roughness: 0.8 }), 0, 0.2, 0);
+amph.position.set(-102, height(-102, -5) - 0.2, -5);
+amph.rotation.y = -Math.PI / 2;
 scene.add(amph);
 
+// ---------- dam: a low concrete sill where the road crosses the outflow ----------
+const dam = new THREE.Mesh(new THREE.BoxGeometry(2.4, 2.2, 11), new THREE.MeshStandardMaterial({ color: '#b7b4ac', roughness: 0.85 }));
+dam.position.set(ROAD_X + 1.8, -0.6, -8.6); dam.castShadow = dam.receiveShadow = true;
+scene.add(dam);
+
+// ---------- conservation plan (shown for 2030) ----------
+const plan = new THREE.Group(); scene.add(plan);
+const wood = new THREE.MeshStandardMaterial({ color: '#8a6a45', roughness: 0.9 });
+const darkWood = new THREE.MeshStandardMaterial({ color: '#5b4330', roughness: 1 });
+
+// floating islands in the deep northern basin: mats with reeds
+const ISLANDS = [[-68, -5, 3.4], [-50, -8, 2.8], [-36, -2, 2.4]];
+const islandMat = new THREE.MeshStandardMaterial({ color: '#6c7a3c', roughness: 1 });
+const islands = ISLANDS.map(([x, z, r]) => { const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r * 1.08, 0.5, 10), islandMat); m.position.set(x, 0, z); m.receiveShadow = m.castShadow = true; plan.add(m); return m; });
+const islandReeds = [];
+ISLANDS.forEach(([x, z, r], k) => { for (let i = 0; i < 34; i++) { const a = rnd() * 6.28, d = Math.sqrt(rnd()) * r * 0.85; islandReeds.push(reedSpot(x + Math.cos(a) * d, z + Math.sin(a) * d, () => cur.level + 0.2)); } });
+const islandReedBed = reedBed(islandReeds);
+
+// a living shoreline: logs dipping into the water and piles of stone
+const logGeo = new THREE.CylinderGeometry(0.32, 0.4, 6, 7); logGeo.rotateZ(Math.PI / 2);
+const rockGeo = new THREE.DodecahedronGeometry(0.8, 0);
+const rockMat = new THREE.MeshStandardMaterial({ color: '#8e8a82', roughness: 1, flatShading: true });
+const shoreKs = [0.04, 0.12, 0.2, 0.31, 0.47, 0.6, 0.68, 0.74, 0.86, 0.93];
+shoreKs.forEach((k, n) => {
+  const [x, z] = shoreAt(k), a = inward(x, z);
+  if (n % 2 === 0) {
+    const log = new THREE.Mesh(logGeo, darkWood);
+    log.position.set(x + Math.cos(a) * 1.8, height(x, z) - 0.4, z + Math.sin(a) * 1.8);
+    log.rotation.set(0, -a, -0.18); log.castShadow = true; plan.add(log);
+  } else {
+    for (let r = 0; r < 6; r++) {
+      const rock = new THREE.Mesh(rockGeo, rockMat), ox = (rnd() - 0.5) * 3, oz = (rnd() - 0.5) * 3;
+      rock.position.set(x + ox, height(x + ox, z + oz) + 0.1, z + oz); rock.scale.setScalar(0.6 + rnd() * 0.9);
+      rock.rotation.set(rnd() * 3, rnd() * 3, rnd() * 3); rock.castShadow = true; plan.add(rock);
+    }
+  }
+});
+
+// a wooden observation pier reaching the refuge island from the eastern bank
+const pierA = new THREE.Vector3(MOUND.x + 9, 0.25, MOUND.z + 6), pierB = new THREE.Vector3(46, 0.25, 4);
+{
+  const len = pierA.distanceTo(pierB), ang = Math.atan2(pierB.z - pierA.z, pierB.x - pierA.x);
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(len, 0.25, 1.8), wood);
+  deck.position.copy(pierA).lerp(pierB, 0.5); deck.rotation.y = -ang; deck.castShadow = deck.receiveShadow = true; plan.add(deck);
+  for (let t = 0; t <= 1.001; t += 1 / 6) for (const side of [-0.8, 0.8]) {
+    const px = THREE.MathUtils.lerp(pierA.x, pierB.x, t) - Math.sin(ang) * side, pz = THREE.MathUtils.lerp(pierA.z, pierB.z, t) + Math.cos(ang) * side;
+    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 3, 5), darkWood); post.position.set(px, -1.2, pz); plan.add(post);
+    const rail = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 1.1, 4), darkWood); rail.position.set(px, 0.85, pz); plan.add(rail);
+  }
+  const deckEnd = new THREE.Mesh(new THREE.BoxGeometry(4, 0.25, 4), wood); deckEnd.position.copy(pierA); deckEnd.rotation.y = -ang; deckEnd.castShadow = true; plan.add(deckEnd);
+}
+
+// nest boxes on poles along the banks
+const nestGeo = new THREE.BoxGeometry(0.7, 0.9, 0.7), poleGeo = new THREE.CylinderGeometry(0.07, 0.07, 3.2, 5);
+for (let i = 0; i < 9; i++) {
+  const p = pick(shoreTest(2.2, 4.5)); if (!p) continue;
+  const [x, z] = p, y = height(x, z);
+  const pole = new THREE.Mesh(poleGeo, darkWood); pole.position.set(x, y + 1.6, z); plan.add(pole);
+  const box = new THREE.Mesh(nestGeo, wood); box.position.set(x, y + 3.4, z); box.rotation.y = inward(x, z); box.castShadow = true; plan.add(box);
+}
+
+// grey herons wading in the shallows
+const heron = new THREE.Group();
+{
+  const grey = new THREE.MeshStandardMaterial({ color: '#8f979c', roughness: 0.8 }), dark = new THREE.MeshStandardMaterial({ color: '#3c4246', roughness: 0.8 }), beak = new THREE.MeshStandardMaterial({ color: '#d4a63a' });
+  const body = add(heron, new THREE.SphereGeometry(0.55, 12, 8), grey, 0, 1.6, 0); body.scale.set(1.6, 0.85, 0.8);
+  const neck = add(heron, new THREE.CylinderGeometry(0.12, 0.16, 1.1, 6), grey, 0.75, 2.2, 0); neck.rotation.z = -0.5;
+  add(heron, new THREE.SphereGeometry(0.2, 10, 8), grey, 1.05, 2.75, 0);
+  const b = add(heron, new THREE.ConeGeometry(0.07, 0.6, 5), beak, 1.38, 2.72, 0); b.rotation.z = -Math.PI / 2;
+  for (const zz of [-0.15, 0.15]) add(heron, new THREE.CylinderGeometry(0.04, 0.04, 1.3, 4), dark, 0, 0.65, zz);
+}
+const herons = [];
+for (let i = 0; i < 4; i++) {
+  const p = pick((x, z, s) => s > -3 && s < -1 && x > -40); if (!p) continue;
+  const h = heron.clone(); h.position.set(p[0], height(...p), p[1]); h.rotation.y = rnd() * 6; plan.add(h); herons.push(h);
+}
+
 // ---------- fish ----------
-const fishGeo = (() => { const body = new THREE.SphereGeometry(0.6, 10, 8); body.scale(1.8, 0.7, 0.55); const tail = new THREE.ConeGeometry(0.45, 0.8, 4); tail.rotateZ(Math.PI / 2); tail.translate(-1.35, 0, 0); const g = new THREE.BufferGeometry(); const parts = [body, tail].map(x => x.toNonIndexed()); const arr = []; parts.forEach(p => arr.push(...p.attributes.position.array)); g.setAttribute('position', new THREE.Float32BufferAttribute(arr, 3)); g.computeVertexNormals(); return g; })();
-const FISH = 46;
-const fish = new THREE.InstancedMesh(fishGeo, new THREE.MeshStandardMaterial({ color: '#c99a4a', roughness: 0.5, metalness: 0.2 }), FISH);
+const fishGeo = (() => { const body = new THREE.SphereGeometry(0.6, 10, 8); body.scale(1.8, 0.7, 0.55); const tail = new THREE.ConeGeometry(0.45, 0.8, 4); tail.rotateZ(Math.PI / 2); tail.translate(-1.35, 0, 0); const g = new THREE.BufferGeometry(); const arr = []; [body, tail].map(x => x.toNonIndexed()).forEach(p => arr.push(...p.attributes.position.array)); g.setAttribute('position', new THREE.Float32BufferAttribute(arr, 3)); g.computeVertexNormals(); return g; })();
+const FISH = 56;
+const fish = new THREE.InstancedMesh(fishGeo, new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 0.5, metalness: 0.2 }), FISH);
 const fishData = [];
 for (let i = 0; i < FISH; i++) {
-  fishData.push({ r: 8 + rnd() * 26, a: rnd() * Math.PI * 2, sp: (0.15 + rnd() * 0.25) * (rnd() > .5 ? 1 : -1), d: 1.6 + rnd() * 3.5, ph: rnd() * 6 });
+  const [cx, cz] = pick((x, z, s) => s < -6);
+  fishData.push({ cx, cz, r: 2 + rnd() * 4, a: rnd() * 6.28, sp: (0.3 + rnd() * 0.4) * (rnd() > .5 ? 1 : -1), d: 1.4 + rnd() * 3, ph: rnd() * 6 });
   fish.setColorAt(i, tmp.set(['#c99a4a', '#8c9aa3', '#b8b8a8', '#7a8f5a'][i % 4]));
 }
 scene.add(fish);
 
 // ---------- ducks ----------
-const duckGeo = (() => { const b = new THREE.SphereGeometry(0.7, 12, 8); b.scale(1.4, 0.8, 0.9); return b; })();
-const DUCKS = 9;
+const duckGeo = new THREE.SphereGeometry(0.7, 12, 8); duckGeo.scale(1.4, 0.8, 0.9);
+const DUCKS = 12;
 const ducks = new THREE.InstancedMesh(duckGeo, new THREE.MeshStandardMaterial({ color: '#7d6a4f', roughness: 0.8 }), DUCKS);
 const heads = new THREE.InstancedMesh(new THREE.SphereGeometry(0.42, 10, 8), new THREE.MeshStandardMaterial({ color: '#2f6b4a', roughness: 0.5 }), DUCKS);
 ducks.castShadow = true;
-const duckData = Array.from({ length: DUCKS }, () => ({ r: 6 + rnd() * 24, a: rnd() * 6.28, sp: 0.03 + rnd() * 0.05 }));
+const duckData = Array.from({ length: DUCKS }, () => { const [cx, cz] = pick((x, z, s) => s < -4); return { cx, cz, r: 2 + rnd() * 5, a: rnd() * 6.28, sp: 0.06 + rnd() * 0.08 }; });
 scene.add(ducks, heads);
 
 // ---------- states ----------
 const STATES = {
-  2021: { level: -1.0, pct: 100, fish: 46, ducks: 9, reed: '#6f8f3a', water: '#2e8796', clarity: 0.86, title: 'Живое озеро', text: 'Озеро питается подземными водами. Здесь живут сазан, карась, окунь, широкопалый рак и среднеазиатская черепаха, на воде — утки.' },
-  2023: { level: -8.6, pct: 6, fish: 0, ducks: 0, reed: '#a68f55', water: '#6b6a45', clarity: 0.95, title: 'Очистка', text: 'Ноябрь 2023: город спустил озеро для механической очистки. Большая часть обитателей погибла или ушла в соседние водоёмы.' },
-  2025: { level: -3.2, pct: 62, fish: 14, ducks: 3, reed: '#86924a', water: '#3f8a86', clarity: 0.9, title: 'Восстановление', text: 'Поднимаем уровень воды вместе с насосной станцией, вносим хлореллу, зарыбляем озеро и проводим зимнюю аэрацию.' },
-  2030: { level: -0.7, pct: 100, fish: 46, ducks: 9, reed: '#5f8f3a', water: '#25a3a6', clarity: 0.8, title: 'Цель', text: 'Устойчивая экосистема: чистая вода, вернувшиеся уязвимые виды, больше сезонных птиц и жители, которые заботятся об озере.' }
+  2021: { level: -1.0, pct: 100, fish: 46, ducks: 9, plan: 0, reed: '#6f8f3a', water: '#2e8796', clarity: 0.86, title: 'Живое озеро', text: 'Запруда на реке Правый Есентай, которую подпитывают родники. В озере живут сазан, карась, окунь и широкопалый рак, на берегу — черепахи и утки. Но с 2002 года застройка сократила зелёную зону вокруг с 13 до 7 га.' },
+  2023: { level: -8.6, pct: 6, fish: 0, ducks: 0, plan: 0, reed: '#a68f55', water: '#6b6a45', clarity: 0.95, title: 'Очистка', text: 'Ноябрь 2023: город спустил озеро для механической очистки. Большая часть обитателей погибла или ушла в соседние водоёмы. На юге озера видна отсыпка грунта.' },
+  2025: { level: -3.2, pct: 62, fish: 14, ducks: 3, plan: 0, reed: '#86924a', water: '#3f8a86', clarity: 0.9, title: 'Восстановление', text: 'Поднимаем уровень воды вместе с насосной станцией, вносим хлореллу, зарыбляем озеро и проводим зимнюю аэрацию.' },
+  2030: { level: -0.7, pct: 100, fish: 56, ducks: 12, plan: 1, reed: '#5f8f3a', water: '#25a3a6', clarity: 0.8, title: 'План сохранения', text: 'Заповедная зона на отсыпке в южной части, куда ведёт только смотровой мостик. Плавучие острова, «живой берег» из коряг, камней и тростника, местные тополя, ивы и джида, гнездовья и цапли на мелководье.' }
 };
-const cur = { level: -3.2, fish: 14, ducks: 3, reed: new THREE.Color(STATES[2025].reed), water: new THREE.Color(STATES[2025].water), opacity: 0.9 };
-let target = STATES[2025];
+const cur = { level: -3.2, fish: 14, ducks: 3, plan: 0, reed: new THREE.Color(STATES[2025].reed), water: new THREE.Color(STATES[2025].water), opacity: 0.9 };
+let target = STATES[2025], year = '2025';
 const elT = document.getElementById('st-title'), elX = document.getElementById('st-text'), gauge = document.getElementById('gauge'), gv = document.getElementById('gauge-v');
 function setYear(y) {
-  target = STATES[y];
+  target = STATES[y]; year = String(y);
   document.querySelectorAll('.years button').forEach(b => b.setAttribute('aria-pressed', b.dataset.y == y));
   elT.textContent = `${y} — ${target.title}`; elX.textContent = target.text;
   gauge.style.width = target.pct + '%'; gv.textContent = target.pct + '%';
@@ -303,20 +494,26 @@ function setYear(y) {
 document.querySelectorAll('.years button').forEach(b => b.addEventListener('click', () => setYear(b.dataset.y)));
 const startY = (location.hash || '').slice(1);
 setYear(STATES[startY] ? startY : 2025);
-if (reduce) { cur.level = target.level; cur.fish = target.fish; cur.ducks = target.ducks; }
+if (reduce) Object.assign(cur, { level: target.level, fish: target.fish, ducks: target.ducks, plan: target.plan });
 
 // ---------- labels ----------
+const sh = shoreAt(0.47);
 const labels = [
-  { el: document.getElementById('tag-church'), p: new THREE.Vector3(-64, 20, 32) },
-  { el: document.getElementById('tag-amph'), p: new THREE.Vector3(42, 6, 36) },
-  { el: document.getElementById('tag-river'), p: new THREE.Vector3(Math.cos(RIVER_A) * 58, 2, Math.sin(RIVER_A) * 58) }
+  { el: document.getElementById('tag-church'), p: new THREE.Vector3(-55, 18, 14) },
+  { el: document.getElementById('tag-amph'), p: new THREE.Vector3(-102, 5, -5) },
+  { el: document.getElementById('tag-river'), p: new THREE.Vector3(108, 2, -10) },
+  { el: document.getElementById('tag-dam'), p: new THREE.Vector3(ROAD_X + 2, 2, -9) },
+  { el: document.getElementById('tag-refuge'), p: new THREE.Vector3(MOUND.x, 9, MOUND.z), only: '2030' },
+  { el: document.getElementById('tag-islands'), p: new THREE.Vector3(-50, 4, -8), only: '2030' },
+  { el: document.getElementById('tag-shore'), p: new THREE.Vector3(sh[0], 3, sh[1]), only: '2030' }
 ];
 const v3 = new THREE.Vector3();
 function placeLabels() {
   const w = innerWidth, h = innerHeight;
   for (const l of labels) {
     v3.copy(l.p).project(camera);
-    const vis = v3.z < 1 && Math.abs(v3.x) < 1.05 && Math.abs(v3.y) < 1.05;
+    const on = (!l.only || l.only === year) && l.not !== year;
+    const vis = on && v3.z < 1 && Math.abs(v3.x) < 1.02 && Math.abs(v3.y) < 1.02;
     l.el.style.opacity = vis ? 1 : 0;
     l.el.style.left = ((v3.x + 1) / 2 * w) + 'px';
     l.el.style.top = ((1 - v3.y) / 2 * h) + 'px';
@@ -327,36 +524,48 @@ function placeLabels() {
 function resize() {
   const w = innerWidth, h = innerHeight;
   renderer.setSize(w, h, false); camera.aspect = w / h;
-  camera.fov = w < 640 ? 55 : 42; camera.updateProjectionMatrix();
+  camera.fov = w < 640 ? 58 : 42; camera.updateProjectionMatrix();
+  if (!resize.done) { resize.done = true; if (w < 900) { controls.target.set(-6, -2, 8); camera.position.set(80, 170, 14); } }
 }
 addEventListener('resize', resize); resize();
+
+let lastPlan = -1;
+function applyPlan(k) {
+  plan.visible = k > 0.01;
+  plan.scale.set(1, 1, 1);
+  plan.children.forEach(c => { if (c.userData.base === undefined) c.userData.base = c.scale.clone(); c.scale.copy(c.userData.base).multiplyScalar(Math.max(k, 0.0001)); });
+  planForest.forEach(f => f.place(k));
+  islandReedBed.mesh.visible = k > 0.01;
+}
 
 const clock = new THREE.Clock();
 const wp = wg.attributes.position;
 function frame() {
   const dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
-  const k = reduce ? 1 : 1 - Math.pow(0.0015, dt); // exponential ease toward target
-  cur.level += (target.level - cur.level) * k;
-  cur.fish += (target.fish - cur.fish) * k;
-  cur.ducks += (target.ducks - cur.ducks) * k;
+  const k = reduce ? 1 : 1 - Math.pow(0.0015, dt);
+  for (const key of ['level', 'fish', 'ducks', 'plan']) cur[key] += (target[key] - cur[key]) * k;
   cur.reed.lerp(tmp.set(target.reed), k);
   cur.water.lerp(tmp.set(target.water), k);
   cur.opacity += (target.clarity - cur.opacity) * k;
   reedMat.color.copy(cur.reed);
   waterMat.color.copy(cur.water); waterMat.opacity = cur.opacity;
 
-  // water surface with gentle waves
   for (let i = 0; i < wp.count; i++) {
     const x = wBase[i * 3], z = wBase[i * 3 + 2];
     wp.setY(i, cur.level + (reduce ? 0 : Math.sin(x * 0.18 + t * 1.1) * 0.08 + Math.cos(z * 0.15 + t * 0.8) * 0.08));
   }
   wp.needsUpdate = true; wg.computeVertexNormals();
 
-  // fish swim under the surface, only where water is deep enough
+  if (Math.abs(cur.plan - lastPlan) > 0.002) { applyPlan(cur.plan); lastPlan = cur.plan; }
+  if (plan.visible) {
+    islands.forEach((m, i) => { m.position.y = cur.level + 0.05 + (reduce ? 0 : Math.sin(t * 0.8 + i) * 0.05); });
+    islandReedBed.place(cur.plan);
+  }
+
   const nf = Math.round(cur.fish);
   for (let i = 0; i < FISH; i++) {
     const f = fishData[i];
-    const a = f.a + (reduce ? 0 : t * f.sp * 0.4), x = Math.cos(a) * f.r, z = Math.sin(a) * f.r;
+    const a = f.a + (reduce ? 0 : t * f.sp * 0.4), x = f.cx + Math.cos(a) * f.r, z = f.cz + Math.sin(a) * f.r;
     const bed = height(x, z), y = Math.max(cur.level - f.d, bed + 0.7);
     const show = i < nf && cur.level - bed > 1.6;
     p3.set(x, y + Math.sin(t * 2 + f.ph) * 0.15, z);
@@ -367,7 +576,7 @@ function frame() {
 
   const nd = Math.round(cur.ducks);
   for (let i = 0; i < DUCKS; i++) {
-    const d = duckData[i], a = d.a + (reduce ? 0 : t * d.sp), x = Math.cos(a) * d.r, z = Math.sin(a) * d.r;
+    const d = duckData[i], a = d.a + (reduce ? 0 : t * d.sp), x = d.cx + Math.cos(a) * d.r, z = d.cz + Math.sin(a) * d.r;
     const show = i < nd && cur.level - height(x, z) > 0.8;
     const sc = show ? 1 : 0.0001, yaw = -a - Math.PI / 2;
     q.setFromEuler(e.set(0, yaw, 0));
