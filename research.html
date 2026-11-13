@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Исследования — ЭФРА</title>
-<meta name="description" content="Исследования Экологического Фонда Развития Алматы: метан угольных шахт Казахстана и программа общественного мониторинга «Живые водоёмы Алматы».">
+<meta name="description" content="Исследования Экологического Фонда Развития Алматы: метан угольных шахт, ВИЭ в горнодобыче, программа «Живые водоёмы Алматы», план сохранения озера Карасу и оценка механизма PFP для охраняемых территорий Казахстана.">
 <meta name="theme-color" content="#ffffff">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +54,7 @@ section{padding:100px 0}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 70 C 240 20 480 20 720 60 S 1200 110 1440 50 L1440 120 L0 120Z' fill='%2378dcf1' opacity='.35'/%3E%3Cpath d='M0 90 C 300 50 560 60 820 90 S 1260 120 1440 80 L1440 120 L0 120Z' fill='%23ffffff'/%3E%3C/svg%3E") bottom/100% 100% no-repeat;pointer-events:none}
 .hero h1{font-size:clamp(38px,5.6vw,70px);font-weight:700;letter-spacing:-.025em;line-height:1.04;max-width:13ch;margin-bottom:22px}
 .hero .lead{max-width:52ch;margin-bottom:44px}
-.tracks{display:grid;grid-template-columns:1fr 1fr;gap:22px;position:relative;z-index:1}
+.tracks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;position:relative;z-index:1}
 .track{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:#fff;border-radius:20px;padding:22px;text-decoration:none;box-shadow:0 18px 40px -26px rgba(18,59,90,.45);transition:transform .3s cubic-bezier(.16,1,.3,1)}
 .track:hover{transform:translateY(-4px)}
 .track img{width:92px;height:118px;object-fit:cover;border-radius:10px}
@@ -68,7 +68,7 @@ section{padding:100px 0}
 .switch{border-top:1px solid var(--line);background:rgba(255,255,255,.96)}
 .switch .wrap{display:flex;gap:8px;padding-top:10px;padding-bottom:10px;overflow-x:auto;scrollbar-width:none}
 .switch a{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px;color:var(--navy);border:1.5px solid var(--line);white-space:nowrap;transition:background-color .2s,color .2s,border-color .2s}
-.switch i{font-style:normal}
+.switch i,.switch em{font-style:normal}
 .switch a span{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--pale);font-family:Unbounded;font-size:12.5px}
 .switch a:hover{border-color:var(--teal)}
 .switch a[aria-current=true]{background:var(--navy);border-color:var(--navy);color:#fff}
@@ -206,6 +206,59 @@ section{padding:100px 0}
 .cta ul{list-style:none;display:grid;gap:8px;font-size:16px}
 .cta a{color:#fff;text-decoration:none;font-weight:600}.cta a:hover{color:var(--sky)}
 .cta .mascot2{position:absolute;right:-10px;bottom:-24px;width:120px;opacity:.95}
+/* studies 2, 4, 5 */
+.study-band.band-3{background:radial-gradient(90% 140% at 100% 0%,#1d5a63 0%,transparent 60%),#0b2a40}
+.band-3 .study-no{background:var(--sand);color:var(--navy)}
+.study-band.band-4{background:linear-gradient(90deg,rgba(11,42,64,.94) 0%,rgba(11,42,64,.7) 55%,rgba(11,42,64,.3)),url(img/research/karasu-church.jpg) center 45%/cover;padding:96px 0 84px}
+.band-4 .study-no{background:#fff;color:var(--navy)}
+.band-4 p{color:#e6f2f8}
+.study-band.band-5{background:linear-gradient(120deg,#0d6f8c,var(--navy) 70%)}
+.band-5 .study-no{background:var(--sky);color:var(--navy)}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:12px}
+.mapgrid div{position:relative;border-radius:10px;overflow:hidden}
+.mapgrid img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.mapgrid span{position:absolute;left:8px;top:8px;background:var(--navy);color:#fff;font-family:Unbounded;font-weight:600;font-size:13px;padding:4px 10px;border-radius:999px}
+.tbl{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px;font-variant-numeric:tabular-nums}
+.tbl th{text-align:left;font-size:12.5px;font-weight:600;color:var(--muted);padding:6px 8px 8px 0;border-bottom:1.5px solid var(--navy)}
+.tbl td{padding:8px 8px 8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td:first-child{font-weight:600;color:var(--navy)}
+.tbl td i{display:block;font-weight:400;font-size:12.5px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips span{background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--navy)}
+.chips span i{color:var(--muted);font-size:12.5px}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
+.twocol h4{font-size:13.5px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.twocol ul{list-style:none;font-size:14px}
+.twocol li{padding:6px 0 6px 20px;border-top:1px solid var(--line);position:relative}
+.twocol li::before{content:"";position:absolute;left:2px;top:13px;width:9px;height:9px;border-radius:50%;background:var(--c1)}
+.twocol .gone li::before{background:transparent;border:1.5px solid var(--muted)}
+.twocol li i{display:block;font-size:12.5px;color:var(--muted)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.cards3 div{background:var(--mist);border-radius:16px;padding:22px}
+.cards3 b{display:block;font-family:Unbounded;font-weight:600;font-size:15.5px;color:var(--navy);margin-bottom:8px}
+.cards3 p{font-size:15px;color:var(--muted)}
+.cards3.risk div{background:#fff;border:1.5px solid var(--line)}
+.cards3.risk small{display:block;font-family:Unbounded;font-weight:600;color:var(--c2);font-size:13px;margin-bottom:6px}
+.flow.three{grid-template-columns:repeat(3,1fr)}
+.stops{display:grid;gap:10px}
+.stops div{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:center;background:#fff;border-radius:14px;padding:14px 16px}
+.stops svg{width:44px;height:44px}
+.stops b{display:block;color:var(--navy);font-size:15.5px}
+.stops span{font-size:14px;color:var(--muted)}
+.scheme{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:20px}
+.scheme > div{border-radius:16px;padding:22px;background:#fff;border:1.5px solid var(--line);position:relative}
+.scheme .fund{background:var(--pale);border-color:var(--sky)}
+.scheme small{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:6px}
+.scheme b{display:block;font-family:Unbounded;font-weight:600;font-size:26px;color:var(--navy);font-variant-numeric:tabular-nums;line-height:1.1;margin-bottom:10px}
+.scheme p{font-size:14.5px;color:var(--muted)}
+.scheme ul{list-style:none;margin-top:10px;font-size:14px;font-variant-numeric:tabular-nums}
+.scheme li{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px solid var(--line)}
+.scheme li span:last-child{white-space:nowrap}
+.scheme .total{grid-column:1/-1;background:var(--navy);border-color:var(--navy);color:#d3eaf5;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px}
+.scheme .total b{color:#fff;margin:0}
+.scheme .total p{color:#a9cde0;max-width:52ch}
+.toplink{display:inline-flex;margin-top:56px;font-weight:600;color:var(--teal-ink)}
+.note{margin-top:14px;font-size:13.5px;color:var(--muted);max-width:none}
 footer{background:#0b2a40;color:#8fb5cc;font-size:14px;padding:30px 0}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 footer a{color:#d3eaf5}
@@ -220,6 +273,9 @@ footer a{color:#d3eaf5}
   .findings li:nth-child(3){padding-left:0;border-left:0}
   .flow,.steps{grid-template-columns:1fr 1fr}
   .timeline{grid-template-columns:1fr}
+  .tracks{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .cards3{grid-template-columns:1fr 1fr}
+  .scheme{grid-template-columns:1fr 1fr}.scheme .fund{grid-column:1/-1;grid-row:2}
   .cta .mascot2{display:none}
 }
 @media (max-width:680px){
@@ -240,6 +296,10 @@ footer a{color:#d3eaf5}
   .heat{font-size:11.5px;border-spacing:2px}.heat td{padding:7px 1px}
   .compare div{grid-template-columns:1fr 1fr 1fr;font-size:13.5px}
   .cta{padding:26px}
+  .tracks,.cards3,.scheme,.flow.three,.twocol,.mapgrid{grid-template-columns:minmax(0,1fr)}
+  .scheme .fund{grid-row:auto}
+  .tbl{font-size:13px}
+  .study-band.band-4{padding:72px 0 64px}
 }
 </style>
 </head>
@@ -257,8 +317,11 @@ footer a{color:#d3eaf5}
   </div>
   <nav class="switch" aria-label="Исследования на странице">
     <div class="wrap">
-      <a href="#methane" data-s="methane"><span>1</span>Метан<i class="long"> угольных шахт</i></a>
-      <a href="#waters" data-s="waters"><span>2</span>Живые водоёмы<i class="long"> Алматы</i></a>
+      <a href="#methane" data-s="methane"><span>1</span><em>Метан<i class="long"> угольных шахт</i></em></a>
+      <a href="#mining" data-s="mining"><span>2</span><em>ВИЭ<i class="long"> в горнодобыче</i></em></a>
+      <a href="#waters" data-s="waters"><span>3</span><em>Живые водоёмы</em></a>
+      <a href="#plan" data-s="plan"><span>4</span><em><i class="long">План сохранения </i>Карасу</em></a>
+      <a href="#pfp" data-s="pfp"><span>5</span><em>PFP<i class="long">: деньги для природы</i></em></a>
     </div>
   </nav>
 </header>
@@ -267,10 +330,13 @@ footer a{color:#d3eaf5}
 <section class="hero">
   <div class="wrap">
     <h1>Исследования фонда</h1>
-    <p class="lead">Мы проверяем экологические решения цифрами и выносим их на общее обсуждение: от экономики улавливания шахтного метана до системы, в которой жители сами следят за состоянием городских водоёмов.</p>
+    <p class="lead">Мы проверяем экологические решения цифрами и выносим их на общее обсуждение: от экономики шахтного метана и энергетики горнодобычи до плана сохранения озера Карасу и денег для охраняемых территорий всей страны.</p>
     <div class="tracks">
-      <a class="track" href="#methane"><img src="img/research/cmm-p1-01.jpg" alt="" width="910" height="1287"><div><b>Метан угольных шахт в Казахстане</b><span>Научная статья, 2024. Экономика проекта, который может спасать жизни горняков и сокращать выбросы.</span></div></a>
-      <a class="track" href="#waters"><img class="ill" src="img/program/uirek.png" alt="" width="262" height="480"><div><b>Живые водоёмы Алматы</b><span>Программа общественного мониторинга с Gorozhanym, 2026. Пилот — озеро Карасу.</span></div></a>
+      <a class="track" href="#methane"><img src="img/research/cmm-p1-01.jpg" alt="" width="910" height="1287"><div><b>Метан угольных шахт</b><span>Научная статья, 2024. Проект, который может спасать жизни горняков и сокращать выбросы.</span></div></a>
+      <a class="track" href="#mining"><img src="img/research/th-qg.jpg" alt="" width="596" height="842"><div><b>Почему горняки не спешат к ВИЭ</b><span>Статья в Qazaq Green, 2024. Тарифы, круглосуточная работа и долги.</span></div></a>
+      <a class="track" href="#waters"><img class="ill" src="img/program/uirek.png" alt="" width="262" height="480"><div><b>Живые водоёмы Алматы</b><span>Программа мониторинга с Gorozhanym, 2026. Пилот — озеро Карасу.</span></div></a>
+      <a class="track" href="#plan"><img src="img/research/karasu-church.jpg" alt="" width="1200" height="906"><div><b>План сохранения озера Карасу</b><span>Черновик, 2025. Зелёные берега, птицы, рептилии, опылители.</span></div></a>
+      <a class="track" href="#pfp"><img src="img/research/th-pfp.jpg" alt="" width="612" height="792"><div><b>Деньги для природы навсегда</b><span>Отчёт для UNEP-WCMC, 2025. Сможет ли Казахстан запустить PFP.</span></div></a>
     </div>
   </div>
 </section>
@@ -278,7 +344,7 @@ footer a{color:#d3eaf5}
 <section id="methane" class="study" style="padding-top:0">
   <div class="study-band band-1">
     <div class="wrap">
-      <span class="study-no">Исследование 1 из 2</span>
+      <span class="study-no">1 из 5 · Научная статья</span>
       <h2>Метан угольных шахт в&nbsp;Казахстане</h2>
       <p>Научная статья, 2024. Экономический и экологический анализ проекта, который улавливает метан на угольных шахтах Карагандинской области и превращает его в электричество.</p>
     </div>
@@ -439,8 +505,116 @@ footer a{color:#d3eaf5}
       <p class="src">Разница объясняется более низкими тарифами на жёстко регулируемом энергорынке Казахстана.</p>
     </div>
 
+    <a class="next-study" href="#mining">
+      <span>Дальше — 2 из 5</span>
+      <b>Почему горняки не спешат к ВИЭ</b>
+    </a>
+  </div>
+</section>
+
+<section id="mining" class="study" style="padding-top:0">
+  <div class="study-band band-3">
+    <div class="wrap">
+      <span class="study-no">2 из 5 · Отраслевая статья</span>
+      <h2>Почему горняки не&nbsp;спешат к&nbsp;ВИЭ</h2>
+      <p>Статья в журнале Qazaq Green, 2024. Что мешает четырём крупнейшим горнодобывающим группам Казахстана переходить на возобновляемую энергию.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:64px">
+    <article class="paper">
+      <a class="paper-cover" href="https://qazaqgreen.kz" target="_blank" rel="noopener"><img src="img/research/th-qg.jpg" alt="Первая страница статьи в журнале Qazaq Green" width="596" height="842" loading="lazy"></a>
+      <div>
+        <p class="journal">Qazaq Green, № 8, декабрь 2024, с. 50–53. Рубрика «Декарбонизация отраслей экономики».</p>
+        <h3 lang="en">Overcoming obstacles: why are the leaders of the mining industry in no hurry to switch to renewable energy?</h3>
+        <p class="paper-ru">Преодолевая препятствия: почему лидеры горнодобычи не спешат переходить на возобновляемую энергию</p>
+        <p class="authors">Сергей Васильев<span>директор ОФ «Экологический Фонд Развития Алматы»</span></p>
+        <div class="paper-actions">
+          <a class="btn btn-cyan" href="https://qazaqgreen.kz" target="_blank" rel="noopener">Сайт журнала</a>
+        </div>
+      </div>
+    </article>
+
+    <ul class="findings" aria-label="Главное из статьи">
+      <li><b>~20%</b><span>всех мощностей электростанций страны у четырёх горнодобывающих групп</span></li>
+      <li><b>7,55 ₸</b><span>за кВт·ч — средний тариф их собственных угольных и гидростанций</span></li>
+      <li><b>10,38 ₸</b><span>за кВт·ч — самый низкий тариф ВИЭ на аукционах 2023 года, у ветра</span></li>
+      <li><b>&gt;$13 млрд</b><span>общий долг четырёх групп</span></li>
+    </ul>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">01 Контекст</span>
+        <h3>ВИЭ растут, горнодобыча в стороне</h3>
+        <p>За последние десять лет возобновляемая энергетика в Казахстане бурно развивается, но горнодобывающие компании почти не строят свои станции. Проектов единицы: в 2019 году дочерняя компания Kazakhmys запустила солнечную станцию Кенгир на 10 МВт в Улытауской области, в 2023-м — Балхашскую на 50 МВт, к концу 2025 года её собирались расширить до 100 МВт.</p>
+        <p>Остальное пока на бумаге: ветровая станция Хромтау-1 на 155 МВт у Донского ГОКа (ERG) и каскады малых ГЭС до 106 МВт с участием KAZ Minerals. В статье разобраны четыре крупнейшие группы: <b>Kazakhmys / KAZ Minerals, KazZinc, ERG и Qarmet</b>.</p>
+      </div>
+      <figure class="chart" id="ch-mcap">
+        <figcaption><b>Собственные электростанции четырёх групп</b><span>установленная мощность, МВт, оценка</span></figcaption>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица 1 статьи. Всего 4 941 МВт — почти 20% всех мощностей страны и около 25% без ВИЭ.</p>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">02 Препятствие первое</span>
+        <h3>Своя угольная энергия дешевле</h3>
+        <p>Хотя ВИЭ постоянно дешевеют, они всё ещё проигрывают угольным и гидростанциям, которыми владеют горнодобывающие гиганты. Средний тариф их станций — <b>7,55 ₸ за кВт·ч</b>. Самая дешёвая солнечная энергия на аукционах 2023 года стоила 13,89 ₸, а ветровая — 10,38 ₸.</p>
+        <p>К тому же механизм «единой группы лиц» позволяет компаниям покупать электричество у своих станций напрямую, минуя Единого закупщика. Из всех ВИЭ более-менее конкурировать по цене может только ветер.</p>
+      </div>
+      <figure class="chart" id="ch-tariff">
+        <figcaption><b>Тарифы собственных станций и ВИЭ</b><span>тенге за кВт·ч, 2023</span></figcaption>
+        <div class="legend"><span><i style="background:var(--c1)"></i>Станции горнодобывающих групп</span><span><i style="background:var(--navy)"></i>Средневзвешенный</span><span><i style="background:var(--c2)"></i>Минимум на аукционах ВИЭ</span></div>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица 1 статьи. Для своих станций — утверждённые предельные тарифы на 2023 год.</p>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">03 Препятствие второе</span>
+        <h3>Шахта не может ждать ветра</h3>
+        <p>Значительная часть горного оборудования должна работать без остановок. Внезапное отключение не только снижает выработку: перебои вентиляции ведут к опасному скоплению газов, а остановка подъёмников может запереть горняков под землёй.</p>
+        <p>Солнце и ветер работают с перебоями. Накопители энергии решают проблему, но заметно удорожают станцию — и тогда даже ветровые станции проигрывают угольным и гидростанциям.</p>
+      </div>
+      <figure class="chart">
+        <figcaption><b>Что нельзя остановить</b><span>оборудование, которому нужно бесперебойное питание</span></figcaption>
+        <div class="stops" style="margin-top:14px">
+          <div><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="#d9f5fd"/><path d="M22 10v24M14 14l16 16M30 14L14 30" stroke="#123b5a" stroke-width="2.6" stroke-linecap="round"/></svg><p><b>Вентиляция шахт</b><span>Без неё в выработках скапливаются метан и другие газы.</span></p></div>
+          <div><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="#d9f5fd"/><path d="M16 12v20h12V12M22 16v12" stroke="#123b5a" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg><p><b>Подъёмники и клети</b><span>Остановка может запереть людей под землёй.</span></p></div>
+          <div><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="#d9f5fd"/><path d="M12 26c4-4 6 4 10 0s6 4 10 0M22 10v10" stroke="#123b5a" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg><p><b>Насосы и пожаротушение</b><span>Откачка воды и защита при авариях.</span></p></div>
+          <div><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="#d9f5fd"/><circle cx="22" cy="22" r="8" stroke="#123b5a" stroke-width="2.6" fill="none"/><path d="M22 10v4M22 30v4M10 22h4M30 22h4" stroke="#123b5a" stroke-width="2.6" stroke-linecap="round"/></svg><p><b>Обогатительные фабрики</b><span>Флотация, мельницы и сгустители портятся при внезапных остановках.</span></p></div>
+        </div>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">04 Препятствие третье</span>
+        <h3>Долги съедают инвестиции</h3>
+        <p>Большие финансовые обязательства почти всех действующих горнодобывающих компаний не оставляют денег на проекты вне основной отрасли. Банкам выгоднее финансировать то, что компании уже умеют: расширять имеющиеся станции, а не строить ВИЭ с нуля.</p>
+        <p>К тому же в списке экологических задач декарбонизация у горняков не на первом месте — важнее охрана природы и безопасность труда. Закрытие медного рудника Cobre Panama и уход ArcelorMittal из Казахстана показали, чем грозит невнимание к отходам и охране труда.</p>
+      </div>
+      <figure class="chart" id="ch-debt">
+        <figcaption><b>Текущая долговая нагрузка</b><span>млн долларов США, оценка</span></figcaption>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица 2 статьи, по финансовой отчётности компаний за 2022–2023 годы. Всего больше $13 082 млн.</p>
+      </figure>
+    </div>
+
+    <div class="wide">
+      <span class="num">05 Что делать</span>
+      <h3>Нужен комплексный подход</h3>
+      <p style="color:var(--muted)">Переход на ВИЭ — мировой тренд, и в долгосрочной перспективе казахстанским компаниям придётся перейти на чистую энергию. Готовить почву нужно уже сейчас: государство, финансовые институты и отрасль должны действовать вместе.</p>
+      <div class="cards3">
+        <div><b>Новые финансовые механизмы</b><p>Инструменты, которые позволяют вкладываться в ВИЭ без нового долгового бремени.</p></div>
+        <div><b>Налоговые льготы</b><p>Освобождение от части налогов в обмен на инвестиции в возобновляемую энергетику.</p></div>
+        <div><b>Совместные исследования</b><p>Работа над накопителями энергии и устойчивостью энергосистемы.</p></div>
+      </div>
+    </div>
+
     <a class="next-study" href="#waters">
-      <span>Конец первого исследования. Дальше — исследование 2 из 2</span>
+      <span>Дальше — 3 из 5</span>
       <b>Живые водоёмы Алматы</b>
       <img src="img/program/uirek.png" alt="" width="262" height="480">
     </a>
@@ -450,7 +624,7 @@ footer a{color:#d3eaf5}
 <section class="prog study" id="waters" style="padding-top:0">
   <div class="study-band band-2">
     <div class="wrap">
-      <span class="study-no">Исследование 2 из 2</span>
+      <span class="study-no">3 из 5 · Программа</span>
       <h2>Живые водоёмы Алматы</h2>
       <p>Программа общественного мониторинга городских водоёмов, 2026. Методика, в которой жители, эксперты и город вместе следят за водоёмами. Пилот — озеро Карасу.</p>
     </div>
@@ -532,6 +706,322 @@ footer a{color:#d3eaf5}
       </ul>
       <img class="mascot2" src="img/program/uirek.png" alt="" width="262" height="480" loading="lazy">
     </div>
+
+    <a class="next-study" href="#plan">
+      <span>Дальше — 4 из 5</span>
+      <b>План сохранения озера Карасу</b>
+    </a>
+  </div>
+</section>
+
+<section id="plan" class="study" style="padding-top:0">
+  <div class="study-band band-4">
+    <div class="wrap">
+      <span class="study-no">4 из 5 · План сохранения</span>
+      <h2>Как вернуть природу на&nbsp;Карасу</h2>
+      <p>План сохранения озера Карасу, черновик января 2025 года. Три уровня действий: от защиты зелёных берегов от застройки до скворечников, плавучих островов и фотоловушек.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:64px">
+    <article class="paper">
+      <span class="paper-cover"><img src="img/research/th-kl.jpg" alt="Обложка плана сохранения озера Карасу" width="612" height="792" loading="lazy"></span>
+      <div>
+        <p class="journal">Черновик, январь 2025. 32 страницы.</p>
+        <h3 lang="en">Karasu Lake Conservation Plan</h3>
+        <p class="paper-ru">План сохранения озера Карасу</p>
+        <p class="authors">Хатия Басилашвили, Гиорги Лемонджава</p>
+        <div class="paper-actions">
+          <a class="btn btn-cyan" href="mailto:office@efra.kz?subject=%D0%9F%D0%BB%D0%B0%D0%BD%20%D1%81%D0%BE%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BE%D0%B7%D0%B5%D1%80%D0%B0%20%D0%9A%D0%B0%D1%80%D0%B0%D1%81%D1%83">Запросить документ</a>
+        </div>
+      </div>
+    </article>
+
+    <ul class="findings" aria-label="Главное из плана">
+      <li><b>13 → 7 га</b><span>зелёных и водных территорий вокруг озера осталось с 2002 по 2024 год</span></li>
+      <li><b>4 га</b><span>непрерывной зелёной зоны, не разрезанной застройкой и дорогами</span></li>
+      <li><b>51 вид</b><span>птиц отмечен на соседнем озере Малая Алматинка в 7 км — ориентир для Карасу</span></li>
+      <li><b>&gt;70%</b><span>городского озеленения Алматы — не местные, завезённые виды</span></li>
+    </ul>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">01 Озеро сегодня</span>
+        <h3>Зелёная зона сократилась вдвое</h3>
+        <p>Карасу — искусственный водоём, созданный плотиной на реке. Его уровень держат напорные подземные воды, поэтому он почти не зависит от осадков. В 2023–2024 годах озеро спустили, чтобы убрать ил и мусор; как это повлияло на экосистему, ещё предстоит оценить.</p>
+        <p>По спутниковым снимкам зелёная и водная зона вокруг озера за 2002–2024 годы сократилась примерно <b>с 13 до 7 гектаров</b>. Главная причина — застройка. Чем уже зелёный буфер, тем хуже он фильтрует воду, поэтому первая задача — остановить потерю зелени и чётко закрепить её границы, включая болота выше по течению.</p>
+        <p>Базовых данных о биоразнообразии озера нет, поэтому возможный состав фауны авторы оценивают по похожим местам вокруг Алматы.</p>
+      </div>
+      <figure class="chart">
+        <figcaption><b>Озеро Карасу в 2002 и 2023 годах</b><span>красным обведена зелёная и водная зона</span></figcaption>
+        <div class="mapgrid">
+          <div><img src="img/research/karasu-2002.jpg" alt="Спутниковый снимок озера Карасу в 2002 году: большая зелёная зона вокруг воды" width="805" height="536" loading="lazy"><span>2002</span></div>
+          <div><img src="img/research/karasu-2023.jpg" alt="Спутниковый снимок озера Карасу в 2023 году: зелёная зона сжата застройкой" width="805" height="516" loading="lazy"><span>2023</span></div>
+        </div>
+        <p class="src">Карта 1 плана. Снимки Google Earth.</p>
+      </figure>
+    </div>
+
+    <div class="wide">
+      <span class="num">02 Подход</span>
+      <h3>Три уровня действий</h3>
+      <p style="color:var(--muted);margin-bottom:20px">Цели должны быть реалистичными и учитывать нужды жителей. Уровни 2 и 3 не зависят от первого: их можно начинать, даже если границы зелёной зоны ещё не закреплены.</p>
+      <div class="flow three">
+        <div><b>Защитить зелень</b><p>Сохранить незастроенные территории вокруг озера и вдоль реки и закрепить их границы.</p></div>
+        <div><b>Улучшить места обитания</b><p>Полуприродный парк, тихие зоны у воды, живой берег из местных растений.</p></div>
+        <div><b>Помочь конкретным видам</b><p>Скворечники, отели для насекомых, укрытия для рептилий и наблюдения за животными.</p></div>
+      </div>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">03 Парк</span>
+        <h3>Полуприродный парк вместо советского сквера</h3>
+        <p>Вокруг озера живут люди, поэтому охрана природы не должна отнимать место для отдыха. Решение — <b>полуприродный парк</b>: меньше бетона и декоративных экзотических растений, больше местных видов и естественного рельефа, дорожки для прогулок и велосипедов.</p>
+        <ul>
+          <li>Небольшие тихие убежища прямо у воды, без дорожки между зарослями и озером</li>
+          <li>Живой берег вместо отвесного бетона: тростник, упавшие деревья, каменные насыпи</li>
+          <li>Крупная охраняемая зона на юге озера, где сейчас отсыпают грунт, — только с деревянными смотровыми мостками</li>
+          <li>Пример — восстановление водного канала в дендрарии Калифорнийского университета в Дейвисе</li>
+        </ul>
+      </div>
+      <figure class="chart">
+        <figcaption><b>Живой берег в разрезе</b><span>схема, три яруса растений</span></figcaption>
+        <svg viewBox="0 0 560 300" role="img" aria-label="Схема живого берега: водные растения, прибрежные заросли, кусты и деревья, укрытия из камней и упавшего дерева" style="margin-top:12px">
+          <rect x="0" y="150" width="560" height="150" fill="#cdeef7"/>
+          <path d="M0 168 Q 70 160 140 168 T 280 168" stroke="#78dcf1" stroke-width="2" fill="none"/>
+          <path d="M120 300 Q 190 230 240 186 Q 300 150 360 132 L 560 104 L 560 300 Z" fill="#d8c9a4"/>
+          <path d="M120 300 Q 190 230 240 186 Q 300 150 360 132 L 560 104" stroke="#b49f6c" stroke-width="2" fill="none"/>
+          <g fill="#2f8f6b"><ellipse cx="60" cy="152" rx="18" ry="4"/><ellipse cx="104" cy="153" rx="14" ry="3.5"/><ellipse cx="150" cy="152" rx="16" ry="4"/></g>
+          <g stroke="#2f8f6b" stroke-width="2" fill="none"><path d="M60 156v80M104 156v60M150 156v40M80 250q-6-30 4-60"/></g>
+          <g stroke="#4f7d35" stroke-width="2.4" stroke-linecap="round"><path d="M250 178V112M260 172V100M270 168V108M282 162V96M294 158V104M306 152V92M318 148V102"/></g>
+          <g fill="#7a5a2a"><path d="M180 188 L 262 166 L 266 174 L 184 196Z"/></g>
+          <g fill="#8d9aa3"><circle cx="340" cy="132" r="9"/><circle cx="355" cy="128" r="7"/><circle cx="348" cy="121" r="6"/></g>
+          <g><rect x="398" y="76" width="6" height="44" fill="#7a5a2a"/><circle cx="401" cy="66" r="24" fill="#3f8a4c"/><rect x="486" y="58" width="7" height="50" fill="#7a5a2a"/><circle cx="489" cy="44" r="30" fill="#2f7a46"/><circle cx="440" cy="108" r="13" fill="#5e9f55"/></g>
+          <path d="M370 130 L 560 103" stroke="#fed38e" stroke-width="5" stroke-dasharray="1 0"/>
+          <g font-family="Golos Text,sans-serif" font-size="12.5" fill="#0f2a3d" font-weight="600">
+            <text x="20" y="250">Водные растения</text><text x="20" y="266" font-weight="400" fill="#4e6a7c">кувшинки, водоросли</text>
+            <text x="228" y="40">Прибрежные</text><text x="228" y="56" font-weight="400" fill="#4e6a7c">тростник, рогоз</text>
+            <path d="M262 62v28" stroke="#4e6a7c" stroke-width="1"/>
+            <text x="420" y="204">Наземные</text><text x="420" y="220" font-weight="400" fill="#4e6a7c">кусты и деревья</text>
+            <text x="96" y="122">Укрытия</text><text x="96" y="138" font-weight="400" fill="#4e6a7c">дерево и камни</text>
+            <path d="M150 140 L 196 182" stroke="#4e6a7c" stroke-width="1"/>
+            <text x="372" y="146" font-size="11.5" fill="#8a6d1f">дорожка — в стороне от воды</text>
+          </g>
+        </svg>
+        <p class="src">Схема по разделу «Живой берег» плана.</p>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">04 Растения</span>
+        <h3>Местные виды, а не экзотика</h3>
+        <p>Больше 70% городского озеленения Алматы — завезённые виды, и даже рекомендованные городом списки растений в основном не местные. Карасу находится в зоне высокого эндемизма: в Казахстане 5 658 видов сосудистых растений, многие встречаются только здесь.</p>
+        <p>Для ориентира авторы предлагают естественные прибрежные сообщества реки Или, в 90 км к северу от Алматы. Точный список посадок нужно составить после полевого обследования. Уже растущие у озера местные растения — например, кувшинки и болотную растительность — стоит сохранить, а инвазивные виды убрать.</p>
+      </div>
+      <figure class="chart">
+        <figcaption><b>Деревья для прибрежного восстановления</b><span>растут в естественных поймах региона</span></figcaption>
+        <div class="chips">
+          <span>Тополь разнолистный <i>Populus diversifolia</i></span>
+          <span>Тополь сизолистный <i>Populus pruinosa</i></span>
+          <span>Ива джунгарская <i>Salix songarica</i></span>
+          <span>Лох узколистный <i>Elaeagnus angustifolia</i></span>
+        </div>
+        <p class="src" style="margin-top:16px">Плюс лианы, кустарники, однолетние и многолетние травы из того же сообщества. Источник: Stikhareva et al., 2021; Sadyrova et al., 2022.</p>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">05 Птицы</span>
+        <h3>Сделать Карасу точкой на карте орнитологов</h3>
+        <p>Птицы — хороший индикатор здоровья экосистемы. Но о птицах Карасу данных нет: озера нет в базе eBird. Его можно сделать «горячей точкой», если наладить наблюдения жителей и провести бёрдвотчинг-события. На похожем озере Малая Алматинка, в 7 км, отмечен <b>51 вид</b> — от кряквы и серой цапли до зимородка.</p>
+        <p>Первое практическое действие — скворечники для птиц, гнездящихся в дуплах. В Калифорнии проект Putah Creek Nestbox Highway с 2000 года поставил <b>200 домиков</b>, и за 21 год из них вылетело больше <b>13 000 птенцов</b> девяти видов. Для каждого вида нужен свой размер домика и летка, чтобы внутрь не пробрались хищники.</p>
+      </div>
+      <figure class="chart">
+        <figcaption><b>Скворечники для птиц Карасу</b><span>размеры по рекомендациям плана, см</span></figcaption>
+        <table class="tbl">
+          <thead><tr><th scope="col">Вид</th><th scope="col">Домик</th><th scope="col">Леток</th></tr></thead>
+          <tbody>
+            <tr><td>Чёрный стриж<i>здания, скалы</i></td><td>25×15×20</td><td>3×6,5, овал</td></tr>
+            <tr><td>Сплюшка<i>дупла деревьев</i></td><td>15×15×30</td><td>4,5</td></tr>
+            <tr><td>Зимородок<i>норы в берегах</i></td><td>10×10×12, тоннель</td><td>6</td></tr>
+            <tr><td>Пустельга<i>дупла, здания</i></td><td>25×25×35</td><td>8×8, квадрат</td></tr>
+            <tr><td>Галка<i>дупла, здания</i></td><td>20×20×30</td><td>7</td></tr>
+            <tr><td>Большая синица<i>дупла деревьев</i></td><td>12×12×25</td><td>2,8</td></tr>
+            <tr><td>Скворец<i>дупла, здания</i></td><td>15×15×30</td><td>4,5</td></tr>
+            <tr><td>Домовый воробей<i>здания</i></td><td>12×12×20</td><td>3,2</td></tr>
+            <tr><td>Полевой воробей<i>дупла, здания</i></td><td>12×12×20</td><td>3,2</td></tr>
+          </tbody>
+        </table>
+        <p class="src">Источник: таблица 2 плана. Домики можно ставить и вдоль реки к северу и югу от озера.</p>
+      </figure>
+    </div>
+
+    <div class="wide">
+      <span class="num">06 Вода, острова и опылители</span>
+      <h3>Простые решения, которые можно сделать с жителями</h3>
+      <div class="cards3">
+        <div><b>Плавучие острова</b><p>Из труб, сетки, органических матов и местных растений вроде тростника. Корни очищают воду, под островом нерестится рыба, на нём гнездятся водоплавающие птицы.</p></div>
+        <div><b>Отели для насекомых</b><p>Пучки полых стеблей или просверленные бруски с ходами 0,4–1,2 см для одиночных пчёл и ос. Только натуральные материалы, козырёк от дождя, входы на юго-восток.</p></div>
+        <div><b>Помощь зимой</b><p>Кучи камней и нетронутые земляные холмики для зимовки рептилий, амфибий и ежей, кормушки для синиц. Без лишнего вмешательства: здоровая среда важнее подкормки.</p></div>
+      </div>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">07 Звери и рептилии</span>
+        <h3>Сначала узнать, кто здесь живёт</h3>
+        <p>О млекопитающих у Карасу данных нет, поэтому первый шаг — базовое исследование <b>фотоловушками</b>. План содержит пошаговый протокол, по которому могут работать студенты и волонтёры: подготовка и маркировка камер, настройки съёмки, установка датчика на высоте 30–40 см, объективом на север или юг и не на воду, чтобы не было ложных срабатываний.</p>
+        <p>Из 15 видов рептилий, известных в Алматы и окрестностях, за последние десять лет встречено 8. У озера с торфяным болотом вероятнее всего найти ужей, узорчатого полоза и прыткую ящерицу. Им помогут каменные насыпи, брёвна и норы. Данных об амфибиях нет совсем — их изучение тоже в плане.</p>
+      </div>
+      <figure class="chart">
+        <figcaption><b>Рептилии Алматы и окрестностей</b><span>по Chirikova et al., 2020</span></figcaption>
+        <div class="twocol">
+          <div><h4>Встречены за 10 лет · 8</h4><ul>
+            <li>Водяной уж<i>Natrix tessellata</i></li><li>Обыкновенный уж<i>Natrix natrix</i></li><li>Узорчатый полоз<i>Elaphe dione</i></li><li>Прыткая ящерица<i>Lacerta agilis</i></li><li>Среднеазиатская черепаха<i>Testudo horsfieldii</i></li><li>Алайский гологлаз<i>Asymblepharus alaicus</i></li><li>Пустынный гологлаз<i>Ablepharus deserti</i></li><li>Щитомордник<i>Gloydius halys</i></li></ul></div>
+          <div class="gone"><h4>Известны раньше, не найдены · 7</h4><ul>
+            <li>Стрела-змея<i>Psammophis lineolatus</i></li><li>Разноцветный полоз<i>Hemorrhois ravergieri</i></li><li>Средняя ящурка<i>Eremias intermedia</i></li><li>Быстрая ящурка<i>Eremias velox</i></li><li>Разноцветная ящурка<i>Eremias arguta</i></li><li>Восточный удавчик<i>Eryx tataricus</i></li><li>Степная гадюка<i>Vipera renardi</i></li></ul></div>
+        </div>
+        <p class="src">Первые четыре вида слева — самые вероятные обитатели Карасу. «Не найдены» не значит, что исчезли.</p>
+      </figure>
+    </div>
+
+    <div class="wide">
+      <span class="num">08 Риски</span>
+      <h3>Что может помешать восстановлению</h3>
+      <div class="cards3 risk">
+        <div><small>01</small><b>Кража фотоловушек</b><p>Ставить камеры в незаметных местах, с замками, и рассказывать жителям, зачем они нужны.</p></div>
+        <div><small>02</small><b>Кошки и собаки</b><p>Охотятся на птиц, рептилий и мелких зверей. Держать питомцев под контролем, особенно весной; в будущем — зоны без выгула.</p></div>
+        <div><small>03</small><b>Крысы и белки</b><p>Могут вытеснять другие виды. Фотоловушки покажут масштаб проблемы, потом — отлов или переселение.</p></div>
+        <div><small>04</small><b>Здоровье воды</b><p>Полезные микроорганизмы можно вносить только вместе с профессиональными гидрологами, иначе можно навредить.</p></div>
+        <div><small>05</small><b>Нет водной жизни</b><p>Сажать местные водные растения — рогоз и тростник — и возвращать местных рыб, амфибий и беспозвоночных.</p></div>
+        <div><small>06</small><b>Инвазивные виды</b><p>Регулярный мониторинг, чтобы замечать их рано и быстро убирать.</p></div>
+      </div>
+    </div>
+
+    <a class="next-study" href="#pfp">
+      <span>Дальше — 5 из 5</span>
+      <b>Деньги для природы навсегда</b>
+    </a>
+  </div>
+</section>
+
+<section id="pfp" class="study" style="padding-top:0">
+  <div class="study-band band-5">
+    <div class="wrap">
+      <span class="study-no">5 из 5 · Аналитический отчёт</span>
+      <h2>Деньги для природы навсегда</h2>
+      <p>Оценка того, сможет ли Казахстан запустить Project Finance for Permanence — сделку, которая на 15 лет вперёд закрепляет деньги на охраняемые территории. Подготовлено для программы SPACES, UNEP-WCMC, 2025.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding-top:64px">
+    <article class="paper">
+      <span class="paper-cover"><img src="img/research/th-pfp.jpg" alt="Обложка отчёта" width="612" height="792" loading="lazy"></span>
+      <div>
+        <p class="journal">UNEP-WCMC, Кембридж, 2025. Программа SPACES Kazakhstan. Отчёт не опубликован.</p>
+        <h3 lang="en">Viability assessment for a Project Finance for Permanence (PFP) initiative in Kazakhstan</h3>
+        <p class="paper-ru">Оценка жизнеспособности инициативы Project Finance for Permanence в Казахстане</p>
+        <p class="authors">Сергей Васильев<span>ОФ «Экологический Фонд Развития Алматы», SPACES Kazakhstan. Редакторы — Мария Антонова и Олена Тарасова-Красиева (UNEP-WCMC)</span></p>
+        <div class="paper-actions">
+          <button class="btn btn-line cite" type="button" data-cite="Vassilyev, S. (2025). Viability assessment for a Project Finance for Permanence initiative in Kazakhstan. UNEP-WCMC: Cambridge, United Kingdom. Unpublished.">Скопировать цитату</button>
+        </div>
+        <p class="doi"><span class="cite-status" aria-live="polite" style="margin-left:0"></span></p>
+      </div>
+    </article>
+
+    <ul class="findings" aria-label="Главное из отчёта">
+      <li><b>20–30 млн га</b><span>может охватить PFP в Казахстане, в перспективе до 41 млн</span></li>
+      <li><b>≈$260 млн</b><span>общие инвестиции за 15 лет: около $90 млн от доноров и $170 млн из страны</span></li>
+      <li><b>570–860</b><span>постоянных рабочих мест</span></li>
+      <li><b>$342 млн</b><span>за 10 лет могут дать 12 финансовых механизмов, найденных программой SPACES</span></li>
+    </ul>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">01 Идея</span>
+        <h3>Одна сделка вместо десятка коротких проектов</h3>
+        <p>Обычно охрану природы финансируют донорские проекты на 3–5 лет: деньги заканчиваются, и работа останавливается. <b>PFP</b> собирает государство, доноров и бизнес в одну сделку: все заранее договариваются о деньгах на многие годы и о юридически закреплённых обязательствах по охране. Деньги поступают по мере выполнения условий.</p>
+        <p>Такие сделки уже работают в Бразилии, Колумбии, Перу, Бутане, Коста-Рике, Канаде и Монголии. Казахстан по ВВП на душу населения заметно богаче большинства из этих стран, поэтому здесь больше денег может прийти изнутри страны, а PFP станет скорее общей рамкой для разных источников, чем одним финансовым инструментом.</p>
+      </div>
+      <figure class="chart" id="ch-parea">
+        <figcaption><b>Площадь под защитой PFP</b><span>млн гектаров</span></figcaption>
+        <div class="legend"><span><i style="background:var(--navy)"></i>Действующие PFP</span><span><i style="background:var(--c1)"></i>Казахстан, оценка 20–30</span></div>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица 5 отчёта (Government of Canada, Pew, TNC, 2024).</p>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">02 Где</span>
+        <h3>От 11% страны к цели 30×30</h3>
+        <p>Сейчас охраняемые территории Казахстана — <b>31 млн га, 11,4%</b> страны. Концепция сохранения биоразнообразия на 2025–2035 годы расширяет их до 34 млн га (12,5%), а с дополнительными предложенными участками — до 41 млн га (15%).</p>
+        <p>Чтобы приблизиться к глобальной цели 30×30, нужны и <b>другие эффективные природоохранные меры (ОЭМСП)</b>: территории, которые охраняют природу, не будучи заповедниками. Самые ценные из них — Рамсарские угодья, ключевые орнитологические территории и дельты рек, а самые большие по площади — охотничьи хозяйства и пастбища.</p>
+      </div>
+      <figure class="chart" id="ch-oecm">
+        <figcaption><b>Кандидаты в ОЭМСП</b><span>млн гектаров, категории могут пересекаться</span></figcaption>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица 1 отчёта. Охотничьи хозяйства и леса — после отбора по ценности для биоразнообразия; пастбища — все.</p>
+      </figure>
+    </div>
+
+    <div class="chapter">
+      <div class="chapter-text">
+        <span class="num">03 Деньги</span>
+        <h3>Двенадцать механизмов, половина подходит для PFP</h3>
+        <p>Программа SPACES построила для правительства финансово-экономическую модель и нашла 12 инструментов, которые могут дать <b>$342 млн за 10 лет</b> или $502 млн за 15 лет.</p>
+        <p>Для PFP годятся только стабильные и предсказуемые источники, которые можно закрепить на годы и прозрачно контролировать: трастовый фонд, плата за экосистемные услуги, государственно-частное партнёрство, смешанное финансирование, донорский взнос и зелёные облигации. Вместе это около <b>$10,3 млн в год</b>, или $203 млн за 15 лет. Корпоративные пожертвования важны, но слишком непредсказуемы.</p>
+      </div>
+      <figure class="chart" id="ch-pmech">
+        <figcaption><b>Потенциал финансовых механизмов</b><span>млн долларов США за 15 лет</span></figcaption>
+        <div class="legend"><span><i style="background:var(--c1)"></i>Подходят для PFP</span><span><i style="background:var(--c2)"></i>Подходят меньше</span></div>
+        <div class="plot"></div>
+        <p class="src">Источник: таблица 3 отчёта (UNEP-WCMC, 2025). Донорский взнос и облигации — разовые вливания.</p>
+      </figure>
+    </div>
+
+    <div class="wide">
+      <span class="num">04 Устройство сделки</span>
+      <h3>Кто сколько вносит</h3>
+      <p style="color:var(--muted)">Схема из модели отчёта. Цифры округлены.</p>
+      <div class="scheme">
+        <div>
+          <small>Государство или нацхолдинг</small>
+          <b>$146 млн</b>
+          <p>Разовый взнос $20 млн в трастовый фонд и обязательство на 15 лет — $8,4 млн в год, всего $126 млн. Деньги в основном приходят через механизмы, связанные с частным сектором.</p>
+          <ul><li><span>Смешанное финансирование</span><span>$4,1 млн/год</span></li><li><span>Плата за экосистемные услуги</span><span>$2,5 млн/год</span></li><li><span>ГЧП</span><span>$0,5 млн/год</span></li><li><span>Другое</span><span>$1,3 млн/год</span></li></ul>
+        </div>
+        <div class="fund">
+          <small>Национальный трастовый фонд биоразнообразия</small>
+          <b>$80 млн</b>
+          <p>Капитал: $20 млн от государства и $60 млн от доноров. Сам капитал не тратится: вложенный под 4% годовых, он своими процентами покрывает расходы на управление, администратора рынка биоразнообразия и конкурсные гранты.</p>
+        </div>
+        <div>
+          <small>Местные и международные доноры</small>
+          <b>$88 млн</b>
+          <p>Около 0,6 доллара на каждый доллар государственного обязательства — в пределах других PFP: в Монголии 0,56, в Перу и Колумбии почти 1 к 1.</p>
+          <ul><li><span>В трастовый фонд</span><span>$60 млн</span></li><li><span>На программы PFP</span><span>$28 млн</span></li></ul>
+        </div>
+        <div class="total">
+          <div><small style="color:#a9cde0">Project Finance for Permanence, 15 лет</small><b>≈$200 млн</b></div>
+          <p>прямого долгосрочного финансирования на расширение и содержание охраняемых территорий и ОЭМСП — столько же, сколько в PFP Канады, Колумбии и Бразилии.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wide">
+      <span class="num">05 Кто и как</span>
+      <h3>Что нужно для запуска</h3>
+      <div class="cards3">
+        <div><b>Сильное политическое лидерство</b><p>При централизованной системе успех PFP зависит от поддержки на высшем уровне. Ведущим исполнителем может стать предложенный Президентом Национальный фонд биоразнообразия или один из нацхолдингов.</p></div>
+        <div><b>НКО-партнёр — АСБК</b><p>Ассоциация сохранения биоразнообразия Казахстана управляет 423 тыс. га охотничьих угодий в Костанайской области, где охота запрещена, — фактически это уже ОЭМСП.</p></div>
+        <div><b>Местные сообщества</b><p>Больше 800 охотничьих хозяйств — точка входа для работы с жителями: рабочие места, туризм, управление дикой природой. Доход от устойчивого туризма может вырасти с $2,6 млн в 2024 году до $6,8 млн к 2035-му.</p></div>
+      </div>
+      <p class="note">Отчёт отдельно разбирает риски управления по данным мониторинга ОЭСР 2024 года и предлагает доверить управление трастовым фондом независимым сторонам, приемлемым для доноров.</p>
+    </div>
+
+    <a class="toplink" href="#main">↑ Ко всем исследованиям</a>
   </div>
 </section>
 </main>
@@ -622,6 +1112,90 @@ function bar(p,x,y,w,h,fill,up=true){const r=Math.min(4,w/2,Math.abs(h)/2);if(Ma
  hit.addEventListener('mousemove',move);hit.addEventListener('mouseleave',()=>{T.hide();cross.setAttribute('opacity',0);dots.forEach(d=>d.setAttribute('opacity',0))});
 })();
 
+// generic horizontal bars: rows = {l, v, c, tip, lab, sub, gap, v2}
+function hbars(id,rows,{lw=170,max,unit='',label}){const fig=document.getElementById(id);if(!fig)return;
+ const W=560,rowH=34,bw=22,padR=86;let y=4;const pos=rows.map(r=>{if(r.gap)y+=14;const p=y;y+=rowH;return p});const H=y+4;
+ const s=svg(fig,W,H,label);const sc=(W-lw-padR)/max;
+ rows.forEach((r,i)=>{const y0=pos[i];
+  const t=el('text',{x:0,y:y0+bw/2+5,style:`font-size:13px;fill:#0f2a3d;${r.bold?'font-weight:700':''}`},s);t.textContent=r.l;
+  if(r.sub){t.setAttribute('y',y0+bw/2);const t2=el('text',{x:0,y:y0+bw/2+13,class:'g-tick',style:'font-size:11px'},s);t2.textContent=r.sub}
+  const w=Math.max(r.v*sc,2);const b=el('rect',{x:lw,y:y0,width:w,height:bw,rx:4,fill:r.c},s);hover(fig,b,r.tip);
+  let end=lw+w;if(r.v2){const w2=(r.v2-r.v)*sc;const b2=el('rect',{x:lw+w+2,y:y0,width:w2-2,height:bw,rx:4,fill:r.c,opacity:.38},s);hover(fig,b2,r.tip);end=lw+w+w2}
+  el('text',{x:end+8,y:y0+bw/2+5,class:'g-lbl'},s).textContent=r.lab});
+}
+const N=v=>v.toLocaleString('ru-RU',{maximumFractionDigits:2});
+
+// mining: capacity by group
+hbars('ch-mcap',[
+ {l:'ERG',v:2825,c:C.c1,lab:'2 825',tip:'<b>ERG</b><br>Евроазиатская энергетическая корпорация: 2 475 МВт<br>Алюминий Казахстана: 350 МВт'},
+ {l:'Kazakhmys / KAZ Minerals',v:1006,c:C.c1,lab:'1 006',tip:'<b>Kazakhmys / KAZ Minerals</b><br>ГРЭС Топар: 743 МВт<br>Kazakhmys-Energy (Балхашская и Жезказганская ТЭЦ): 263 МВт'},
+ {l:'KazZinc',v:675,c:C.c1,lab:'675',tip:'<b>KazZinc</b><br>Бухтарминская ГЭС: 675 МВт<br>в долгосрочной аренде у «Самрук-Энерго»'},
+ {l:'Qarmet',v:435,c:C.c1,lab:'435',tip:'<b>Qarmet</b> (бывший ArcelorMittal Temirtau)<br>Карагандинская ТЭЦ-2: 435 МВт'}
+],{lw:180,max:2825,label:'Мощность собственных электростанций горнодобывающих групп, МВт'});
+
+// mining: tariffs
+hbars('ch-tariff',[
+ {l:'Бухтарминская ГЭС',sub:'KazZinc',v:1.46,c:C.c1,lab:'1,46',tip:'<b>Бухтарминская ГЭС</b>, KazZinc<br>1,46 ₸/кВт·ч · 675 МВт'},
+ {l:'Алюминий Казахстана',sub:'ERG',v:6.05,c:C.c1,lab:'6,05',tip:'<b>Алюминий Казахстана</b>, ERG<br>6,05 ₸/кВт·ч · 350 МВт'},
+ {l:'Карагандинская ТЭЦ-2',sub:'Qarmet',v:6.77,c:C.c1,lab:'6,77',tip:'<b>Карагандинская ТЭЦ-2</b>, Qarmet<br>6,77 ₸/кВт·ч · 435 МВт'},
+ {l:'Евроазиатская ЭК',sub:'ERG',v:7.40,c:C.c1,lab:'7,40',tip:'<b>Евроазиатская энергетическая корпорация</b>, ERG<br>7,40 ₸/кВт·ч · 2 475 МВт'},
+ {l:'ГРЭС Топар',sub:'Kazakhmys',v:11.65,c:C.c1,lab:'11,65',tip:'<b>ГРЭС Топар</b>, Kazakhmys<br>11,65 ₸/кВт·ч · 743 МВт'},
+ {l:'Kazakhmys-Energy',sub:'Kazakhmys',v:16.37,c:C.c1,lab:'16,37',tip:'<b>Kazakhmys-Energy</b><br>16,37 ₸/кВт·ч · 263 МВт'},
+ {l:'Средневзвешенный',v:7.55,c:C.navy,lab:'7,55',bold:true,tip:'<b>Средневзвешенный тариф</b><br>7,55 ₸/кВт·ч · 4 941 МВт'},
+ {l:'Ветровые',v:10.38,c:C.c2,lab:'10,38',gap:true,tip:'<b>Ветровые станции</b><br>минимум на аукционах 2023: 10,38 ₸'},
+ {l:'Солнечные',v:13.89,c:C.c2,lab:'13,89',tip:'<b>Солнечные станции</b><br>минимум на аукционах 2023: 13,89 ₸'},
+ {l:'Малые ГЭС до 10 МВт',v:17.50,c:C.c2,lab:'17,50',tip:'<b>ГЭС до 10 МВт</b><br>минимум на аукционах 2023: 17,50 ₸'},
+ {l:'ГЭС свыше 10 МВт',v:34.80,c:C.c2,lab:'34,80',tip:'<b>ГЭС свыше 10 МВт</b><br>минимум на аукционах 2023: 34,80 ₸'}
+],{lw:160,max:34.8,label:'Тарифы собственных станций горнодобывающих групп и минимальные тарифы ВИЭ, тенге за кВт·ч'});
+
+// mining: debt
+hbars('ch-debt',[
+ {l:'Kazakhmys / KAZ Minerals',v:6900,c:C.navy,lab:'>6 900',tip:'<b>Kazakhmys / KAZ Minerals</b><br>больше $6 900 млн'},
+ {l:'ERG',v:5022,c:C.navy,lab:'~5 022',tip:'<b>ERG</b><br>около $5 022 млн'},
+ {l:'Qarmet',v:805,c:C.navy,lab:'805',tip:'<b>Qarmet</b><br>$805 млн'},
+ {l:'KazZinc',v:355,c:C.navy,lab:'355',tip:'<b>KazZinc</b><br>$355 млн'}
+],{lw:180,max:6900,label:'Долговая нагрузка горнодобывающих групп, млн долларов'});
+
+// pfp: area comparison
+hbars('ch-parea',[
+ {l:'ARPA for Life',sub:'Бразилия, 2014',v:60,c:C.navy,lab:'60',tip:'<b>ARPA for Life</b>, Бразилия<br>60 млн га · 7% страны'},
+ {l:'Eternal Mongolia',sub:'Монголия, 2024',v:47,c:C.navy,lab:'47',tip:'<b>Eternal Mongolia</b><br>47 млн га · 30% страны'},
+ {l:'Northwest Territories',sub:'Канада, 2024',v:37.9,c:C.navy,lab:'37,9',tip:'<b>Northwest Territories</b>, Канада<br>37,9 млн га · 4% страны'},
+ {l:'Heritage Colombia',sub:'Колумбия, 2022',v:32,c:C.navy,lab:'32',tip:'<b>Heritage Colombia</b><br>32 млн га · 28% страны'},
+ {l:'Казахстан',sub:'оценка отчёта',v:20,v2:30,c:C.c1,lab:'20–30',bold:true,tip:'<b>Казахстан, оценка</b><br>20–30 млн га · 7–11% страны'},
+ {l:'Natural Legacy',sub:'Перу, 2019',v:16.7,c:C.navy,lab:'16,7',tip:'<b>National Parks – Natural Legacy</b>, Перу<br>16,7 млн га · 13% страны'},
+ {l:'Great Bear Sea',sub:'Канада, 2025',v:10,c:C.navy,lab:'10',tip:'<b>Great Bear Sea</b>, Канада<br>10 млн га'},
+ {l:'Great Bear Rainforest',sub:'Канада, 2007',v:8.5,c:C.navy,lab:'8,5',tip:'<b>Great Bear Rainforest</b>, Канада<br>8,5 млн га'},
+ {l:'Forever Costa Rica',sub:'Коста-Рика, 2010',v:2.3,c:C.navy,lab:'2,3',tip:'<b>Forever Costa Rica</b><br>2,3 млн га · 45% страны'},
+ {l:'Bhutan for Life',sub:'Бутан, 2017',v:2.0,c:C.navy,lab:'2',tip:'<b>Bhutan for Life</b><br>2 млн га · 52% страны'}
+],{lw:160,max:60,label:'Площадь под защитой PFP по странам, млн гектаров'});
+
+// pfp: OECM candidates
+hbars('ch-oecm',[
+ {l:'Пастбища',v:185,c:C.c1,lab:'~185',tip:'<b>Пастбища</b><br>около 185 млн га · 68% страны<br>нужны поправки в законы'},
+ {l:'Охотничьи хозяйства',v:97.8,c:C.c1,lab:'97,8',tip:'<b>Охотничьи хозяйства</b><br>97,8 млн га после отбора · 36,7%'},
+ {l:'Государственный лесной фонд',v:23.7,c:C.c1,lab:'23,7',tip:'<b>Лесные хозяйства</b><br>23,7 млн га · 8,7% · 121 участок'},
+ {l:'Ключевые орнитол. территории',v:7.8,c:C.c1,lab:'7,8',tip:'<b>КОТР</b><br>7,8 млн га · 2,9% · 110 участков'},
+ {l:'Экологические коридоры',v:3.3,c:C.c1,lab:'3,3',tip:'<b>Экокоридоры</b><br>3,3 млн га · 1,2% · 4 коридора'},
+ {l:'Водно-болотные угодья',sub:'Рамсарские и национальные',v:2.0,c:C.c1,lab:'2,0',tip:'<b>Водно-болотные угодья</b><br>2,0 млн га · 0,7% · 48 участков'}
+],{lw:236,max:185,label:'Категории кандидатов в ОЭМСП, млн гектаров'});
+
+// pfp: mechanisms
+hbars('ch-pmech',[
+ {l:'Смешанное финансирование',v:62,c:C.c1,lab:'62',tip:'<b>Смешанное финансирование</b><br>$4,1 млн в год · $62 млн за 15 лет'},
+ {l:'Трастовый фонд, проценты',v:48,c:C.c1,lab:'48',tip:'<b>Трастовый фонд</b><br>$3,2 млн в год · $48 млн за 15 лет'},
+ {l:'Экосистемные услуги',v:38,c:C.c1,lab:'38',tip:'<b>Плата за экосистемные услуги</b><br>$2,5 млн в год · $38 млн за 15 лет'},
+ {l:'Донорский взнос PFP',v:28,c:C.c1,lab:'28',tip:'<b>Донорский взнос PFP</b><br>разово · $28 млн'},
+ {l:'Зелёные облигации',v:20,c:C.c1,lab:'20',tip:'<b>Зелёные и голубые облигации</b><br>разово · $20 млн в трастовый фонд'},
+ {l:'ГЧП',v:7,c:C.c1,lab:'7',tip:'<b>Государственно-частное партнёрство</b><br>$0,5 млн в год · $7 млн за 15 лет'},
+ {l:'Компенсации за ущерб',v:93,c:C.c2,lab:'93',gap:true,tip:'<b>Компенсации за ущерб биоразнообразию</b><br>$6,2 млн в год · $93 млн за 15 лет'},
+ {l:'Пожертвования компаний',v:85,c:C.c2,lab:'85',tip:'<b>Корпоративные пожертвования (ESG)</b><br>$5,7 млн в год · $85 млн за 15 лет'},
+ {l:'Устойчивый туризм',v:78,c:C.c2,lab:'78',tip:'<b>Устойчивый туризм</b><br>$5,2 млн в год · $78 млн за 15 лет'},
+ {l:'Углеродное финансирование',v:39,c:C.c2,lab:'39',tip:'<b>Углеродное финансирование</b><br>$2,6 млн в год · $39 млн за 15 лет'},
+ {l:'Кредиты биоразнообразия',v:4,c:C.c2,lab:'4',tip:'<b>Кредиты биоразнообразия</b><br>$0,3 млн в год · $4 млн за 15 лет'},
+ {l:'Краудфандинг',v:1,c:C.c2,lab:'1',tip:'<b>Краудфандинг</b><br>$0,1 млн в год · $1 млн за 15 лет'}
+],{lw:212,max:93,label:'Потенциал финансовых механизмов за 15 лет, млн долларов'});
+
 // highlight current study in the switch
 (()=>{const links=[...document.querySelectorAll('.switch a')];const set=id=>links.forEach(a=>a.setAttribute('aria-current',a.dataset.s===id));
  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)set(e.target.id)})},{rootMargin:'-45% 0px -50% 0px'});
@@ -631,6 +1205,8 @@ function bar(p,x,y,w,h,fill,up=true){const r=Math.min(4,w/2,Math.abs(h)/2);if(Ma
 const cb=document.getElementById('cite-btn'),cs=document.getElementById('cite-status');
 cb.addEventListener('click',async()=>{const c='Vassilyev, S., & Iskakov, G. (2024). Coal mine methane in Kazakhstan: economic and environmental case study. Central Asian Journal of Sustainability and Climate Research, 3(1), 96–125. https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng';
  try{await navigator.clipboard.writeText(c);cs.textContent='Цитата скопирована'}catch(_){cs.textContent=c}setTimeout(()=>{if(cs.textContent==='Цитата скопирована')cs.textContent=''},3000)});
+document.querySelectorAll('.cite').forEach(b=>b.addEventListener('click',async()=>{const st=b.closest('.paper').querySelector('.cite-status');const c=b.dataset.cite;
+ try{await navigator.clipboard.writeText(c);st.textContent='Цитата скопирована'}catch(_){st.textContent=c}setTimeout(()=>{if(st.textContent==='Цитата скопирована')st.textContent=''},3000)}));
 </script>
 </body>
 </html>
