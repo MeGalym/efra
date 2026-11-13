@@ -59,7 +59,9 @@ section{padding:120px 0}
 .menu{display:flex;gap:22px;font-weight:500;font-size:15px}
 .menu a{text-decoration:none;color:var(--ink);white-space:nowrap}
 .nav .btn{white-space:nowrap}
-@media (max-width:1280px){.brand span{display:none}}
+@media (max-width:1500px){.brand span{display:none}}
+.brand{flex:none}
+@media (max-width:1240px){.menu{gap:16px;font-size:14.5px}}
 .menu a:hover{color:var(--deep-2);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px;text-decoration-color:var(--aqua)}
 .nav .btn{padding:11px 20px;font-size:15px}
 .burger{display:none;background:none;border:0;cursor:pointer;width:44px;height:44px;color:var(--deep)}
@@ -170,9 +172,82 @@ section{padding:120px 0}
 .work-grid li{padding:9px 0;border-top:1px solid var(--line);font-size:15.5px;color:var(--muted)}
 .work-grid svg{width:40px;height:40px;stroke:var(--deep-2);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:18px}
 
+/* research */
+.research{background:#fff}
+.rs-head{margin-bottom:48px}
+.paper{display:grid;grid-template-columns:260px 1fr;gap:44px;align-items:center;padding:36px;border-radius:22px;background:var(--deep);color:#d6e8e4}
+.paper-cover{display:block;border-radius:10px;overflow:hidden;box-shadow:0 24px 40px -18px rgba(0,0,0,.6);transform:rotate(-2deg);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.paper-cover:hover{transform:rotate(0) translateY(-4px)}
+.paper-cover img{width:100%}
+.journal{font-size:14px;color:#a9c9c3;margin-bottom:12px}
+.paper-title{font-size:clamp(22px,2.4vw,30px);color:#fff;line-height:1.2;margin-bottom:10px}
+.paper-ru{font-size:17px;color:#cfe3df;margin-bottom:18px}
+.authors{font-weight:600;color:#fff;margin-bottom:24px}
+.authors span{font-weight:400;color:#a9c9c3;font-size:14.5px}
+.paper-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.paper .btn-deep{background:var(--aqua);color:var(--deep)}
+.paper .btn-deep:hover{background:#86e6da}
+.paper .btn-line{color:#fff;border-color:rgba(255,255,255,.55)}
+.paper .btn-line:hover{background:#fff;color:var(--deep)}
+.doi{font-size:13.5px;color:#a9c9c3;word-break:break-all}
+.doi a{color:#cfe3df}
+.doi span{margin-left:12px;color:var(--aqua);font-weight:600}
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;align-items:center;margin-top:96px}
+.story-rev .story-text{order:2}
+.story-text h3{font-size:24px;margin-bottom:14px}
+.story-text p{color:var(--muted)}
+.story-text p+p{margin-top:14px}
+.story-text b{color:var(--deep);font-variant-numeric:tabular-nums}
+.chart{background:var(--silt);border-radius:18px;padding:24px 24px 18px}
+.chart figcaption{margin-bottom:14px}
+.chart figcaption b{display:block;font-family:Unbounded;font-weight:600;font-size:16px;color:var(--deep)}
+.chart figcaption span{font-size:13.5px;color:var(--muted)}
+.chart svg{width:100%;height:auto;overflow:visible;font-family:"Golos Text",sans-serif}
+.chart .grid line{stroke:#c9d6d1;stroke-width:1}
+.chart .zero{stroke:var(--deep);stroke-width:1.5}
+.chart .bars1 rect{fill:#14504e}
+.chart .bars3 rect{fill:#0a8aa8}
+.chart rect{transition:opacity .2s}
+.chart svg:hover rect{opacity:.55}.chart svg rect:hover{opacity:1}
+.chart .s1{fill:#b7791f}.chart .s2{fill:#0a8aa8}
+.chart .vals text{font-size:13px;font-weight:700;fill:var(--ink);text-anchor:middle;font-variant-numeric:tabular-nums}
+.chart .vals-h text{text-anchor:start}
+.chart .ticks text{font-size:12.5px;fill:var(--muted);text-anchor:middle}
+.chart .axis-l text{font-size:12px;fill:var(--muted);text-anchor:end;font-variant-numeric:tabular-nums}
+.chart .hlabels text{font-size:14px;fill:var(--ink);font-weight:500}
+.legend-row{display:flex;gap:18px;font-size:13.5px;color:var(--ink);margin:-4px 0 10px;flex-wrap:wrap}
+.legend-row i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+.src{font-size:12.5px;color:var(--muted);margin-top:8px}
+.project-facts{margin-top:96px;padding:36px 0;border-top:2px solid var(--deep);border-bottom:1px solid var(--line)}
+.project-facts h3{font-size:20px;margin-bottom:24px}
+.project-facts ul{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.project-facts b{display:block;font-family:Unbounded;font-weight:600;font-size:clamp(22px,2.4vw,30px);color:var(--deep);font-variant-numeric:tabular-nums}
+.project-facts span{font-size:14.5px;color:var(--muted)}
+.data{margin-top:56px;font-size:14.5px}
+.data summary{cursor:pointer;font-weight:600;color:var(--deep-2)}
+.data-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:20px}
+.data table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+.data caption{text-align:left;font-weight:700;color:var(--deep);margin-bottom:8px}
+.data th,.data td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+.data th{color:var(--muted);font-weight:600}
+.avatar-ph{width:100%;aspect-ratio:1/1.1;border-radius:var(--r);background:linear-gradient(160deg,var(--deep-2),var(--deep));display:grid;place-items:center;font-family:Unbounded;font-weight:700;font-size:44px;color:var(--aqua)}
+@media (max-width:1060px){
+  .story,.paper{grid-template-columns:1fr;gap:32px}
+  .story-rev .story-text{order:0}
+  .paper{padding:28px}
+  .paper-cover{max-width:220px}
+  .project-facts ul,.data-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:680px){
+  .project-facts ul,.data-grid{grid-template-columns:1fr}
+  .paper{padding:22px}
+  .paper-actions .btn{width:100%}
+  .story{margin-top:64px}
+}
+
 /* team */
 .team{background:var(--silt)}
-.people{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
+.people{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:44px}
 .person img{width:100%;aspect-ratio:1/1.1;object-fit:cover;border-radius:var(--r);background:#dfe8e4}
 .person h3{margin-top:16px;font-size:17px}
 .person .role{color:var(--deep-2);font-weight:600;font-size:14px;margin-bottom:6px}
@@ -220,6 +295,7 @@ footer a{color:#cfe3df}
 
 @media (max-width:1060px){
   .menu,.nav .btn{display:none}
+  .people{grid-template-columns:repeat(3,1fr)}
   .burger{display:inline-flex;align-items:center;justify-content:center}
   .menu.open{display:flex;flex-direction:column;gap:0;position:absolute;top:76px;left:0;right:0;background:#fff;padding:8px 28px 18px;border-bottom:1px solid var(--line)}
   .menu.open a{padding:13px 0;border-bottom:1px solid var(--line)}
@@ -269,6 +345,7 @@ footer a{color:#cfe3df}
       <a href="#history">История</a>
       <a href="#census">Обитатели</a>
       <a href="lake3d.html">Озеро в 3D</a>
+      <a href="#research">Исследования</a>
       <a href="#team">Команда</a>
       <a href="#partners">Партнёры</a>
       <a href="#contact">Контакты</a>
@@ -418,6 +495,135 @@ footer a{color:#cfe3df}
   </div>
 </section>
 
+<section class="research" id="research">
+  <div class="wrap">
+    <div class="rs-head">
+      <div>
+        <h2>Исследования</h2>
+        <p class="lead">Мы занимаемся не только озером. Фонд изучает, как экологические проекты в Казахстане могут окупаться и спасать жизни, и публикует результаты в рецензируемых журналах.</p>
+      </div>
+    </div>
+
+    <article class="paper">
+      <a class="paper-cover" href="https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng" target="_blank" rel="noopener">
+        <img src="img/research/cmm-p1-01.jpg" alt="Первая страница статьи «Coal mine methane in Kazakhstan: economic and environmental case study»" width="910" height="1287" loading="lazy">
+      </a>
+      <div class="paper-body">
+        <p class="journal">Central Asian Journal of Sustainability and Climate Research, 2024, т. 3, № 1, с. 96–125</p>
+        <h3 class="paper-title" lang="en">Coal mine methane in Kazakhstan: economic and environmental case study</h3>
+        <p class="paper-ru">Метан угольных шахт в Казахстане: экономический и экологический анализ</p>
+        <p class="authors">Сергей Васильев, Галым Искаков<br><span>ОФ «Экологический Фонд Развития Алматы»</span></p>
+        <div class="paper-actions">
+          <a class="btn btn-deep" href="https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng" target="_blank" rel="noopener">Открыть статью по DOI</a>
+          <a class="btn btn-line" href="https://ks.dku.kz/documents/183/Coal-Mine-Methane-in-Kazakhstan-Economic-and-Environmental-Case-Study-_A-Y1.pdf" target="_blank" rel="noopener">Скачать PDF</a>
+          <button class="btn btn-line" type="button" id="cite-btn">Скопировать цитату</button>
+        </div>
+        <p class="doi">DOI: <a href="https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng" target="_blank" rel="noopener">10.29258/CAJSCR/2024-R1.v3-1/96-125.eng</a><span id="cite-status" aria-live="polite"></span></p>
+      </div>
+    </article>
+
+    <div class="story">
+      <div class="story-text">
+        <h3>Почему метан</h3>
+        <p>В 2021–2023 годах взрывы метана на угольных шахтах Центрального Казахстана унесли 57 жизней. Метан опасен не только для горняков: за 20 лет он нагревает атмосферу в 84–87 раз сильнее, чем CO<sub>2</sub>, а угольная отрасль даёт около 11% мировых выбросов метана от деятельности человека.</p>
+        <p>В 2013 году Агентство по охране окружающей среды США предложило улавливать метан на шести шахтах в Карагандинской области и вырабатывать из него электричество. Проект так и не реализовали. Мы пересчитали его по ценам 2024 года, когда шахты перешли к новому владельцу, компании Qarmet, а Казахстан взял обязательство сократить выбросы метана к 2030 году.</p>
+      </div>
+      <figure class="chart">
+        <figcaption><b>Погибшие при взрывах на шахтах</b><span>человек, по годам, 2004–2023</span></figcaption>
+        <svg viewBox="0 0 560 250" role="img" aria-labelledby="c1t c1d">
+          <title id="c1t">Погибшие при взрывах на угольных шахтах по годам</title>
+          <desc id="c1d">2004 — 23, 2006 — 41, 2008 — 35, 2009 — 3, 2010 — 2, 2021 — 6, 2023 — 51. Всего 161 человек.</desc>
+          <g class="grid"><line x1="30" x2="550" y1="215" y2="215"/></g>
+          <g class="bars1">
+            <rect x="44" y="140" width="40" height="75" rx="4"><title>2004: 23 человека</title></rect>
+            <rect x="116" y="81" width="40" height="134" rx="4"><title>2006: 41 человек</title></rect>
+            <rect x="188" y="101" width="40" height="114" rx="4"><title>2008: 35 человек</title></rect>
+            <rect x="260" y="205" width="40" height="10" rx="3"><title>2009: 3 человека</title></rect>
+            <rect x="332" y="208" width="40" height="7" rx="3"><title>2010: 2 человека</title></rect>
+            <rect x="404" y="195" width="40" height="20" rx="4"><title>2021: 6 человек</title></rect>
+            <rect x="476" y="48" width="40" height="167" rx="4"><title>2023: 51 человек</title></rect>
+          </g>
+          <g class="vals"><text x="64" y="132">23</text><text x="136" y="73">41</text><text x="208" y="93">35</text><text x="280" y="197">3</text><text x="352" y="200">2</text><text x="424" y="187">6</text><text x="496" y="40">51</text></g>
+          <g class="ticks"><text x="64" y="236">2004</text><text x="136" y="236">2006</text><text x="208" y="236">2008</text><text x="280" y="236">2009</text><text x="352" y="236">2010</text><text x="424" y="236">2021</text><text x="496" y="236">2023</text></g>
+        </svg>
+        <p class="src">Источник: таблица I статьи, по данным Tengrinews.</p>
+      </figure>
+    </div>
+
+    <div class="project-facts">
+      <h3>Что предлагает проект</h3>
+      <ul>
+        <li><b>40 МВт</b><span>энергокомплекс на метане из шести шахт, в две очереди</span></li>
+        <li><b>226 млн м³</b><span>метана в год вместо выброса в атмосферу</span></li>
+        <li><b>1,8 млн т</b><span>CO<sub>2</sub>-эквивалента в год — сокращение выбросов</span></li>
+        <li><b>$72 млн</b><span>капитальные затраты в ценах 2024 года</span></li>
+      </ul>
+    </div>
+
+    <div class="story story-rev">
+      <div class="story-text">
+        <h3>Что показали расчёты</h3>
+        <p>Для страны проект однозначно выгоден: с учётом спасённых жизней, здоровья людей, урожая и климата его экономическая чистая приведённая стоимость — <b>$243 млн</b>, внутренняя норма доходности — <b>42%</b>, а выгоды в 4,1 раза превышают затраты.</p>
+        <p>Для частного бизнеса картина сложнее. Без продажи углеродных квот проект убыточен. С квотами он выходит в плюс — до $15,6 млн и 12% доходности, — но только если владелец шахт сам участвует в проекте. Отдельному инвестору выгода близка к нулю.</p>
+      </div>
+      <figure class="chart">
+        <figcaption><b>Чистая приведённая стоимость для бизнеса</b><span>млн долларов США</span></figcaption>
+        <div class="legend-row"><span><i style="background:#b7791f"></i>Без углеродных квот</span><span><i style="background:#0a8aa8"></i>С продажей квот</span></div>
+        <svg viewBox="0 0 560 270" role="img" aria-labelledby="c2t c2d">
+          <title id="c2t">Чистая приведённая стоимость проекта для разных участников</title>
+          <desc id="c2d">Инвестор: −46,2 без квот, −0,2 с квотами. Владелец шахт: 15,6 в обоих случаях. Проект в целом: −27,7 без квот, 15,6 с квотами.</desc>
+          <g class="grid"><line x1="40" x2="550" y1="20" y2="20"/><line x1="40" x2="550" y1="148.5" y2="148.5"/><line x1="40" x2="550" y1="220" y2="220"/></g>
+          <line class="zero" x1="40" x2="550" y1="77" y2="77"/>
+          <g class="axis-l"><text x="34" y="24">20</text><text x="34" y="81">0</text><text x="34" y="152">−25</text><text x="34" y="224">−50</text></g>
+          <g>
+            <rect class="s1" x="86" y="79" width="38" height="130" rx="4"><title>Инвестор, без квот: −46,2</title></rect>
+            <rect class="s2" x="128" y="76" width="38" height="3" rx="1.5"><title>Инвестор, с квотами: −0,2</title></rect>
+            <rect class="s1" x="256" y="33" width="38" height="42" rx="4"><title>Владелец шахт, без квот: 15,6</title></rect>
+            <rect class="s2" x="298" y="33" width="38" height="42" rx="4"><title>Владелец шахт, с квотами: 15,6</title></rect>
+            <rect class="s1" x="426" y="79" width="38" height="77" rx="4"><title>Проект в целом, без квот: −27,7</title></rect>
+            <rect class="s2" x="468" y="33" width="38" height="42" rx="4"><title>Проект в целом, с квотами: 15,6</title></rect>
+          </g>
+          <g class="vals"><text x="105" y="225">−46,2</text><text x="147" y="96">−0,2</text><text x="275" y="27">15,6</text><text x="317" y="27">15,6</text><text x="445" y="172">−27,7</text><text x="487" y="27">15,6</text></g>
+          <g class="ticks"><text x="126" y="258">Инвестор</text><text x="296" y="258">Владелец шахт</text><text x="466" y="258">Проект в целом</text></g>
+        </svg>
+        <p class="src">Источник: таблица VI статьи. Ставка дисконтирования 9,5% (WACC).</p>
+      </figure>
+    </div>
+
+    <div class="story">
+      <div class="story-text">
+        <h3>Чего стоит тонна метана</h3>
+        <p>Каждая тонна метана, которая не попала в атмосферу, приносит обществу около <b>$100</b>. Больше всего — за счёт урожая: метан образует приземный озон, который снижает урожайность пшеницы, сои, кукурузы и риса. Меньше озона — меньше и смертей от болезней органов дыхания.</p>
+        <p>Чтобы такие проекты появлялись, мы предлагаем: стабильные тарифы на электроэнергию из метана, рынок углеродных квот и «зелёные» облигации для финансирования. Это прямо работает на климатические цели Казахстана до 2030 года.</p>
+      </div>
+      <figure class="chart">
+        <figcaption><b>Выгода от сокращения выбросов</b><span>долларов США на тонну метана, 2023</span></figcaption>
+        <svg viewBox="0 0 560 200" role="img" aria-labelledby="c3t c3d">
+          <title id="c3t">Экономическая выгода на тонну метана</title>
+          <desc id="c3d">Сельхозкультуры — 65,4 доллара, леса — 24,5, здоровье людей — 9,9. Итого 99,9 доллара за тонну.</desc>
+          <g class="hlabels"><text x="0" y="45">Сельхозкультуры</text><text x="0" y="105">Леса</text><text x="0" y="165">Здоровье людей</text></g>
+          <g class="bars3">
+            <rect x="160" y="26" width="320" height="28" rx="4"><title>Сельхозкультуры: $65,4</title></rect>
+            <rect x="160" y="86" width="120" height="28" rx="4"><title>Леса: $24,5</title></rect>
+            <rect x="160" y="146" width="48" height="28" rx="4"><title>Здоровье людей: $9,9</title></rect>
+          </g>
+          <g class="vals vals-h"><text x="488" y="45">$65,4</text><text x="288" y="105">$24,5</text><text x="216" y="165">$9,9</text></g>
+        </svg>
+        <p class="src">Источник: таблица V статьи. Итого $99,9 на тонну.</p>
+      </figure>
+    </div>
+
+    <details class="data">
+      <summary>Данные графиков таблицей</summary>
+      <div class="data-grid">
+        <table><caption>Погибшие при взрывах</caption><thead><tr><th>Год</th><th>Человек</th></tr></thead><tbody><tr><td>2004</td><td>23</td></tr><tr><td>2006</td><td>41</td></tr><tr><td>2008</td><td>35</td></tr><tr><td>2009</td><td>3</td></tr><tr><td>2010</td><td>2</td></tr><tr><td>2021</td><td>6</td></tr><tr><td>2023</td><td>51</td></tr></tbody></table>
+        <table><caption>NPV, млн $</caption><thead><tr><th></th><th>Без квот</th><th>С квотами</th></tr></thead><tbody><tr><td>Инвестор</td><td>−46,2</td><td>−0,2</td></tr><tr><td>Владелец шахт</td><td>15,6</td><td>15,6</td></tr><tr><td>Проект в целом</td><td>−27,7</td><td>15,6</td></tr><tr><td>Экономика страны</td><td>—</td><td>243</td></tr></tbody></table>
+        <table><caption>Выгода, $ за тонну</caption><thead><tr><th>Статья</th><th>$</th></tr></thead><tbody><tr><td>Сельхозкультуры</td><td>65,4</td></tr><tr><td>Леса</td><td>24,5</td></tr><tr><td>Здоровье людей</td><td>9,9</td></tr><tr><td>Итого</td><td>99,9</td></tr></tbody></table>
+      </div>
+    </details>
+  </div>
+</section>
+
 <section class="team" id="team">
   <div class="wrap">
     <h2>Команда проекта</h2>
@@ -427,6 +633,7 @@ footer a{color:#cfe3df}
       <div class="person"><img src="img/people/alexander.jpg" alt="Александр Сивеня" loading="lazy" width="187" height="195"><h3>Александр Сивеня</h3><div class="role">Руководитель проекта</div><p>Житель Карасу, в проекте с 2017 года. Построил амфитеатр, провёл события сообщества, ведёт восстановление озера и зарыбление.</p></div>
       <div class="person"><img src="img/people/asel.jpg" alt="Асель Ежанова" loading="lazy" width="187" height="193"><h3>Асель Ежанова</h3><div class="role">Менеджер мероприятий</div><p>Архитектор Urban Forum Kazakhstan. Автор дизайн-проекта парка у озера, проводит события и экопросвещение для молодёжи.</p></div>
       <div class="person"><img src="img/people/khatia.jpg" alt="Хатия Басилашвили" loading="lazy" width="186" height="192"><h3>Хатия Басилашвили</h3><div class="role">Менеджер по развитию, Грузия</div><p>Более 10 лет в природоохранных проектах. Готовит план сохранения озера и стратегию климатической адаптации.</p></div>
+      <div class="person"><div class="avatar-ph" role="img" aria-label="Галым Искаков">ГИ</div><h3>Галым Искаков</h3><div class="role">Исследователь</div><p>Соавтор исследования о метане угольных шахт Казахстана, опубликованного в 2024 году.</p></div>
     </div>
     <div class="board">
       <h3>Попечительский совет</h3>
@@ -522,6 +729,14 @@ if(window.L){
   L.circleMarker(lake,{radius:11,color:'#ffffff',weight:3,fillColor:'#d9a21b',fillOpacity:1}).addTo(map).bindTooltip('Озеро Карасу',{permanent:true,direction:'left',offset:[-10,0]});
   map.fitBounds(river.getBounds().extend(lake),{padding:[30,30]});
 }
+
+// copy citation
+const citeBtn=document.getElementById('cite-btn'), citeSt=document.getElementById('cite-status');
+citeBtn&&citeBtn.addEventListener('click',async()=>{
+  const c='Vassilyev, S., & Iskakov, G. (2024). Coal mine methane in Kazakhstan: economic and environmental case study. Central Asian Journal of Sustainability and Climate Research, 3(1), 96–125. https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng';
+  try{await navigator.clipboard.writeText(c);citeSt.textContent='Цитата скопирована';}catch(_){citeSt.textContent=c;}
+  setTimeout(()=>{if(citeSt.textContent==='Цитата скопирована')citeSt.textContent=''},3000);
+});
 
 // form -> mailto
 document.getElementById('zayavka').addEventListener('submit',e=>{
