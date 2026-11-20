@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karasu Lake — an EFRA project</title>
+<meta name="description" content="An EFRA project: since 2017 we have been restoring Karasu Lake and the Praviy Yesentai river in Almaty together with residents, scientists, business and the city.">
+<link rel="icon" href="img/favicon.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="preload" as="image" href="img/photo/st3.jpg" fetchpriority="high">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --deep:#123b5a; --deep-2:#0a6f86; --aqua:#17c1df; --aqua-soft:#d9f5fd; --reed:#6e8b3d;
+  --silt:#eaf7fc; --paper:#ffffff; --ink:#0f2a3d; --muted:#4e6a7c; --line:#cfe4ec; --vu:#d9a21b;
+  --max:1200px; --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:"Golos Text",system-ui,sans-serif;font-size:17px;line-height:1.62;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-underline-offset:4px}
+:focus-visible{outline:3px solid var(--deep-2);outline-offset:3px;border-radius:4px}
+.lake :focus-visible,.help :focus-visible{outline-color:var(--aqua)}
+::selection{background:var(--aqua);color:var(--deep)}
+html{accent-color:var(--deep-2);caret-color:var(--deep-2);scrollbar-color:var(--deep-2) var(--silt);-webkit-tap-highlight-color:rgba(23,193,223,.25)}
+a,button,select{touch-action:manipulation}
+[id]{scroll-margin-top:92px}
+h1,h2,h3{text-wrap:balance}
+p{text-wrap:pretty}
+.skip{position:absolute;left:16px;top:-60px;z-index:200;background:var(--deep);color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:Unbounded,sans-serif;font-weight:600;line-height:1.12;letter-spacing:-.015em;color:var(--deep)}
+h2{font-size:clamp(28px,3.6vw,44px);max-width:16ch;margin-bottom:22px}
+h3{font-size:19px;line-height:1.3;margin-bottom:8px}
+p{max-width:64ch}
+.lead{font-size:20px;color:var(--muted);max-width:56ch}
+section{padding:120px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font-weight:600;font-size:16px;text-decoration:none;border:0;cursor:pointer;font-family:inherit;transition:background .2s,color .2s}
+.btn-aqua{background:var(--aqua);color:var(--deep)}
+.btn-aqua:hover{background:#78dcf1}
+.btn-line{border:1.5px solid currentColor;color:var(--deep);background:transparent}
+.btn-line:hover{background:var(--deep);color:#fff}
+.btn-deep{background:var(--deep);color:#fff}
+.btn-deep:hover{background:var(--deep-2)}
+
+/* header */
+.top{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:42px;height:auto}
+.brand b{font-family:Unbounded;font-weight:700;font-size:19px;color:var(--deep);display:block;line-height:1}
+.brand span{font-size:12.5px;color:var(--muted);display:block;margin-top:4px}
+.menu{display:flex;gap:22px;font-weight:500;font-size:15px}
+.menu a{text-decoration:none;color:var(--ink);white-space:nowrap}
+.nav .btn{white-space:nowrap}
+@media (max-width:1500px){.brand span{display:none}}
+.brand{flex:none}
+@media (max-width:1240px){.menu{gap:16px;font-size:14.5px}}
+.menu a:hover{color:var(--deep-2);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px;text-decoration-color:var(--aqua)}
+.nav .btn{padding:11px 20px;font-size:15px}
+.burger{display:none;background:none;border:0;cursor:pointer;width:44px;height:44px;color:var(--deep)}
+.burger svg{width:26px;height:26px}
+
+/* hero */
+.hero{padding:72px 0 0;background:#fff}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:end}
+.eyebrow{font-weight:600;font-size:15px;color:var(--deep-2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+.hero h1{font-size:clamp(40px,6.2vw,80px);font-weight:700;letter-spacing:-.025em;line-height:1.02;margin-bottom:28px}
+.hero p{font-size:20px;color:var(--muted);max-width:44ch;margin-bottom:34px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:56px}
+.hero-photo{position:relative}
+.hero-photo img{width:100%;aspect-ratio:4/3.3;object-fit:cover;border-radius:22px 22px 0 0}
+.waterline{position:absolute;left:-1px;bottom:-1px;width:calc(100% + 2px);height:64px;color:var(--silt)}
+.waterline path{fill:currentColor}
+@media (prefers-reduced-motion:no-preference){
+  .hero h1{animation:rise 1s cubic-bezier(.16,1,.3,1) both}
+  .hero h1+p{animation:rise 1s .1s cubic-bezier(.16,1,.3,1) both}
+  .hero-actions{animation:rise 1s .18s cubic-bezier(.16,1,.3,1) both}
+  .hero-photo img{animation:reveal 1.3s .05s cubic-bezier(.16,1,.3,1) both}
+  .hero-caption{animation:fade .6s .9s ease-out both}
+  .waterline path{transform-box:fill-box;transform-origin:bottom;animation:swell 1.6s .35s cubic-bezier(.16,1,.3,1) both}
+}
+@keyframes rise{from{opacity:.15;transform:translateY(28px)}}
+@keyframes reveal{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+@keyframes fade{from{opacity:0}}
+@keyframes swell{from{transform:scaleY(.2) translateY(30px)}}
+.hero-caption{position:absolute;top:18px;right:18px;background:rgba(18,59,90,.82);color:#fff;font-size:13.5px;padding:8px 14px;border-radius:999px}
+.facts{background:var(--silt);padding:56px 0 100px}
+.statement{font-family:Unbounded;font-weight:500;font-size:clamp(22px,2.7vw,36px);line-height:1.32;letter-spacing:-.015em;color:var(--deep);max-width:30ch}
+.statement b{font-weight:700;color:var(--deep-2);font-variant-numeric:tabular-nums;background:linear-gradient(transparent 62%,var(--aqua-soft) 62%);padding:0 .08em}
+.statement span{color:var(--muted)}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.about-grid p+p{margin-top:16px}
+.motto{margin-top:40px;font-family:Unbounded;font-weight:600;font-size:clamp(26px,3vw,40px);line-height:1.12;letter-spacing:-.02em;color:var(--deep-2);max-width:14ch}
+.motto::before{content:"“"}.motto::after{content:"”"}
+.founders{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.founder img{width:100%;aspect-ratio:1/1.08;object-fit:cover;border-radius:var(--r);background:var(--silt)}
+.founder h3{margin-top:16px;font-size:18px}
+.founder .role{color:var(--deep-2);font-weight:600;font-size:14.5px;margin-bottom:6px}
+.founder p{font-size:15px;color:var(--muted)}
+
+.about-photo img{width:100%;border-radius:18px;aspect-ratio:4/3;object-fit:cover}
+.about-photo figcaption{font-size:13.5px;color:var(--muted);margin-top:10px}
+/* lake + map */
+.lake{background:var(--deep);color:#d6ebf5}
+.lake h2{color:#fff}
+.lake .lead{color:#a9cde0}
+.lake-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:stretch}
+#map{width:100%;min-height:520px;height:100%;border-radius:18px;background:#0d2f47;z-index:1}
+.legend{display:flex;flex-wrap:wrap;gap:20px;margin-top:22px;font-size:14.5px;color:#d3eaf5}
+.legend span{display:inline-flex;align-items:center;gap:9px}
+.legend i{display:inline-block}
+.lg-lake{width:14px;height:14px;border-radius:50%;background:var(--vu);box-shadow:0 0 0 3px #fff}
+.lg-river{width:26px;height:4px;border-radius:2px;background:var(--aqua)}
+.places{margin-top:30px;border-top:1px solid rgba(255,255,255,.18)}
+.places li{list-style:none;display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:15.5px}
+.places li b{color:#fff;font-weight:600}
+.lake .note{font-size:13px;color:#8fb5cc;margin-top:14px}
+.leaflet-container{font-family:"Golos Text",sans-serif}
+
+/* timeline */
+.history-head{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:end;margin-bottom:64px}
+.tl{list-style:none;position:relative}
+.tl li{display:grid;grid-template-columns:190px 1fr 1fr;gap:40px;padding:34px 0;border-top:1px solid var(--line);align-items:start}
+.tl li:last-child{border-bottom:1px solid var(--line)}
+.tl .when{font-family:Unbounded;font-weight:600;font-size:20px;color:var(--deep)}
+.tl .when small{display:block;font-family:"Golos Text";font-weight:500;font-size:13.5px;color:var(--muted);margin-top:6px}
+.tl p{color:var(--muted);font-size:16px}
+.tl figure img{border-radius:12px;width:100%;aspect-ratio:16/9;object-fit:cover}
+.tl figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+.tl li.now .when{color:var(--reed)}
+.tl li.now .when::after{content:"now";display:inline-block;margin-left:10px;font-family:"Golos Text";font-size:12px;font-weight:700;color:#fff;background:var(--reed);padding:2px 10px;border-radius:999px;vertical-align:middle}
+
+/* census */
+.census{background:var(--silt)}
+.census-head{display:flex;justify-content:space-between;align-items:end;gap:40px;flex-wrap:wrap;margin-bottom:40px}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.filters button{font:inherit;font-size:15px;font-weight:600;padding:10px 18px;border-radius:999px;border:1.5px solid var(--deep);background:transparent;color:var(--deep);cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--deep);color:#fff}
+.species{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.sp{background:#fff;border-radius:var(--r);padding:16px 16px 18px;display:flex;flex-direction:column;position:relative;transition:opacity .25s}
+.sp[hidden]{display:none}
+.sp .pic{height:110px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.sp img{max-height:110px;width:auto;max-width:100%;object-fit:contain;mix-blend-mode:multiply}
+.sp b{font-weight:600;font-size:16px;line-height:1.3}
+.sp small{font-size:13px;color:var(--muted);margin-top:3px}
+.tag{position:absolute;top:12px;left:12px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px}
+.tag.vu{background:var(--vu);color:#2a1e00}
+.tag.out{background:#b8432f;color:#fff}
+.sp.is-out img{filter:grayscale(.6);opacity:.75}
+.census-foot{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:56px;padding-top:32px;border-top:2px solid var(--deep)}
+.census-foot b{display:block;font-family:Unbounded;font-weight:600;font-size:17px;color:var(--deep);margin-bottom:6px}
+.census-foot p{font-size:15.5px;color:var(--muted)}
+
+/* community */
+.community-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:64px;align-items:center}
+.mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:12px}
+.mosaic img{width:100%;height:100%;object-fit:cover;border-radius:12px;aspect-ratio:16/10}
+.mosaic img:first-child{grid-column:1/3;aspect-ratio:16/8}
+
+/* work */
+.work{background:#fff;padding-top:0}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--deep)}
+.work-grid article{padding:32px 32px 8px 0}
+.work-grid article+article{padding-left:32px;border-left:1px solid var(--line)}
+.work-grid ul{list-style:none;margin-top:14px}
+.work-grid li{padding:9px 0;border-top:1px solid var(--line);font-size:15.5px;color:var(--muted)}
+.work-grid svg{width:40px;height:40px;stroke:var(--deep-2);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:18px}
+
+/* research */
+.rs-facts{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border-top:2px solid var(--deep)}
+.rs-facts li{padding:24px 24px 0 0}
+.rs-facts li+li{padding-left:24px;border-left:1px solid var(--line)}
+.rs-facts b{display:block;font-family:Unbounded;font-weight:600;font-size:clamp(24px,2.6vw,34px);color:var(--deep);font-variant-numeric:tabular-nums;line-height:1.1;margin-bottom:8px}
+.rs-facts span{font-size:15px;color:var(--muted)}
+.rs-more{display:flex;justify-content:space-between;align-items:center;gap:32px;margin-top:44px;padding:28px 32px;border-radius:18px;background:var(--silt)}
+.rs-more p{color:var(--muted);max-width:60ch}
+.rs-more .btn{flex:none}
+@media (max-width:1060px){.rs-facts{grid-template-columns:1fr 1fr}.rs-facts li:nth-child(3){padding-left:0;border-left:0}.rs-more{flex-direction:column;align-items:flex-start}}
+@media (max-width:680px){.rs-facts{grid-template-columns:1fr}.rs-facts li,.rs-facts li+li{padding:18px 0 0;border-left:0}.rs-more{padding:22px}}
+.research{background:#fff}
+.rs-head{margin-bottom:48px}
+.paper{display:grid;grid-template-columns:260px 1fr;gap:44px;align-items:center;padding:36px;border-radius:22px;background:var(--deep);color:#d6ebf5}
+.paper-cover{display:block;border-radius:10px;overflow:hidden;box-shadow:0 24px 40px -18px rgba(0,0,0,.6);transform:rotate(-2deg);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.paper-cover:hover{transform:rotate(0) translateY(-4px)}
+.paper-cover img{width:100%}
+.journal{font-size:14px;color:#a9cde0;margin-bottom:12px}
+.paper-title{font-size:clamp(22px,2.4vw,30px);color:#fff;line-height:1.2;margin-bottom:10px}
+.paper-ru{font-size:17px;color:#d3eaf5;margin-bottom:18px}
+.authors{font-weight:600;color:#fff;margin-bottom:24px}
+.authors span{font-weight:400;color:#a9cde0;font-size:14.5px}
+.paper-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
+.paper .btn-deep{background:var(--aqua);color:var(--deep)}
+.paper .btn-deep:hover{background:#78dcf1}
+.paper .btn-line{color:#fff;border-color:rgba(255,255,255,.55)}
+.paper .btn-line:hover{background:#fff;color:var(--deep)}
+.doi{font-size:13.5px;color:#a9cde0;word-break:break-all}
+.doi a{color:#d3eaf5}
+.doi span{margin-left:12px;color:var(--aqua);font-weight:600}
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:64px;align-items:center;margin-top:96px}
+.story-rev .story-text{order:2}
+.story-text h3{font-size:24px;margin-bottom:14px}
+.story-text p{color:var(--muted)}
+.story-text p+p{margin-top:14px}
+.story-text b{color:var(--deep);font-variant-numeric:tabular-nums}
+.chart{background:var(--silt);border-radius:18px;padding:24px 24px 18px}
+.chart figcaption{margin-bottom:14px}
+.chart figcaption b{display:block;font-family:Unbounded;font-weight:600;font-size:16px;color:var(--deep)}
+.chart figcaption span{font-size:13.5px;color:var(--muted)}
+.chart svg{width:100%;height:auto;overflow:visible;font-family:"Golos Text",sans-serif}
+.chart .grid line{stroke:#c9dde6;stroke-width:1}
+.chart .zero{stroke:var(--deep);stroke-width:1.5}
+.chart .bars1 rect{fill:#0a6f86}
+.chart .bars3 rect{fill:#0a8aa8}
+.chart rect{transition:opacity .2s}
+.chart svg:hover rect{opacity:.55}.chart svg rect:hover{opacity:1}
+.chart .s1{fill:#b7791f}.chart .s2{fill:#0a8aa8}
+.chart .vals text{font-size:13px;font-weight:700;fill:var(--ink);text-anchor:middle;font-variant-numeric:tabular-nums}
+.chart .vals-h text{text-anchor:start}
+.chart .ticks text{font-size:12.5px;fill:var(--muted);text-anchor:middle}
+.chart .axis-l text{font-size:12px;fill:var(--muted);text-anchor:end;font-variant-numeric:tabular-nums}
+.chart .hlabels text{font-size:14px;fill:var(--ink);font-weight:500}
+.legend-row{display:flex;gap:18px;font-size:13.5px;color:var(--ink);margin:-4px 0 10px;flex-wrap:wrap}
+.legend-row i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+.src{font-size:12.5px;color:var(--muted);margin-top:8px}
+.project-facts{margin-top:96px;padding:36px 0;border-top:2px solid var(--deep);border-bottom:1px solid var(--line)}
+.project-facts h3{font-size:20px;margin-bottom:24px}
+.project-facts ul{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.project-facts b{display:block;font-family:Unbounded;font-weight:600;font-size:clamp(22px,2.4vw,30px);color:var(--deep);font-variant-numeric:tabular-nums}
+.project-facts span{font-size:14.5px;color:var(--muted)}
+.data{margin-top:56px;font-size:14.5px}
+.data summary{cursor:pointer;font-weight:600;color:var(--deep-2)}
+.data-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:20px}
+.data table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+.data caption{text-align:left;font-weight:700;color:var(--deep);margin-bottom:8px}
+.data th,.data td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+.data th{color:var(--muted);font-weight:600}
+.avatar-ph{width:100%;aspect-ratio:1/1.1;border-radius:var(--r);background:linear-gradient(160deg,var(--deep-2),var(--deep));display:grid;place-items:center;font-family:Unbounded;font-weight:700;font-size:44px;color:var(--aqua)}
+@media (max-width:1060px){
+  .story,.paper{grid-template-columns:1fr;gap:32px}
+  .story-rev .story-text{order:0}
+  .paper{padding:28px}
+  .paper-cover{max-width:220px}
+  .project-facts ul,.data-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:680px){
+  .project-facts ul,.data-grid{grid-template-columns:1fr}
+  .paper{padding:22px}
+  .paper-actions .btn{width:100%}
+  .story{margin-top:64px}
+}
+
+/* team */
+.team{background:var(--silt)}
+.people{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:44px}
+.person img{width:100%;aspect-ratio:1/1.1;object-fit:cover;border-radius:var(--r);background:#e0eef4}
+.person h3{margin-top:16px;font-size:17px}
+.person .role{color:var(--deep-2);font-weight:600;font-size:14px;margin-bottom:6px}
+.person p{font-size:14.5px;color:var(--muted);line-height:1.55}
+.board{margin-top:80px}
+.board h3{font-size:22px;margin-bottom:22px}
+.board-row{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.board-card{display:flex;gap:18px;align-items:flex-start;background:#fff;border-radius:var(--r);padding:18px}
+.board-card img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none}
+.board-card h4{font-family:Unbounded;font-weight:600;font-size:15px;color:var(--deep);line-height:1.3}
+.board-card .role{font-size:13.5px;font-weight:600;color:var(--deep-2);margin:3px 0 6px}
+.board-card p{font-size:14px;color:var(--muted);line-height:1.5}
+
+/* partners */
+.partners-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.partner{padding:28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:16px}
+.partner .logo{height:64px;display:flex;align-items:center}
+.partner .logo img{max-height:64px;max-width:170px;width:auto;object-fit:contain}
+.partner h3{font-family:"Golos Text";font-weight:700;font-size:17px;letter-spacing:0;margin:0}
+.partner p{font-size:14.5px;color:var(--muted);line-height:1.55}
+
+/* help + contact */
+.help{background:var(--deep);color:#d6ebf5}
+.help h2{color:#fff}
+.help-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.ways{list-style:none;margin-top:10px}
+.ways li{padding:22px 0;border-top:1px solid rgba(255,255,255,.18)}
+.ways li:last-child{border-bottom:1px solid rgba(255,255,255,.18)}
+.ways b{display:block;font-family:Unbounded;font-weight:600;font-size:18px;color:#fff;margin-bottom:6px}
+.ways p{font-size:15.5px;color:#a9cde0}
+.contacts{margin-top:44px;display:grid;gap:18px}
+.contacts span{display:block;font-size:14px;color:#8fb5cc}
+.contacts a,.contacts p{font-size:19px;font-weight:600;color:#fff;text-decoration:none}
+.contacts a:hover{color:var(--aqua)}
+form{background:#fff;color:var(--ink);border-radius:20px;padding:34px;display:grid;gap:14px;align-self:start}
+form h3{font-size:22px;margin-bottom:4px}
+label{font-size:14px;font-weight:600;color:var(--deep);display:grid;gap:6px}
+input,select,textarea{font:inherit;font-size:16px;padding:13px 15px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--deep-2);box-shadow:0 0 0 3px var(--aqua-soft)}
+textarea{min-height:100px;resize:vertical}
+form small{font-size:13px;color:var(--muted)}
+footer{background:#0b2a40;color:#8fb5cc;font-size:14px;padding:30px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:#d3eaf5}
+
+@media (max-width:1060px){
+  .menu,.nav .btn{display:none}
+  .people{grid-template-columns:repeat(3,1fr)}
+  .burger{display:inline-flex;align-items:center;justify-content:center}
+  .menu.open{display:flex;flex-direction:column;gap:0;position:absolute;top:76px;left:0;right:0;background:#fff;padding:8px 28px 18px;border-bottom:1px solid var(--line)}
+  .menu.open a{padding:13px 0;border-bottom:1px solid var(--line)}
+  .hero-grid,.about-grid,.lake-grid,.history-head,.community-grid,.help-grid{grid-template-columns:1fr;gap:40px}
+  .species{grid-template-columns:repeat(3,1fr)}
+  .people{grid-template-columns:repeat(2,1fr)}
+  .board-row,.partners-grid{grid-template-columns:1fr 1fr}
+  .tl li{grid-template-columns:150px 1fr;gap:24px}
+  .tl figure{grid-column:2}
+  #map{min-height:420px}
+}
+@media (max-width:680px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  section{padding:80px 0}
+  .hero{padding-top:40px}
+  .hero p,.lead{font-size:17px}
+  .facts dl{grid-template-columns:1fr 1fr}
+  .facts dl>div{padding:20px 12px 0 0}
+  .facts dl>div+div{padding-left:0;border-left:0}
+  .facts dl>div:nth-child(even){padding-left:16px;border-left:1px solid var(--line)}
+  .founders{grid-template-columns:1fr 1fr;gap:14px}
+  .species{grid-template-columns:repeat(2,1fr);gap:10px}
+  .sp .pic{height:86px}.sp img{max-height:86px}
+  .census-foot,.work-grid,.board-row,.partners-grid,.people{grid-template-columns:1fr}
+  .work-grid article,.work-grid article+article{padding:28px 0 8px;border-left:0}
+  .work-grid article+article{border-top:1px solid var(--line)}
+  .tl li{grid-template-columns:1fr;gap:12px}
+  .tl figure{grid-column:auto}
+  .mosaic{grid-template-columns:1fr}
+  .mosaic img:first-child{grid-column:auto}
+  form{padding:22px}
+  .brand span{display:none}
+  #map{min-height:360px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap nav">
+    <a href="index.html" class="brand" aria-label="EFRA home"><img src="img/mark.png" alt="" width="200" height="180"><div><b>EFRA</b><span>Environmental Fund for the Development of Almaty</span></div></a>
+    <nav class="menu" id="menu" aria-label="Sections">
+      <a href="index.html#projects">← All projects</a>
+      <a href="#about">About</a>
+      <a href="#lake">Lake and river</a>
+      <a href="#history">History</a>
+      <a href="#census">Wildlife</a>
+      <a href="lake3d.html">Lake in 3D</a>
+      <a href="research.html#plan">Conservation plan</a>
+      <a href="#team">Team</a>
+      <a href="#partners">Partners</a>
+      <a href="#contact">Contacts</a>
+    </nav>
+    <a href="#contact" class="btn btn-deep">Help the lake</a>
+    <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">An EFRA project · since 2017</p>
+      <h1>Bringing Karasu Lake back to life</h1>
+      <p>Since 2017 EFRA has been restoring Karasu Lake and the Praviy Yesentai river in north-west Almaty — together with residents, scientists, business and the city.</p>
+      <div class="hero-actions">
+        <a href="#history" class="btn btn-deep">Project history</a>
+        <a href="#contact" class="btn btn-line">Volunteer</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="img/photo/st3.jpg" alt="Karasu Lake and the Orthodox church on its shore" fetchpriority="high" width="705" height="470">
+      <span class="hero-caption">Karasu Lake, Almaty</span>
+      <svg class="waterline" viewBox="0 0 600 64" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34 C 60 18, 120 18, 180 32 S 300 50, 360 34 S 480 16, 540 30 S 590 40, 600 36 L600 64 L0 64 Z"/></svg>
+    </div>
+  </div>
+</section>
+<div class="facts">
+  <div class="wrap">
+    <p class="statement">Since <b>2017</b> we have worked with the <b>9&nbsp;700</b> residents of Karasu. The project brought <b>≈&nbsp;$2&nbsp;million</b> of city investment to the park and the lake clean-up — <span>the lake where a <b>21&nbsp;km</b> river begins.</span></p>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <h2>Caring for nature starts with the lake next door</h2>
+      <p class="lead">Karasu is EFRA's first and longest-running project. We started here in 2017, and here we test the approaches we want to bring to other water bodies in Almaty.</p>
+      <p style="margin-top:18px">We believe that nature is the source of life and that people are responsible for protecting it. Anyone can contribute by taking care of a lake, a tree, a meadow or a small stream nearby. Our job is to educate, involve people in protecting nature and change how they relate to the environment around them.</p>
+      <p class="motto">Think globally, act locally</p>
+    </div>
+    <div>
+      <figure class="about-photo"><img src="img/photo/st2.jpg" alt="Residents at a celebration by Karasu Lake" loading="lazy" width="600" height="450"><figcaption>A community event by the lake</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="lake" id="lake">
+  <div class="wrap lake-grid">
+    <div>
+      <h2>The lake where a river begins</h2>
+      <p class="lead">Karasu Lake lies at the heart of the Karasu neighbourhood in north-west Almaty. Groundwater comes to the surface here, and this is where the Praviy Yesentai river begins.</p>
+      <p style="margin-top:18px">The Praviy Yesentai is a small tributary of the Malaya Almatinka, which flows into the Kaskelen. These rivers water the farms of the Almaty region and, together with the Ili, feed the Kapshagay reservoir.</p>
+      <ul class="places" aria-label="Villages along the river">
+        <li><b>Karasu</b><span>source, lake</span></li>
+        <li><b>Kok-Zhiyek, Koyankus</b><span>downstream</span></li>
+        <li><b>Yntymak, Zhanadauir</b><span>up to 21 km from the lake</span></li>
+      </ul>
+      <a href="lake3d.html" class="btn btn-aqua" style="margin-top:32px">See the lake in 3D</a>
+    </div>
+    <div>
+      <div id="map" role="region" aria-label="Interactive map: Karasu Lake and the Praviy Yesentai river running north-east from it"></div>
+      <div class="legend"><span><i class="lg-lake"></i>Karasu Lake</span><span><i class="lg-river"></i>Praviy Yesentai river</span></div>
+      <p class="note">River course from OpenStreetMap, about 16 km shown.</p>
+    </div>
+  </div>
+</section>
+
+<section id="history">
+  <div class="wrap">
+    <div class="history-head">
+      <h2>The story of the lake and our work</h2>
+      <p class="lead">From the loss of the streams that fed the lake to a shared plan to keep it alive for decades to come.</p>
+    </div>
+    <ol class="tl">
+      <li><div class="when">2000–2010</div><div><h3>The lake loses its streams</h3><p>Uncontrolled construction and climate change dried up the two streams that fed the lake. Since then it has lived on groundwater alone.</p></div><div></div></li>
+      <li><div class="when">2017–2019<small>grants from Soros Foundation Kazakhstan (~$23,000) and the British Council (€5,000)</small></div><div><h3>Community and a park design</h3><p>We brought residents together, improved part of the area and prepared a full set of documents for its regeneration. Architect Asel Yeszhanova designed the park by the lake.</p></div><figure><img src="img/photo/plan.jpg" alt="Master plan of the park by Karasu Lake" loading="lazy" width="1680" height="662"><figcaption>The park master plan prepared by EFRA</figcaption></figure></li>
+      <li><div class="when">2021–2022</div><div><h3>The city builds the park</h3><p>Following our design, the Almaty akimat built a green zone and an amphitheatre by the lake. Together with the later clean-up, this is about $2 million of city investment.</p></div><figure><img src="img/photo/soc4.jpg" alt="Aerial view of the park by Karasu Lake" loading="lazy" width="507" height="285"><figcaption>The park by the lake today</figcaption></figure></li>
+      <li><div class="when">2023–2024</div><div><h3>Clean-up and the loss of an ecosystem</h3><p>In November 2023 the city drained the lake for mechanical cleaning. Some of its wildlife moved to nearby water — the pond by the church and the gabion channel of the Praviy Yesentai — and the rest died.</p></div><figure><img src="img/photo/st1.jpg" alt="Drained Karasu Lake during the clean-up" loading="lazy" width="600" height="337"><figcaption>The lake during the clean-up, November 2023</figcaption></figure></li>
+      <li class="now"><div class="when">2025</div><div><h3>Restoration</h3><p>With the pumping station we are raising the water level, adding chlorella, restocking fish and aerating the lake in winter. We are preparing a conservation plan and a climate adaptation plan for the lake.</p></div><figure><img src="img/photo/st2.jpg" alt="Residents at a celebration by the lake" loading="lazy" width="600" height="450"><figcaption>A community event by the lake</figcaption></figure></li>
+      <li><div class="when">2025–2030</div><div><h3>Long-term strategy</h3><p>We will carry out the conservation and adaptation plans, set up a committee for the sustainable development of the lake ecosystem and start restoring the Praviy Yesentai riverbed.</p></div><div></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="census" id="census">
+  <div class="wrap">
+    <div class="census-head">
+      <div>
+        <h2>Who lived in the lake before 2021</h2>
+        <p class="lead">We want to bring back everyone who lived here — first of all two species listed as Vulnerable on the IUCN Red List.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter species">
+        <button type="button" data-f="all" aria-pressed="true">All 15</button>
+        <button type="button" data-f="fish" aria-pressed="false">Fish</button>
+        <button type="button" data-f="other" aria-pressed="false">Other</button>
+        <button type="button" data-f="vu" aria-pressed="false">Vulnerable</button>
+      </div>
+    </div>
+    <div class="species" id="species"></div>
+    <div class="census-foot">
+      <div><b>Vulnerable species</b><p>The broad-fingered crayfish and the Central Asian tortoise are the main restoration targets after 2025.</p></div>
+      <div><b>A dangerous predator</b><p>The snakehead wipes out other species, so it is being removed from the lake ecosystem.</p></div>
+      <div><b>More birds</b><p>Clean water and living shores will attract more seasonal birds.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="community">
+  <div class="wrap community-grid">
+    <div>
+      <h2>The lake is the heart of the neighbourhood</h2>
+      <p class="lead">Around the lake are a church, a mosque, a square and a park. It is a place to rest and meet for 9,700 residents — Russians, Koreans, Turks, Uyghurs, Germans and many others.</p>
+      <p style="margin-top:18px">We want to keep the lake as part of this architectural ensemble and a place where neighbours spend time together.</p>
+    </div>
+    <div class="mosaic">
+      <img src="img/photo/soc1.jpg" alt="The church on the shore of Karasu Lake" loading="lazy" width="507" height="285">
+      <img src="img/photo/soc2.jpg" alt="The square next to the lake" loading="lazy" width="507" height="285">
+      <img src="img/photo/soc3.jpg" alt="The memorial by the lake" loading="lazy" width="507" height="285">
+    </div>
+  </div>
+</section>
+
+<section class="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <h2 id="work-h" style="margin-bottom:36px">Three lines of work</h2>
+    <div class="work-grid">
+      <article>
+        <svg viewBox="0 0 40 40"><path d="M20 5s10 11 10 18a10 10 0 0 1-20 0c0-7 10-18 10-18z"/><path d="M15 25a5 5 0 0 0 5 5"/></svg>
+        <h3>Restoring the lake</h3>
+        <ul><li>Raising the water level</li><li>Bringing back plants and wildlife</li><li>Feeding, monitoring, winter aeration</li></ul>
+      </article>
+      <article>
+        <svg viewBox="0 0 40 40"><path d="M10 6h14l6 6v22H10z"/><path d="M24 6v6h6M15 20h10M15 25h10M15 30h6"/></svg>
+        <h3>Plans for the future</h3>
+        <ul><li>Climate adaptation plan</li><li>Conservation plan for the lake as a natural site</li><li>Quarterly water analysis</li></ul>
+      </article>
+      <article>
+        <svg viewBox="0 0 40 40"><circle cx="14" cy="13" r="5"/><circle cx="28" cy="15" r="4"/><path d="M5 33c0-5 4-9 9-9s9 4 9 9M23 33c0-3 2-6 5-6s6 3 6 6"/></svg>
+        <h3>People and education</h3>
+        <ul><li>Involving residents in caring for the lake</li><li>Environmental education for young people, including <a href="ramsar.html">Ramsar Heroes</a></li><li>A sustainable development committee for the lake</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="research" id="research" style="padding-top:0">
+  <div class="wrap">
+    <div class="rs-more" style="margin-top:0">
+      <p><b style="color:var(--deep)">Karasu Lake Conservation Plan.</b> Between 2002 and 2024 the green space around the lake shrank from 13 to 7 hectares. The plan proposes boundaries for the remaining nature, a semi-natural park with wildlife refuges, a living shoreline and native plants.</p>
+      <a class="btn btn-deep" href="research.html#plan">Read about the plan</a>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="wrap">
+    <h2>Project team</h2>
+    <p class="lead">The people bringing the lake back to life. <a href="index.html#team">The whole EFRA team</a></p>
+    <div class="people">
+      <div class="person"><img src="img/people/alexander.jpg" alt="Alexander Sivenya" loading="lazy" width="187" height="195"><h3>Alexander Sivenya</h3><div class="role">Project coordinator</div><p>A Karasu resident, with the project since 2017. Built the amphitheatre and leads the lake restoration and fish restocking.</p></div>
+      <div class="person"><img src="img/people/sotnikov.jpg" alt="Konstantin Sotnikov" loading="lazy" width="275" height="366"><h3>Konstantin Sotnikov</h3><div class="role">Water quality</div><p>PhD in biology. Assesses water quality and the science behind the restoration.</p></div>
+      <div class="person"><img src="img/people/asel.jpg" alt="Asel Yeszhanova" loading="lazy" width="187" height="193"><h3>Asel Yeszhanova</h3><div class="role">Urban Forum Kazakhstan</div><p>Architect who designed the park by the lake. Leads the Ramsar Heroes youth programme.</p></div>
+      <div class="person"><img src="img/people/khatia.jpg" alt="Khatia Basilashvili" loading="lazy" width="186" height="192"><h3>Khatia Basilashvili</h3><div class="role">OERSC, Georgia</div><p>More than 10 years in conservation projects. Co-author of the lake conservation plan.</p></div>
+      <div class="person"><img src="img/people/vassilyev.jpg" alt="Sergey Vassilyev" loading="lazy" width="407" height="308"><h3>Sergey Vassilyev</h3><div class="role">EFRA director</div><p>Strategy, donor relations and project finance.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="partners">
+  <div class="wrap">
+    <h2>Project partners</h2>
+    <p class="lead">Businesses, international funds, NGOs and scientists — each has contributed to restoring the lake.</p>
+    <div class="partners-grid">
+      <div class="partner"><div class="logo"><img src="img/logos/oersc.png" alt="" loading="lazy" width="189" height="142"></div><h3>Organization for “Environmental Research and Species Conservation”</h3><p>Georgia. Develops the lake conservation and climate adaptation plans and takes part at every stage.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/urban.png" alt="Urban Forum Kazakhstan" loading="lazy" width="261" height="139"></div><h3>Urban Forum Kazakhstan</h3><p>An independent platform for dialogue between citizens, government and business. Connects Karasu residents with the akimat.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/ggf.png" alt="Global Greengrants Fund" loading="lazy" width="186" height="186"></div><h3>Global Greengrants Fund</h3><p>An international fund for local environmental initiatives. Funding and expertise.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/iie.png" alt="Institute of International Education" loading="lazy" width="116" height="116"></div><h3>Institute of International Education</h3><p>A global organisation in international education. Funding and participation in the project.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/bc.png" alt="British Council" loading="lazy" width="1000" height="286"></div><h3>British Council</h3><p>A grant from the Smart City Almaty programme, funded by the European Commission, for community initiatives.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/soros.png" alt="CAPS Unlock" loading="lazy" width="225" height="225"></div><h3>Soros Foundation Kazakhstan (CAPS Unlock)</h3><p>A grant from the “Best social project in Almaty's outer districts” programme.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/obi.png" alt="OBI" loading="lazy" width="348" height="145"></div><h3>OBI</h3><p>Building materials for landscaping and environmental work at the lake.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/jti.png" alt="JTI" loading="lazy" width="1000" height="750"></div><h3>JTI</h3><p>Support for the community and green spaces through corporate responsibility programmes.</p></div>
+      <div class="partner"><div class="logo"><img src="img/logos/carlsberg.png" alt="Carlsberg" loading="lazy" width="1000" height="562"></div><h3>Carlsberg</h3><p>Support for water, biodiversity and community initiatives.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="help" id="contact">
+  <div class="wrap help-grid">
+    <div>
+      <h2>How to help the lake</h2>
+      <ul class="ways">
+        <li><b>Volunteer</b><p>Species monitoring, clean-ups, events by the lake and activities with children.</p></li>
+        <li><b>Become a partner</b><p>Companies and funds can support the project with resources, expertise or funding.</p></li>
+        <li><b>Spread the word</b><p>Follow us on Facebook and LinkedIn and share the project's news.</p></li>
+      </ul>
+      <div class="contacts">
+        <div><span>Address</span><p>22 Ozyornaya St, Karasu, Almaty</p></div>
+        <div><span>Phone and WhatsApp</span><a href="https://wa.me/77019940463" target="_blank" rel="noopener">+7 701 994 0463</a></div>
+        <div><span>Email</span><a href="mailto:office@efra.kz">office@efra.kz</a></div>
+        <div><span>Social</span><a href="https://www.facebook.com/efra.kz" target="_blank" rel="noopener">Facebook</a> &nbsp; <a href="https://www.linkedin.com/company/environmental-fund-for-the-development-of-almaty/" target="_blank" rel="noopener">LinkedIn</a></div>
+      </div>
+    </div>
+    <form id="zayavka">
+      <h3>Write to us</h3>
+      <label>Name<input required name="name" autocomplete="name"></label>
+      <label>Email<input required name="email" type="email" autocomplete="email" spellcheck="false"></label>
+      <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
+      <label>Topic<select name="topic"><option>I want to volunteer</option><option>I want to become a partner</option><option>Question about the project</option></select></label>
+      <label>Message<textarea name="message"></textarea></label>
+      <button class="btn btn-aqua" type="submit">Open email</button>
+      <small>Your email app will open with a ready message to office@efra.kz.</small>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2017–2026 Environmental Fund for the Development of Almaty (EFRA) · <a href="index.html">Home</a></span><a href="mailto:office@efra.kz">office@efra.kz</a></div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="js/river.js"></script>
+<script>
+// menu
+const burger=document.querySelector('.burger'), menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded','false')}));
+
+// species census
+const SP=[
+ ['crayfish','Broad-fingered crayfish','other','vu'],['tortoise','Central Asian tortoise','other','vu'],
+ ['sazan','Common carp','fish'],['crucian','Crucian carp','fish'],['perch','Perch','fish'],['amur','Grass carp','fish'],
+ ['vobla','Caspian roach','fish'],['chekhon','Sabre carp','fish'],['snakehead','Snakehead','fish','out'],
+ ['shell','Freshwater mussel','other'],['muskrat','Muskrat','other'],['frog','Frog','other','','png'],
+ ['snake','Grass snake','other'],['duck','Duck','other'],['gull','Gull','other']];
+const grid=document.getElementById('species');
+grid.innerHTML=SP.map(([id,name,g,st,ext])=>`<div class="sp${st==='out'?' is-out':''}" data-g="${g}" data-st="${st||''}">${st==='vu'?'<span class="tag vu">VU</span>':st==='out'?'<span class="tag out">predator</span>':''}<div class="pic"><img src="img/sp/${id}.${ext||'jpg'}" alt="${name}" loading="lazy"></div><b>${name}</b><small>${st==='vu'?'Vulnerable species':st==='out'?'To be removed':g==='fish'?'Fish':'Lives in the lake or on its shores'}</small></div>`).join('');
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  const f=b.dataset.f;
+  grid.querySelectorAll('.sp').forEach(c=>c.hidden=!(f==='all'||(f==='vu'?c.dataset.st==='vu':c.dataset.g===f)));
+}));
+
+// map
+if(window.L){
+  const lake=[43.3468,76.9164];
+  const map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true});
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:'Imagery &copy; Esri; river &copy; OpenStreetMap'}).addTo(map);
+  L.polyline(window.EFRA_RIVER||[],{color:'#123b5a',weight:9,opacity:.55,lineCap:'round'}).addTo(map);
+  const river=L.polyline(window.EFRA_RIVER||[],{color:'#17c1df',weight:4.5,opacity:1,lineCap:'round'}).addTo(map);
+  L.circleMarker(lake,{radius:11,color:'#ffffff',weight:3,fillColor:'#d9a21b',fillOpacity:1}).addTo(map).bindTooltip('Karasu Lake',{permanent:true,direction:'left',offset:[-10,0]});
+  map.fitBounds(river.getBounds().extend(lake),{padding:[30,30]});
+}
+
+// copy citation
+const citeBtn=document.getElementById('cite-btn'), citeSt=document.getElementById('cite-status');
+citeBtn&&citeBtn.addEventListener('click',async()=>{
+  const c='Vassilyev, S., & Iskakov, G. (2024). Coal mine methane in Kazakhstan: economic and environmental case study. Central Asian Journal of Sustainability and Climate Research, 3(1), 96–125. https://doi.org/10.29258/CAJSCR/2024-R1.v3-1/96-125.eng';
+  try{await navigator.clipboard.writeText(c);citeSt.textContent='Citation copied';}catch(_){citeSt.textContent=c;}
+  setTimeout(()=>{if(citeSt.textContent==='Citation copied')citeSt.textContent=''},3000);
+});
+
+// form -> mailto
+document.getElementById('zayavka').addEventListener('submit',e=>{
+  e.preventDefault();
+  const f=e.target,v=n=>f.elements[n].value.trim();
+  const body=`Name: ${v('name')}\nEmail: ${v('email')}\nPhone: ${v('phone')}\n\n${v('message')}`;
+  location.href='mailto:office@efra.kz?subject='+encodeURIComponent('Website message (Karasu): '+v('topic'))+'&body='+encodeURIComponent(body);
+});
+</script>
+</body>
+</html>

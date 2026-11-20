@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Озеро Карасу в 3D — ЭФРА</title>
-<meta name="description" content="Интерактивная 3D-модель озера Карасу по спутниковому снимку: как озеро менялось с 2021 года и каким его делает план сохранения к 2030 году.">
+<title>Karasu Lake in 3D — EFRA</title>
+<meta name="description" content="Interactive 3D model of Karasu Lake based on a satellite image: how the lake has changed since 2021 and what the conservation plan will make of it by 2030.">
 <meta name="theme-color" content="#123b5a">
 <link rel="icon" href="img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,18 +62,18 @@ body{font-family:"Golos Text",system-ui,sans-serif;color:var(--ink);-webkit-font
 </script>
 </head>
 <body>
-<div class="loading" id="loading">Наполняем озеро…</div>
-<canvas id="scene" aria-label="Интерактивная 3D-модель озера Карасу. Вращайте мышью или пальцем."></canvas>
+<div class="loading" id="loading">Filling the lake…</div>
+<canvas id="scene" aria-label="Interactive 3D model of Karasu Lake. Rotate with your mouse or finger."></canvas>
 
 <div class="bar">
-  <a href="index.html"><img src="img/mark.png" alt="" width="200" height="184">На сайт ЭФРА</a>
-  <span class="hint">Вращайте, приближайте колесом</span>
+  <a href="karasu.html"><img src="img/mark.png" alt="" width="200" height="184">Back to the Karasu project</a>
+  <span class="hint">Drag to rotate, scroll to zoom</span>
 </div>
 
 <div class="panel">
-  <h1>Озеро Карасу во времени</h1>
-  <p>Выберите год и посмотрите, как менялось озеро и каким его делает план сохранения.</p>
-  <div class="years" role="group" aria-label="Год">
+  <h1>Karasu Lake through time</h1>
+  <p>Pick a year to see how the lake has changed and what the conservation plan will make of it.</p>
+  <div class="years" role="group" aria-label="Year">
     <button type="button" data-y="2021" aria-pressed="false">2021</button>
     <button type="button" data-y="2023" aria-pressed="false">2023</button>
     <button type="button" data-y="2025" aria-pressed="true">2025</button>
@@ -83,17 +83,17 @@ body{font-family:"Golos Text",system-ui,sans-serif;color:var(--ink);-webkit-font
     <h2 id="st-title"></h2>
     <p id="st-text"></p>
   </div>
-  <div class="gauge"><span>Уровень воды</span><div class="gauge-track"><div class="gauge-fill" id="gauge"></div></div><b id="gauge-v"></b></div>
-  <p class="note">Форма озера — по спутниковому снимку 2023 года из <a href="research.html#plan">плана сохранения</a>. Дома и деревья показаны условно.</p>
+  <div class="gauge"><span>Water level</span><div class="gauge-track"><div class="gauge-fill" id="gauge"></div></div><b id="gauge-v"></b></div>
+  <p class="note">Lake outline traced from the 2023 satellite image in the <a href="research.html#plan">conservation plan</a>. Houses and trees are approximate.</p>
 </div>
 
-<div class="tag" id="tag-church">Храм</div>
-<div class="tag" id="tag-amph">Амфитеатр</div>
-<div class="tag" id="tag-river">Правый Есентай</div>
-<div class="tag" id="tag-dam">Плотина</div>
-<div class="tag plan" id="tag-refuge">Заповедная зона</div>
-<div class="tag plan" id="tag-islands">Плавучие острова</div>
-<div class="tag plan" id="tag-shore">Живой берег</div>
+<div class="tag" id="tag-church">Church</div>
+<div class="tag" id="tag-amph">Amphitheatre</div>
+<div class="tag" id="tag-river">Praviy Yesentai river</div>
+<div class="tag" id="tag-dam">Dam</div>
+<div class="tag plan" id="tag-refuge">Wildlife refuge</div>
+<div class="tag plan" id="tag-islands">Floating islands</div>
+<div class="tag plan" id="tag-shore">Living shoreline</div>
 
 <script type="module">
 import * as THREE from 'three';
@@ -476,10 +476,10 @@ scene.add(ducks, heads);
 
 // ---------- states ----------
 const STATES = {
-  2021: { level: -1.0, pct: 100, fish: 46, ducks: 9, plan: 0, reed: '#6f8f3a', water: '#2e8796', clarity: 0.86, title: 'Живое озеро', text: 'Запруда на реке Правый Есентай, которую подпитывают родники. В озере живут сазан, карась, окунь и широкопалый рак, на берегу — черепахи и утки. Но с 2002 года застройка сократила зелёную зону вокруг с 13 до 7 га.' },
-  2023: { level: -8.6, pct: 6, fish: 0, ducks: 0, plan: 0, reed: '#a68f55', water: '#6b6a45', clarity: 0.95, title: 'Очистка', text: 'Ноябрь 2023: город спустил озеро для механической очистки. Большая часть обитателей погибла или ушла в соседние водоёмы. На юге озера видна отсыпка грунта.' },
-  2025: { level: -3.2, pct: 62, fish: 14, ducks: 3, plan: 0, reed: '#86924a', water: '#3f8a86', clarity: 0.9, title: 'Восстановление', text: 'Поднимаем уровень воды вместе с насосной станцией, вносим хлореллу, зарыбляем озеро и проводим зимнюю аэрацию.' },
-  2030: { level: -0.7, pct: 100, fish: 56, ducks: 12, plan: 1, reed: '#5f8f3a', water: '#25a3a6', clarity: 0.8, title: 'План сохранения', text: 'Заповедная зона на отсыпке в южной части, куда ведёт только смотровой мостик. Плавучие острова, «живой берег» из коряг, камней и тростника, местные тополя, ивы и джида, гнездовья и цапли на мелководье.' }
+  2021: { level: -1.0, pct: 100, fish: 46, ducks: 9, plan: 0, reed: '#6f8f3a', water: '#2e8796', clarity: 0.86, title: 'A living lake', text: 'A dam on the Praviy Yesentai river, fed by springs. Carp, crucian carp, perch and broad-fingered crayfish live in the water; tortoises and ducks on the shore. But since 2002 construction has cut the green space around it from 13 to 7 hectares.' },
+  2023: { level: -8.6, pct: 6, fish: 0, ducks: 0, plan: 0, reed: '#a68f55', water: '#6b6a45', clarity: 0.95, title: 'Clean-up', text: 'November 2023: the city drained the lake for mechanical cleaning. Most of its wildlife died or moved to nearby water. Dumped soil is visible in the southern part of the lake.' },
+  2025: { level: -3.2, pct: 62, fish: 14, ducks: 3, plan: 0, reed: '#86924a', water: '#3f8a86', clarity: 0.9, title: 'Restoration', text: 'With the pumping station we are raising the water level, adding chlorella, restocking fish and aerating the lake in winter.' },
+  2030: { level: -0.7, pct: 100, fish: 56, ducks: 12, plan: 1, reed: '#5f8f3a', water: '#25a3a6', clarity: 0.8, title: 'Conservation plan', text: 'A wildlife refuge on the dumped soil in the south, reached only by a viewing pier. Floating islands, a living shoreline of logs, stones and reeds, native poplars, willows and oleaster, nest boxes and herons in the shallows.' }
 };
 const cur = { level: -3.2, fish: 14, ducks: 3, plan: 0, reed: new THREE.Color(STATES[2025].reed), water: new THREE.Color(STATES[2025].water), opacity: 0.9 };
 let target = STATES[2025], year = '2025';
